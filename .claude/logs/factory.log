@@ -1,0 +1,43 @@
+# Factory Log — Space Station Manager
+# Format: [YYYY-MM-DD] TASK-NNN | STATUS: done/skipped/blocked | <summary>
+# This file is append-only. Do not edit existing entries.
+
+[2026-10-18] FACTORY-INIT | STATUS: done | Project scaffold created — docs, tasks, commands, log, status
+
+[2026-10-18] FACTORY-DOCS-STACK | STATUS: done | Stack locked in architecture.md — React/Vite/Zustand/AntD/SCSS+BEM, Node/Express/REST, PostgreSQL/Drizzle, Docker dev+prod
+
+[2026-10-18] FACTORY-DOCS-STRUCTURE | STATUS: done | Domain-focused folder structures defined in frontend.md and backend.md — domains/<domain>/{components,hooks,services,store,types} on client; {router,service,repository,types} on server
+
+[2026-10-18] FACTORY-DOCS-DOMAIN-RULE | STATUS: done | Domain-focused code rule enforced in CLAUDE.md, frontend.md, backend.md — no generic names, business logic in services
+
+# --- FACTORY PROCESS NOTE ---
+# The following step is a TEMPLATE PROCESS — not app-specific.
+# Every future factory should run this discovery before writing tasks.
+# Questions to ask before task generation:
+#   1. Player/user model — single user, multi-user, no-auth?
+#   2. Data model scope — single record per user or multiple saves/tenants?
+#   3. Interaction model — real-time, turn-based, event-driven, CRUD-only?
+#   4. Persistence scope — cloud, local, ephemeral?
+#   (Answers directly affect: auth task, DB schema task, backend architecture task)
+# --- END TEMPLATE PROCESS NOTE ---
+
+[2026-10-18] FACTORY-DISCOVERY | STATUS: done | App-scope decisions locked — single player, no auth (v1), real-time server tick, single station per run
+
+# --- FACTORY PROCESS NOTE ---
+# Task execution cycle (applies to every task, every future factory):
+#   write code → run tests → review & fix → run tests again → run build → only then log done
+#   loop limit: if fix → retest repeats >3 times without resolving, stop and escalate to developer
+# This is enforced in CLAUDE.md (Task Execution Cycle) and FACTORY.md (workflow steps 4-8)
+# --- END FACTORY PROCESS NOTE ---
+
+[2026-10-18] FACTORY-PROCESS-CYCLE | STATUS: done | Task execution cycle rule added — code → test → fix → retest before any task is closed
+
+[2026-10-18] FACTORY-TASK-TEMPLATE | STATUS: done | Blank task schema added at .claude/tasks/task-TEMPLATE.md — reusable for every new task
+
+[2026-10-18] FACTORY-EXTRACT-CMD | STATUS: done | /extract-template skill added — generates FACTORY-TEMPLATE.md from log + docs at project end
+
+[2026-10-18] FACTORY-DOCS-NX | STATUS: done | Nx monorepo added — apps/client + apps/server structure, nx commands in architecture.md, frontend.md, backend.md, CLAUDE.md
+
+[2026-10-18] FACTORY-DOCS-DB-LIB | STATUS: done | Drizzle ORM extracted to libs/db (@space-station/db) — schema, connection, migrations out of server app; no raw SQL rule added
+
+[2026-10-18] FACTORY-DOCS-SEED | STATUS: done | Seeders added to libs/db/src/seed/ — clean drop+migrate+insert, nx run db:seed, domain seed files, never runs in prod
