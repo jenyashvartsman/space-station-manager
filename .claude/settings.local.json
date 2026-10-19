@@ -4,7 +4,14 @@
       "mcp__claude_ai_Claude_Docs__batch",
       "mcp__claude_ai_Claude_Docs__guide",
       "mcp__claude_ai_Claude_Docs__update",
-      "mcp__claude_ai_Claude_Docs__create"
+      "mcp__claude_ai_Claude_Docs__create",
+      "Bash(node --version:*)",
+      "Bash(npm --version:*)",
+      "Bash(npm install:*)",
+      "Bash(node -e:*)",
+      "Bash(npx nx run-many --target=lint)",
+      "Bash(npx nx run-many:*)",
+      "Bash(npx nx build:*)"
     ]
   }
 }

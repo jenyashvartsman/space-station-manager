@@ -41,3 +41,5 @@
 [2026-10-18] FACTORY-DOCS-DB-LIB | STATUS: done | Drizzle ORM extracted to libs/db (@space-station/db) — schema, connection, migrations out of server app; no raw SQL rule added
 
 [2026-10-18] FACTORY-DOCS-SEED | STATUS: done | Seeders added to libs/db/src/seed/ — clean drop+migrate+insert, nx run db:seed, domain seed files, never runs in prod
+
+[2026-10-18] TASK-001 | STATUS: done | Nx 20.8 monorepo bootstrapped — apps/client (Vite+React 18), apps/server (Express+@nx/js:tsc), libs/db scaffold, all lint/test/build targets green, Prettier enforced, @space-station/db path alias wired

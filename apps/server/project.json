@@ -1,0 +1,39 @@
+{
+  "name": "server",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/server/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{workspaceRoot}/dist/apps/server"],
+      "options": {
+        "outputPath": "dist/apps/server",
+        "main": "apps/server/src/server.ts",
+        "tsConfig": "apps/server/tsconfig.json",
+        "assets": [],
+        "generatePackageJson": false
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsx --watch apps/server/src/server.ts"
+      }
+    },
+    "test": {
+      "executor": "@nx/vite:test",
+      "options": {
+        "configFile": "apps/server/vitest.config.ts",
+        "reportsDirectory": "../../coverage/apps/server"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "eslintConfig": "apps/server/eslint.config.js",
+        "lintFilePatterns": ["apps/server/**/*.ts"]
+      }
+    }
+  }
+}

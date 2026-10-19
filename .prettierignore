@@ -1,0 +1,11 @@
+# Meta / tooling
+.claude/
+node_modules/
+dist/
+coverage/
+.nx/
+
+# Root docs managed outside Prettier
+CLAUDE.md
+FACTORY.md
+status.md

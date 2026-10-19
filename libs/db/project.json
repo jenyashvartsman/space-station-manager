@@ -1,0 +1,15 @@
+{
+  "name": "db",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/db/src",
+  "projectType": "library",
+  "targets": {
+    "lint": {
+      "executor": "@nx/eslint:lint",
+      "options": {
+        "eslintConfig": "libs/db/eslint.config.js",
+        "lintFilePatterns": ["libs/db/**/*.ts"]
+      }
+    }
+  }
+}

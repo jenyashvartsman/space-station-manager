@@ -1,7 +1,7 @@
 # Status — Space Station Manager
 
 ## Current Task
-**TASK-001** — Monorepo Init & Tooling
+**TASK-002** — Docker Dev Environment & Environment Config
 
 ## Factory Phase
 `INIT` → `SCAFFOLD` → `CORE` → `FEATURES` → `POLISH`
@@ -13,12 +13,12 @@ Current: **SCAFFOLD**
 | Task | Title | Date |
 |------|-------|------|
 | FACTORY-INIT | Project scaffold created | 2026-10-18 |
+| 001 | Monorepo Init & Tooling | 2026-10-18 |
 
 ## Pending Tasks
 
 | Task | Title | Phase |
 |------|-------|-------|
-| 001 | Monorepo Init & Tooling | SCAFFOLD |
 | 002 | Docker Dev Environment & Environment Config | SCAFFOLD |
 | 003 | Database Schema & Connection | SCAFFOLD |
 | 004 | Database Seed Data | SCAFFOLD |
@@ -39,4 +39,4 @@ Current: **SCAFFOLD**
 _None_
 
 ## Last Note
-Tasks 001–016 written. Docs updated: architecture.md (Prettier/ESLint), ux.md (D3.js + Framer Motion), frontend.md (D3 + Framer Motion in stack). Ready to execute Task 001.
+Task 001 complete. Nx 20.8 monorepo bootstrapped: apps/client (Vite+React), apps/server (Express+tsc), libs/db scaffold. All lint/test/build targets green. Prettier enforced via .prettierignore. Path alias @space-station/db wired to libs/db/src/index.ts.
