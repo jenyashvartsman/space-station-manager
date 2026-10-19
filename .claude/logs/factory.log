@@ -46,3 +46,4 @@
 
 [2026-10-18] TASK-002 | STATUS: done | Docker dev environment added — docker-compose.dev.yml (Postgres 16 with healthcheck), .env/.env.example, typed config.ts (dotenv+zod), server.ts migrated off process.env
 [2026-10-18] TASK-003 | STATUS: done | libs/db built: 6 Drizzle schemas, connection.ts, drizzle.config.ts, migrate Nx target, migration 0000_mean_mandarin.sql generated
+[2026-10-18] TASK-004 | STATUS: done | Seed pipeline built: 7 seed files in libs/db/src/seed/ (station, module, crew, resource, mission, event-log, index orchestrator), seed Nx target added, drop→migrate→insert pattern, lint and build green

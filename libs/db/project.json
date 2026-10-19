@@ -24,6 +24,13 @@
         "command": "drizzle-kit generate",
         "cwd": "libs/db"
       }
+    },
+    "seed": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsx src/seed/index.ts",
+        "cwd": "libs/db"
+      }
     }
   }
 }
