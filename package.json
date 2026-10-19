@@ -11,7 +11,14 @@
     "test": "nx run-many --target=test",
     "lint": "nx run-many --target=lint",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "docker:up": "docker compose -f docker/docker-compose.dev.yml up -d",
+    "docker:down": "docker compose -f docker/docker-compose.dev.yml down",
+    "docker:logs": "docker compose -f docker/docker-compose.dev.yml logs -f",
+    "db:generate": "drizzle-kit generate --config=libs/db/drizzle.config.ts",
+    "db:migrate": "drizzle-kit migrate --config=libs/db/drizzle.config.ts",
+    "db:studio": "drizzle-kit studio --config=libs/db/drizzle.config.ts",
+    "db:seed": "nx run db:seed"
   },
   "dependencies": {
     "@ant-design/icons": "^5.3.0",
