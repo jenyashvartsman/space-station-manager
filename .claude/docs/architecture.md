@@ -56,6 +56,8 @@ PROD:  container: React (nginx)  +  container: Express  +  container: PostgreSQL
 | Auth | None (v1) | Single player — no accounts needed |
 | Hosting | TBD | Decide before prod task |
 | Real-time | Polling | Start with polling; upgrade to WebSocket if lag is felt |
+| Code formatting | Prettier | Enforced via pre-commit; single style across monorepo |
+| Linting | ESLint (flat config) | TypeScript + React rules; errors block CI |
 
 ---
 
@@ -102,6 +104,9 @@ space-station-manager/
 ├── nx.json                          # Nx workspace config
 ├── tsconfig.base.json               # Shared TS config
 ├── package.json                     # Single root package.json
+├── .prettierrc                      # Prettier config (shared across all apps/libs)
+├── .eslintrc.js                     # Root ESLint config (extended per project)
+├── .env.example                     # Committed env template (no secrets)
 ├── .claude/
 ├── CLAUDE.md
 ├── FACTORY.md
@@ -122,6 +127,31 @@ space-station-manager/
 | Build (all) | `nx run-many --target=build` |
 | Affected only | `nx affected --target=test` |
 | Seed DB | `nx run db:seed` — drops all tables, remigrates, inserts dev data |
+| Format | `nx run-many --target=format` or `prettier --write .` |
+| Lint | `nx run-many --target=lint` |
+
+## Prettier & ESLint
+
+Both tools are configured at the monorepo root and applied to all apps and libs.
+
+**`.prettierrc`**
+```json
+{
+  "semi": true,
+  "singleQuote": true,
+  "trailingComma": "all",
+  "printWidth": 100,
+  "tabWidth": 2
+}
+```
+
+**ESLint** uses flat config (`eslint.config.js`) with:
+- `@typescript-eslint/recommended` — TypeScript rules
+- `eslint-plugin-react` + `eslint-plugin-react-hooks` — React rules (client only)
+- `no-console` warning in server code
+- Import order enforced via `eslint-plugin-import`
+
+Each Nx project extends the root config via its own `eslint.config.js`.
 
 ---
 

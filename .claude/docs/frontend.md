@@ -30,6 +30,8 @@ All frontend code is organized and named around space station domain concepts.
 | Styling | SCSS + BEM (`block__element--modifier`) |
 | State management | Zustand (one store per domain) |
 | Data fetching | fetch + custom hooks (no extra lib unless needed) |
+| Data visualization | D3.js v7 — charts and SVG-based data displays |
+| Animations | Framer Motion v11 — component transitions and layout |
 | Testing | Vitest + React Testing Library |
 
 ---

@@ -205,12 +205,75 @@ html {
 
 ---
 
-## Motion
+## Motion & Animation
 
-- No decorative animation — every animation must carry information
-- Critical status: `pulse-critical` keyframe (subtle red glow pulse)
-- Alert entry: fade-in + slight translate-y (100ms)
-- No transitions longer than 200ms for interactive elements
+Every animation must carry information — no decoration for its own sake.
+
+### Libraries
+
+| Library | Version | Usage |
+|---------|---------|-------|
+| D3.js | v7 | Data-driven SVG charts and visualizations |
+| Framer Motion | v11 | Component mount/unmount transitions, layout animations |
+
+### D3.js Usage
+
+D3 is used for **data-bound visualizations only** — not for page transitions or UI animations.
+
+| Component | D3 technique |
+|-----------|-------------|
+| `ResourceGauge` | Radial arc chart — fill % with animated arc tween |
+| `ResourceTrendChart` | Area/line chart — sliding 60-point rolling window |
+| `StationSchematic` | Force-directed or fixed layout of module nodes with status color |
+| `MissionTimer` | Countdown arc (full circle → empty as time elapses) |
+| `PowerConsumptionChart` | Bar chart per module — animates on data change |
+
+**D3 conventions in this project:**
+- All D3 code lives in a custom hook alongside its component: `useResourceGauge.ts` next to `ResourceGauge.tsx`
+- D3 manipulates a `<svg ref>` directly — React only renders the container `<svg>`
+- Transitions use `d3.transition().duration(400).ease(d3.easeCubicOut)`
+- Color scales map to SCSS design tokens (`--color-nominal`, `--color-warning`, `--color-critical`)
+- Axes use `--color-text-muted` and `--font-data`
+
+### Framer Motion Usage
+
+Framer Motion handles **component-level** enter/exit and layout transitions.
+
+| Usage | Implementation |
+|-------|---------------|
+| Page transitions | `<AnimatePresence>` on `<Routes>` — fade + slight Y shift |
+| Alert / event entry | `initial={{ opacity: 0, y: -8 }}` → `animate={{ opacity: 1, y: 0 }}` |
+| Module tile status change | `layout` prop — smooth reorder in grid |
+| Crew card mount | Staggered children via `variants` + `staggerChildren: 0.04` |
+| Modal/drawer | `AnimatePresence` + scale from 0.96 → 1 + opacity |
+
+### Landing Page Animations
+
+The landing page is the one place that leans into cinematic motion:
+
+| Element | Technique |
+|---------|-----------|
+| Star field | `<canvas>` particle system — 200 stars, parallax on mouse move |
+| Station name | Framer Motion letter-by-letter stagger reveal |
+| System readouts | Counting-up number animation (D3 `tween` or CSS counter) |
+| CTA button | Subtle glow pulse (CSS `@keyframes`) on idle |
+| Background grid | CSS `repeating-linear-gradient` scan-line overlay |
+
+### Timing Rules
+
+| Context | Max duration |
+|---------|-------------|
+| Interactive elements (hover, focus) | 150ms |
+| Data transitions (D3 arc, bar) | 400ms |
+| Page transitions (enter/exit) | 300ms |
+| Landing page (narrative) | 600ms per beat |
+| Critical pulse | 1.5s infinite cycle |
+
+### Status Animations
+
+- Critical status: `pulse-critical` keyframe — subtle red glow pulse (1.5s infinite)
+- Alert entry: Framer Motion fade-in + translate-y −8px → 0 (150ms)
+- Resource dropping below threshold: arc color transitions through D3 color scale
 
 ---
 

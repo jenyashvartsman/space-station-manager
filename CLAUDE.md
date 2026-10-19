@@ -18,6 +18,7 @@ Always read these before making architectural or implementation decisions:
 | Domain       | File                              |
 |--------------|-----------------------------------|
 | Architecture | [.claude/docs/architecture.md](.claude/docs/architecture.md) |
+| App design   | [.claude/docs/app.md](.claude/docs/app.md) |
 | UX           | [.claude/docs/ux.md](.claude/docs/ux.md) |
 | Frontend     | [.claude/docs/frontend.md](.claude/docs/frontend.md) |
 | Backend      | [.claude/docs/backend.md](.claude/docs/backend.md) |
