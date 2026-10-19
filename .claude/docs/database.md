@@ -109,5 +109,5 @@ Station
 
 - [x] Database engine — PostgreSQL (relational)
 - [x] Single station per user or multiple saves — single station, no user accounts in v1
-- [ ] Soft deletes or hard deletes? — decide in DB schema task
-- [ ] Audit trail needed beyond `event_log`? — decide in DB schema task
+- [x] Soft deletes or hard deletes? — **Hard deletes — event_log provides sufficient history**
+- [x] Audit trail needed beyond `event_log`? — **No — event_log is sufficient**

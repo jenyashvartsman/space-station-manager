@@ -209,4 +209,4 @@ The core game loop / simulation tick:
 - [x] Auth strategy — **None in v1 (single player)**
 - [x] Simulation tick — **Server-side interval (real-time tick)**
 - [x] Save model — **Single station, no user accounts**
-- [ ] WebSocket for real-time events? — polling first, revisit if needed
+- [x] WebSocket for real-time events? — **No WebSocket in v1 — polling only**

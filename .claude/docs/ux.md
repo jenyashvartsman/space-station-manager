@@ -301,6 +301,6 @@ The landing page is the one place that leans into cinematic motion:
 ## Open Questions
 
 - [x] Dark theme — **space aesthetic, locked above**
-- [ ] Alert system — toast notifications or persistent sidebar?
-- [ ] Is there a narrative / story layer or pure simulation?
-- [ ] Mobile support — desktop-only for now, revisit post-v1
+- [x] Alert system — **toast notifications (Ant Design message/notification API) — ephemeral, non-blocking**
+- [x] Is there a narrative / story layer or pure simulation? — **Pure simulation — no story, indefinite management loop**
+- [x] Mobile support — **desktop-only for v1, revisit post-v1**

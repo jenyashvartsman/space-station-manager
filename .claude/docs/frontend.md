@@ -126,5 +126,5 @@ apps/client/src/
 
 ## Open Questions
 
-- [ ] React Router vs TanStack Router?
-- [ ] Real-time updates: polling interval or WebSocket?
+- [x] React Router vs TanStack Router? — **React Router v6**
+- [x] Real-time updates: polling interval or WebSocket? — **Polling only (no WebSocket in v1)**

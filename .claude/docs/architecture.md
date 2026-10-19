@@ -54,7 +54,7 @@ PROD:  container: React (nginx)  +  container: Express  +  container: PostgreSQL
 | ORM | Drizzle | TypeScript-first, lightweight, SQL-close |
 | Containerization | Docker | Dev: DB only; Prod: full stack |
 | Auth | None (v1) | Single player — no accounts needed |
-| Hosting | TBD | Decide before prod task |
+| Hosting | Docker (prod compose) | Full-stack Docker in prod; external host TBD at prod task |
 | Real-time | Polling | Start with polling; upgrade to WebSocket if lag is felt |
 | Code formatting | Prettier | Enforced via pre-commit; single style across monorepo |
 | Linting | ESLint (flat config) | TypeScript + React rules; errors block CI |
@@ -169,7 +169,7 @@ Each Nx project extends the root config via its own `eslint.config.js`.
 
 - [ ] Responsive web app (desktop-first)
 - [ ] Target load time: < 2s
-- [ ] Offline support: TBD
+- [x] Offline support — **None in v1 (requires DB connection)**
 - [ ] Accessibility: WCAG 2.1 AA
 
 ---
@@ -180,4 +180,4 @@ Each Nx project extends the root config via its own `eslint.config.js`.
 - [x] Real-time simulation tick or turn-based? — **Real-time server tick**
 - [x] Cloud save or local only? — **Single station per user, no multi-save**
 - [x] Auth strategy? — **None in v1 (single player)**
-- [ ] Hosting target — decide before prod task
+- [x] Hosting target — **Docker prod compose locked; cloud provider TBD at prod task**
