@@ -19,12 +19,12 @@ space-station-manager/
 └── .claude/
     ├── docs/              # Living design documents
     │   ├── architecture.md
+    │   ├── app.md
     │   ├── ux.md
     │   ├── frontend.md
     │   ├── backend.md
     │   └── database.md
-    ├── tasks/             # Numbered task files
-    │   └── task-001.md
+    ├── tasks/             # Numbered task files (task-001.md … task-NNN.md)
     ├── commands/          # Local Claude Code slash commands
     │   ├── next-task.md
     │   └── log-progress.md
@@ -41,13 +41,12 @@ space-station-manager/
 2. Open next task file      → understand the objective
 3. Read relevant docs       → load context
 4. Write code               → implement the task
-5. Run unit tests           → execute test suite
-6. Review & fix             → address any failures or issues
+5. Run unit tests           → nx run-many --target=test
+6. Review & fix             → address any failures
 7. Run tests again          → must be green
-8. Run build                → must succeed with no errors
-9. /log-progress            → append to factory.log
-10. Update status.md        → advance the dashboard
-11. Repeat
+8. Run build                → nx run-many --target=build — must succeed
+9. /log-progress            → append factory.log + advance status.md
+10. Repeat
 ```
 
 **Rule:** Step 9 is only reached when step 7 is green AND step 8 succeeds. Never log a task as done with failing tests or a broken build.
@@ -69,6 +68,12 @@ What needs to be built or changed.
 ## Context
 Which docs are relevant. What depends on this task.
 
+## Scope
+| Action | File |
+|--------|------|
+| Create | path/to/file.ts |
+| Modify | path/to/other.ts |
+
 ## Acceptance Criteria
 - [ ] Criterion 1
 - [ ] Criterion 2
@@ -87,7 +92,7 @@ Any extra constraints or decisions recorded after execution.
 `.claude/logs/factory.log` is append-only:
 
 ```
-[YYYY-MM-DD] TASK-NNN | STATUS: done | <one-line summary>
+[YYYY-MM-DD] TASK-NNN | STATUS: done    | <one-line summary>
 [YYYY-MM-DD] TASK-NNN | STATUS: skipped | <reason>
 [YYYY-MM-DD] TASK-NNN | STATUS: blocked | <blocker>
 ```
@@ -112,6 +117,7 @@ At the end of the project, the factory log + task files + docs form a complete t
 | [CLAUDE.md](CLAUDE.md) | Claude Code auto-context |
 | [status.md](status.md) | Current project state |
 | [.claude/docs/architecture.md](.claude/docs/architecture.md) | Architecture decisions |
+| [.claude/docs/app.md](.claude/docs/app.md) | Application design |
 | [.claude/docs/ux.md](.claude/docs/ux.md) | UX guidelines |
 | [.claude/docs/frontend.md](.claude/docs/frontend.md) | Frontend stack |
 | [.claude/docs/backend.md](.claude/docs/backend.md) | Backend stack |

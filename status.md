@@ -1,7 +1,7 @@
 # Status — Space Station Manager
 
 ## Current Task
-**TASK-003** — Database Schema & Connection
+**TASK-004** — Database Seed Data
 
 ## Factory Phase
 `INIT` → `SCAFFOLD` → `CORE` → `FEATURES` → `POLISH`
@@ -15,12 +15,12 @@ Current: **SCAFFOLD**
 | FACTORY-INIT | Project scaffold created | 2026-10-18 |
 | 001 | Monorepo Init & Tooling | 2026-10-18 |
 | 002 | Docker Dev Environment & Environment Config | 2026-10-18 |
+| 003 | Database Schema & Connection | 2026-10-18 |
 
 ## Pending Tasks
 
 | Task | Title | Phase |
 |------|-------|-------|
-| 003 | Database Schema & Connection | SCAFFOLD |
 | 004 | Database Seed Data | SCAFFOLD |
 | 005 | Backend Foundation | CORE |
 | 006 | Station & Resource API | CORE |
@@ -39,4 +39,4 @@ Current: **SCAFFOLD**
 _None_
 
 ## Last Note
-Task 002 complete. Docker Compose dev environment added (Postgres 16 with healthcheck). .env/.env.example created. Typed config.ts (dotenv+zod) exports config.databaseUrl, config.port, config.nodeEnv. server.ts migrated off process.env. All tests and build green.
+Task 003 complete. libs/db built: 6 Drizzle schemas (station, modules, crew_members, resources, missions, event_log), connection.ts (pg Pool + drizzle instance), drizzle.config.ts, migrate/generate Nx targets added to project.json. Migration 0000_mean_mandarin.sql generated with all FKs and 3 indexes. Lint and build green.

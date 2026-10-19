@@ -1,3 +1,2 @@
-// DB library — schema, connection, and migrations
-// Populated in Task 003
-export {};
+export { db } from './connection';
+export * as schema from './schema/index';

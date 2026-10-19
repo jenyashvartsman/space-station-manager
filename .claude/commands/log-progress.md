@@ -1,11 +1,22 @@
-Append a new entry to .claude/logs/factory.log for the task that was just completed.
+Log the task that was just completed. Only run this after tests are green and the build passes.
 
-Use this exact format:
-[YYYY-MM-DD] TASK-NNN | STATUS: done | <one-line summary of what was built or decided>
+## Step 1 — Append to factory.log
 
-Then update status.md:
-- Mark the current task as complete
-- Set the next task number as current
-- Add a one-line entry to the Completed Tasks table
+Add one line to `.claude/logs/factory.log`:
 
-Use today's date. Do not modify any other files.
+```
+[YYYY-MM-DD] TASK-NNN | STATUS: done | <one-line summary of what was built or changed>
+```
+
+Use today's date. Keep the summary factual and specific (e.g. "libs/db built: 6 Drizzle schemas, connection, migration generated").
+
+## Step 2 — Update status.md
+
+Make these four changes and no others:
+
+1. **Current Task** — change the task number and title to the next task.
+2. **Completed Tasks table** — add a row for the task just finished.
+3. **Pending Tasks table** — remove the row for the task just finished.
+4. **Last Note** — replace the existing note with one sentence describing what was completed and confirming tests/build are green.
+
+Do not modify any other files.

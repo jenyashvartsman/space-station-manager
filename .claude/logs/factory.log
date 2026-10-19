@@ -45,3 +45,4 @@
 [2026-10-18] TASK-001 | STATUS: done | Nx 20.8 monorepo bootstrapped — apps/client (Vite+React 18), apps/server (Express+@nx/js:tsc), libs/db scaffold, all lint/test/build targets green, Prettier enforced, @space-station/db path alias wired
 
 [2026-10-18] TASK-002 | STATUS: done | Docker dev environment added — docker-compose.dev.yml (Postgres 16 with healthcheck), .env/.env.example, typed config.ts (dotenv+zod), server.ts migrated off process.env
+[2026-10-18] TASK-003 | STATUS: done | libs/db built: 6 Drizzle schemas, connection.ts, drizzle.config.ts, migrate Nx target, migration 0000_mean_mandarin.sql generated
