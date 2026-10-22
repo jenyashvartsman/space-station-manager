@@ -1,0 +1,86 @@
+@use '../../styles/variables' as *;
+@use '../../styles/mixins' as *;
+
+.station-layout {
+  height: 100vh;
+  overflow: hidden;
+
+  &__sidebar {
+    background: var(--color-bg-surface) !important;
+    border-right: 1px solid var(--color-border) !important;
+
+    // Override Ant Design sider trigger
+    :global(.ant-layout-sider-trigger) {
+      background: var(--color-bg-elevated);
+      border-top: 1px solid var(--color-border);
+    }
+
+    // Override Ant Design menu background
+    :global(.ant-menu) {
+      background: transparent;
+    }
+  }
+
+  &__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3.5rem;
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--space-2) var(--space-4);
+  }
+
+  &__logo-text {
+    font-family: var(--font-data);
+    font-size: var(--font-size-lg);
+    color: var(--color-accent);
+    letter-spacing: 0.15em;
+    font-weight: 700;
+  }
+
+  &__topbar {
+    background: var(--color-bg-surface) !important;
+    border-bottom: 1px solid var(--color-border) !important;
+    padding: 0 var(--space-6);
+    height: 3.5rem;
+    line-height: 3.5rem;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  &__station-name {
+    font-family: var(--font-data);
+    font-size: var(--font-size-lg);
+    color: var(--color-accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    z-index: 1;
+    position: relative;
+  }
+
+  // Subtle scan-line CSS texture on the top bar
+  &__scanline {
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(56, 189, 248, 0.02) 2px,
+      rgba(56, 189, 248, 0.02) 4px
+    );
+    pointer-events: none;
+  }
+
+  &__content {
+    overflow-y: auto;
+    padding: var(--space-6);
+    background: var(--color-bg-base) !important;
+
+    @include respond-to($bp-sm) {
+      padding: var(--space-4);
+    }
+  }
+}

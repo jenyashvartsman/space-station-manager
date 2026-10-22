@@ -1,7 +1,7 @@
 # Status — Space Station Manager
 
 ## Current Task
-**TASK-009** — Frontend Foundation
+**TASK-010** — Landing Page
 
 ## Factory Phase
 `INIT` → `SCAFFOLD` → `CORE` → `FEATURES` → `POLISH`
@@ -21,12 +21,12 @@ Current: **SCAFFOLD**
 | 006 | Station & Resource API | 2026-10-22 |
 | 007 | Crew & Module API | 2026-10-22 |
 | 008 | Mission & Event Log API | 2026-10-22 |
+| 009 | Frontend Foundation | 2026-10-22 |
 
 ## Pending Tasks
 
 | Task | Title | Phase |
 |------|-------|-------|
-| 009 | Frontend Foundation | CORE |
 | 010 | Landing Page | FEATURES |
 | 011 | Station Dashboard | FEATURES |
 | 012 | Crew Roster | FEATURES |
@@ -39,4 +39,4 @@ Current: **SCAFFOLD**
 _None_
 
 ## Last Note
-Task 008 complete. Mission & Event Log API built: GET/POST/PATCH /missions and GET /events with full router/service/repository/types layers; mission status transitions enforce queued→active→complete/failed rules; completing a mission applies resource rewards; durationSeconds column added to missions schema with migration; simulation tick auto-completes elapsed active missions; 56 Vitest tests green, build and lint pass.
+Task 009 complete. Frontend Foundation built: SCSS design tokens (_variables, _mixins, _utilities, global), Ant Design dark space theme, React Router v6 shell, StationLayout (collapsible sidebar with 6 nav items + top bar with scan-line texture), base stationFetch API service, 6 placeholder pages; Google Fonts (Inter + Space Mono) loaded via index.html; @testing-library/react installed; 12 Vitest tests green, build and lint pass.

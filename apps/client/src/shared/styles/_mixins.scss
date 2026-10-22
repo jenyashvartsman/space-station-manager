@@ -1,0 +1,9 @@
+@use 'variables' as *;
+
+// respond-to($bp) — applies styles at max-width breakpoint
+// Usage: @include respond-to($bp-md) { ... }
+@mixin respond-to($bp) {
+  @media (max-width: #{$bp}) {
+    @content;
+  }
+}
