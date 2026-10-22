@@ -1,7 +1,7 @@
 # Status — Space Station Manager
 
 ## Current Task
-**TASK-007** — Crew & Module API
+**TASK-008** — Mission & Event Log API
 
 ## Factory Phase
 `INIT` → `SCAFFOLD` → `CORE` → `FEATURES` → `POLISH`
@@ -19,12 +19,12 @@ Current: **SCAFFOLD**
 | 004 | Database Seed Data | 2026-10-18 |
 | 005 | Backend Foundation | 2026-10-19 |
 | 006 | Station & Resource API | 2026-10-22 |
+| 007 | Crew & Module API | 2026-10-22 |
 
 ## Pending Tasks
 
 | Task | Title | Phase |
 |------|-------|-------|
-| 007 | Crew & Module API | CORE |
 | 008 | Mission & Event Log API | CORE |
 | 009 | Frontend Foundation | CORE |
 | 010 | Landing Page | FEATURES |
@@ -39,4 +39,4 @@ Current: **SCAFFOLD**
 _None_
 
 ## Last Note
-Task 006 complete. Station & Resource API built: GET /station, PATCH /station, GET /resources with full router/service/repository/types layers; simulation tick runs every 5s depleting resources by consumption_rate and logging resource_depleted events; libs/db made a buildable Nx lib (composite tsconfig, build target, direct schema type exports); 18 Vitest tests green, build and lint pass.
+Task 007 complete. Crew & Module API built: GET /crew, GET /crew/:id, PATCH /crew/:id, GET /modules, GET /modules/:id, PATCH /modules/:id with full router/service/repository/types layers; crew assignment validates same-station ownership; setting a module offline triggers crew status → resting; 36 Vitest tests green, build and lint pass.
