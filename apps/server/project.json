@@ -7,6 +7,7 @@
     "build": {
       "executor": "@nx/js:tsc",
       "outputs": ["{workspaceRoot}/dist/apps/server"],
+      "dependsOn": ["^build"],
       "options": {
         "outputPath": "dist/apps/server",
         "main": "apps/server/src/server.ts",

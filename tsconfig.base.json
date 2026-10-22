@@ -10,7 +10,7 @@
     "esModuleInterop": true,
     "baseUrl": ".",
     "paths": {
-      "@space-station/db": ["libs/db/src/index.ts"]
+      "@space-station/db": ["dist/libs/db", "libs/db/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "dist", "tmp", ".nx"]

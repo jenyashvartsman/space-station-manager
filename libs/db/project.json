@@ -4,6 +4,16 @@
   "sourceRoot": "libs/db/src",
   "projectType": "library",
   "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{workspaceRoot}/dist/libs/db"],
+      "options": {
+        "outputPath": "dist/libs/db",
+        "main": "libs/db/src/index.ts",
+        "tsConfig": "libs/db/tsconfig.json",
+        "assets": []
+      }
+    },
     "lint": {
       "executor": "@nx/eslint:lint",
       "options": {
