@@ -2,6 +2,8 @@ import cors from 'cors';
 import express from 'express';
 
 import { crewRouter } from './domains/crew/crew.router.js';
+import { eventLogRouter } from './domains/event-log/event-log.router.js';
+import { missionRouter } from './domains/mission/mission.router.js';
 import { moduleRouter } from './domains/module/module.router.js';
 import { resourceRouter } from './domains/resource/resource.router.js';
 import { stationRouter } from './domains/station/station.router.js';
@@ -20,5 +22,7 @@ app.use(stationRouter);
 app.use(resourceRouter);
 app.use(crewRouter);
 app.use(moduleRouter);
+app.use(missionRouter);
+app.use(eventLogRouter);
 
 app.use(errorMiddleware);

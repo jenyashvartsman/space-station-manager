@@ -1,4 +1,4 @@
-import { index, jsonb, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
+import { index, integer, jsonb, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 import { station } from './station.schema';
 
 export type MissionStatus = 'queued' | 'active' | 'complete' | 'failed';
@@ -13,6 +13,7 @@ export const missions = pgTable(
     title: text('title').notNull(),
     description: text('description').notNull(),
     status: text('status').$type<MissionStatus>().notNull().default('queued'),
+    durationSeconds: integer('duration_seconds').notNull().default(60),
     startedAt: timestamp('started_at', { withTimezone: true }),
     completedAt: timestamp('completed_at', { withTimezone: true }),
     reward: jsonb('reward'),
