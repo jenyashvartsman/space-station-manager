@@ -1,7 +1,7 @@
 # Status — Space Station Manager
 
 ## Current Task
-**TASK-005** — Backend Foundation
+**TASK-006** — Station & Resource API
 
 ## Factory Phase
 `INIT` → `SCAFFOLD` → `CORE` → `FEATURES` → `POLISH`
@@ -17,12 +17,12 @@ Current: **SCAFFOLD**
 | 002 | Docker Dev Environment & Environment Config | 2026-10-18 |
 | 003 | Database Schema & Connection | 2026-10-18 |
 | 004 | Database Seed Data | 2026-10-18 |
+| 005 | Backend Foundation | 2026-10-19 |
 
 ## Pending Tasks
 
 | Task | Title | Phase |
 |------|-------|-------|
-| 005 | Backend Foundation | CORE |
 | 006 | Station & Resource API | CORE |
 | 007 | Crew & Module API | CORE |
 | 008 | Mission & Event Log API | CORE |
@@ -39,4 +39,4 @@ Current: **SCAFFOLD**
 _None_
 
 ## Last Note
-Task 004 complete. libs/db/src/seed/ built: 7 files — station, module, crew, resource, mission, event-log seed files plus orchestrator index.ts (drop → migrate → seed). seed Nx target added to project.json. Idempotent by design (full drop + migrate on each run). Lint and build green.
+Task 005 complete. Express foundation built: app.ts/server.ts split; error middleware (NotFoundError→404, ValidationError→400, ConflictError→409, unknown→500); logger middleware ([METHOD] /path → status (Xms)); shared errors.ts + types.ts; health router (GET /health). 5 Vitest+Supertest tests green. Build and lint clean.
