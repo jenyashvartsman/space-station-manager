@@ -1,7 +1,7 @@
 # Status — Space Station Manager
 
 ## Current Task
-**TASK-011** — Station Dashboard
+**TASK-012** — Crew Roster
 
 ## Factory Phase
 `INIT` → `SCAFFOLD` → `CORE` → `FEATURES` → `POLISH`
@@ -23,12 +23,12 @@ Current: **SCAFFOLD**
 | 008 | Mission & Event Log API | 2026-10-22 |
 | 009 | Frontend Foundation | 2026-10-22 |
 | 010 | Landing Page | 2026-10-23 |
+| 011 | Station Dashboard | 2026-10-23 |
 
 ## Pending Tasks
 
 | Task | Title | Phase |
 |------|-------|-------|
-| 011 | Station Dashboard | FEATURES |
 | 012 | Crew Roster | FEATURES |
 | 013 | Module Management | FEATURES |
 | 014 | Resource Panel | FEATURES |
@@ -39,4 +39,4 @@ Current: **SCAFFOLD**
 _None_
 
 ## Last Note
-Landing page complete: StarField canvas (200 stars, twinkling, mouse parallax), StationTitleReveal (Framer Motion letter stagger), SystemReadout (count-up animation), scan-line overlay, glow-pulse CTA button. Route at /landing; Enter Station navigates to /. 18 tests green, build and lint pass.
+Station Dashboard complete: station/resource/module Zustand stores, polling hooks (5s interval), D3 radial ResourceGauge with arc tween (400ms easeCubicOut, color-coded by fill %), ModuleTile with Framer Motion layout + status glow, StatusBadge shared component, StationDashboard page composing all. 36 tests green, build and lint pass.

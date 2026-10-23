@@ -1,0 +1,33 @@
+.status-badge {
+  display: inline-block;
+  font-family: var(--font-ui);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.125rem var(--space-2);
+  border-radius: 2px;
+  border: 1px solid currentColor;
+
+  &--nominal {
+    color: var(--color-nominal);
+  }
+
+  &--warning {
+    color: var(--color-warning);
+  }
+
+  &--critical {
+    color: var(--color-critical);
+    animation: pulse-critical 1.5s infinite;
+  }
+
+  &--offline {
+    color: var(--color-offline);
+  }
+}
+
+@keyframes pulse-critical {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
