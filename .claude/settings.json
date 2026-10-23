@@ -10,7 +10,9 @@
       "Bash(python3:*)",
       "Bash(docker ps:*)",
       "Bash(docker -H npipe:////./pipe/docker_engine ps:*)",
+      "Bash(docker compose:*)",
       "Bash(ls:*)",
+      "Bash(find:*)",
       "Bash(npx tsc:*)",
       "Bash(npx vitest run --reporter=verbose)",
       "Bash(npx vitest run:*)"

@@ -36,6 +36,41 @@ Always read these before making architectural or implementation decisions:
 
 ---
 
+## Factory Autonomy
+
+The factory (Claude) may execute the following **without asking for approval**. Everything else requires developer confirmation.
+
+### Test & Build
+| Command | When to use |
+|---------|-------------|
+| `npx nx test client` | After writing client code |
+| `npx nx test server` | After writing server code |
+| `npx nx run-many --target=test` | Full test suite |
+| `npx nx build client` | Client build verification |
+| `npx nx build server` | Server build verification |
+| `npx nx run-many --target=build` | Full build |
+| `npx nx run-many --target=lint` | Lint check |
+| `npx vitest run` (from `apps/client/`) | Direct vitest for verbose failure output |
+
+### Docker
+| Command | Purpose |
+|---------|---------|
+| `docker ps` | Check running containers |
+| `docker compose -f docker/docker-compose.dev.yml ps` | Check dev DB status |
+| `docker compose -f docker/docker-compose.dev.yml up -d` | Start dev DB if not running |
+| `docker compose -f docker/docker-compose.dev.yml logs` | Read DB container logs |
+
+### File Operations
+Read and write any file within the workspace: source code, docs (`CLAUDE.md`, `.claude/docs/*.md`), task files (`.claude/tasks/*.md`), `status.md`, `.claude/logs/factory.log`.
+
+### Requires Developer Approval
+- Installing or removing npm packages
+- Destructive git operations (`reset --hard`, force push, branch delete)
+- Running the seed script against a non-empty database (`nx run db:seed`)
+- Any command not listed above
+
+---
+
 ## Task Rules
 - Tasks live in `.claude/tasks/task-NNN.md`
 - Execute one task at a time
