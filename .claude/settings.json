@@ -11,7 +11,8 @@
       "Bash(docker ps:*)",
       "Bash(docker -H npipe:////./pipe/docker_engine ps:*)",
       "Bash(ls:*)",
-      "Bash(npx tsc:*)"
+      "Bash(npx tsc:*)",
+      "Bash(npx vitest run --reporter=verbose)"
     ],
     "additionalDirectories": [
       "C:\\Users\\jenya\\Projects\\full-stack\\space-station-manager\\apps\\server\\src"

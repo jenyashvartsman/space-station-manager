@@ -6,10 +6,12 @@ import { ModuleManagement } from '../pages/ModuleManagement/ModuleManagement';
 import { MissionControl } from '../pages/MissionControl/MissionControl';
 import { ResourcePanel } from '../pages/ResourcePanel/ResourcePanel';
 import { EventLog } from '../pages/EventLog/EventLog';
+import { Landing } from '../pages/Landing/Landing';
 
 export function AppRouter() {
   return (
     <Routes>
+      <Route path="landing" element={<Landing />} />
       <Route element={<StationLayout />}>
         <Route index element={<StationDashboard />} />
         <Route path="crew" element={<CrewRoster />} />

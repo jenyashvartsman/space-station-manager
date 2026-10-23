@@ -1,7 +1,7 @@
 # Status — Space Station Manager
 
 ## Current Task
-**TASK-010** — Landing Page
+**TASK-011** — Station Dashboard
 
 ## Factory Phase
 `INIT` → `SCAFFOLD` → `CORE` → `FEATURES` → `POLISH`
@@ -22,12 +22,12 @@ Current: **SCAFFOLD**
 | 007 | Crew & Module API | 2026-10-22 |
 | 008 | Mission & Event Log API | 2026-10-22 |
 | 009 | Frontend Foundation | 2026-10-22 |
+| 010 | Landing Page | 2026-10-23 |
 
 ## Pending Tasks
 
 | Task | Title | Phase |
 |------|-------|-------|
-| 010 | Landing Page | FEATURES |
 | 011 | Station Dashboard | FEATURES |
 | 012 | Crew Roster | FEATURES |
 | 013 | Module Management | FEATURES |
@@ -39,4 +39,4 @@ Current: **SCAFFOLD**
 _None_
 
 ## Last Note
-Dev seed hotfix complete: POST /dev/seed endpoint added to server (dev-only guard), drops and recreates schema via inline DDL, seeds all tables; seed functions exported from @space-station/db; tsconfig.base.json restored with baseUrl + dist-first paths to fix tsc build; 56 tests green, build passes.
+Landing page complete: StarField canvas (200 stars, twinkling, mouse parallax), StationTitleReveal (Framer Motion letter stagger), SystemReadout (count-up animation), scan-line overlay, glow-pulse CTA button. Route at /landing; Enter Station navigates to /. 18 tests green, build and lint pass.
