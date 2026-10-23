@@ -309,6 +309,13 @@
           "notNull": true,
           "default": "'queued'"
         },
+        "duration_seconds": {
+          "name": "duration_seconds",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "default": 60
+        },
         "started_at": {
           "name": "started_at",
           "type": "timestamp with time zone",

@@ -23,10 +23,10 @@
       }
     },
     "test": {
-      "executor": "@nx/vite:test",
+      "executor": "nx:run-commands",
       "options": {
-        "configFile": "apps/server/vitest.config.ts",
-        "reportsDirectory": "../../coverage/apps/server"
+        "command": "vitest run",
+        "cwd": "apps/server"
       }
     },
     "lint": {

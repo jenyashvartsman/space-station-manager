@@ -39,4 +39,4 @@ Current: **SCAFFOLD**
 _None_
 
 ## Last Note
-Task 009 complete. Frontend Foundation built: SCSS design tokens (_variables, _mixins, _utilities, global), Ant Design dark space theme, React Router v6 shell, StationLayout (collapsible sidebar with 6 nav items + top bar with scan-line texture), base stationFetch API service, 6 placeholder pages; Google Fonts (Inter + Space Mono) loaded via index.html; @testing-library/react installed; 12 Vitest tests green, build and lint pass.
+Dev seed hotfix complete: POST /dev/seed endpoint added to server (dev-only guard), drops and recreates schema via inline DDL, seeds all tables; seed functions exported from @space-station/db; tsconfig.base.json restored with baseUrl + dist-first paths to fix tsc build; 56 tests green, build passes.

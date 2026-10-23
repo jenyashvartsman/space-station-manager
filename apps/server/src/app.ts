@@ -10,6 +10,7 @@ import { stationRouter } from './domains/station/station.router.js';
 import { healthRouter } from './health.router.js';
 import { errorMiddleware } from './middleware/error.middleware.js';
 import { loggerMiddleware } from './middleware/logger.middleware.js';
+import { devSeedRouter } from './dev/seed.router.js';
 
 export const app = express();
 
@@ -24,5 +25,9 @@ app.use(crewRouter);
 app.use(moduleRouter);
 app.use(missionRouter);
 app.use(eventLogRouter);
+
+if (process.env.NODE_ENV !== 'production') {
+  app.use(devSeedRouter);
+}
 
 app.use(errorMiddleware);

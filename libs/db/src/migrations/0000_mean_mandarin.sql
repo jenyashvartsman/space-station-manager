@@ -41,6 +41,7 @@ CREATE TABLE IF NOT EXISTS "missions" (
 	"title" text NOT NULL,
 	"description" text NOT NULL,
 	"status" text DEFAULT 'queued' NOT NULL,
+	"duration_seconds" integer DEFAULT 60 NOT NULL,
 	"started_at" timestamp with time zone,
 	"completed_at" timestamp with time zone,
 	"reward" jsonb

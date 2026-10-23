@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(echo:*)",
+      "Bash(NX_VERBOSE_LOGGING=true npx nx test:*)",
+      "Bash(node node_modules/.bin/nx test:*)",
+      "Bash(git stash:*)",
+      "Bash(git stash pop:*)",
+      "Bash(npx nx:*)",
+      "Bash(python3:*)",
+      "Bash(docker ps:*)",
+      "Bash(docker -H npipe:////./pipe/docker_engine ps:*)",
+      "Bash(ls:*)",
+      "Bash(npx tsc:*)"
+    ],
+    "additionalDirectories": [
+      "C:\\Users\\jenya\\Projects\\full-stack\\space-station-manager\\apps\\server\\src"
+    ]
+  }
+}
