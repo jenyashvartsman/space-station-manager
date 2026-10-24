@@ -1,26 +1,32 @@
-import { Routes, Route } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import { StationLayout } from '../shared/components/StationLayout/StationLayout';
-import { StationDashboard } from '../pages/StationDashboard/StationDashboard';
-import { CrewRoster } from '../pages/CrewRoster/CrewRoster';
-import { ModuleManagement } from '../pages/ModuleManagement/ModuleManagement';
-import { MissionControl } from '../pages/MissionControl/MissionControl';
-import { ResourcePanel } from '../pages/ResourcePanel/ResourcePanel';
-import { EventLog } from '../pages/EventLog/EventLog';
-import { Landing } from '../pages/Landing/Landing';
+import styles from './router.module.scss';
+
+const Landing          = lazy(() => import('../pages/Landing/Landing').then(m => ({ default: m.Landing })));
+const StationDashboard = lazy(() => import('../pages/StationDashboard/StationDashboard').then(m => ({ default: m.StationDashboard })));
+const CrewRoster       = lazy(() => import('../pages/CrewRoster/CrewRoster').then(m => ({ default: m.CrewRoster })));
+const ModuleManagement = lazy(() => import('../pages/ModuleManagement/ModuleManagement').then(m => ({ default: m.ModuleManagement })));
+const ResourcePanel    = lazy(() => import('../pages/ResourcePanel/ResourcePanel').then(m => ({ default: m.ResourcePanel })));
+const MissionControl   = lazy(() => import('../pages/MissionControl/MissionControl').then(m => ({ default: m.MissionControl })));
+const EventLog         = lazy(() => import('../pages/EventLog/EventLog').then(m => ({ default: m.EventLog })));
 
 export function AppRouter() {
   return (
-    <Routes>
-      <Route path="landing" element={<Landing />} />
-      <Route element={<StationLayout />}>
-        <Route index element={<StationDashboard />} />
-        <Route path="crew" element={<CrewRoster />} />
-        <Route path="modules" element={<ModuleManagement />} />
-        <Route path="modules/:id" element={<ModuleManagement />} />
-        <Route path="missions" element={<MissionControl />} />
-        <Route path="resources" element={<ResourcePanel />} />
-        <Route path="events" element={<EventLog />} />
-      </Route>
-    </Routes>
+    <Suspense fallback={<div className={styles['route-loader']}>Loading…</div>}>
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route element={<StationLayout />}>
+          <Route path="station" element={<StationDashboard />} />
+          <Route path="crew" element={<CrewRoster />} />
+          <Route path="modules" element={<ModuleManagement />} />
+          <Route path="modules/:id" element={<ModuleManagement />} />
+          <Route path="missions" element={<MissionControl />} />
+          <Route path="resources" element={<ResourcePanel />} />
+          <Route path="events" element={<EventLog />} />
+        </Route>
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Suspense>
   );
 }

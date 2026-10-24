@@ -14,7 +14,7 @@ import styles from './StationLayout.module.scss';
 const { Sider, Header, Content } = Layout;
 
 const NAV_ITEMS = [
-  { key: '/', label: 'Dashboard', icon: <DashboardOutlined /> },
+  { key: '/station', label: 'Dashboard', icon: <DashboardOutlined /> },
   { key: '/crew', label: 'Crew', icon: <TeamOutlined /> },
   { key: '/modules', label: 'Modules', icon: <AppstoreOutlined /> },
   { key: '/missions', label: 'Missions', icon: <RocketOutlined /> },
@@ -30,8 +30,8 @@ export function StationLayout() {
   const [collapsed, setCollapsed] = useState(false);
 
   const selectedKey = NAV_ITEMS.find((item) =>
-    item.key === '/' ? location.pathname === '/' : location.pathname.startsWith(item.key),
-  )?.key ?? '/';
+    location.pathname.startsWith(item.key),
+  )?.key ?? '/station';
 
   return (
     <Layout className={styles['station-layout']}>

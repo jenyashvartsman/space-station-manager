@@ -1,7 +1,7 @@
 # Status — Space Station Manager
 
 ## Current Task
-**TASK-018** — Routing & Lazy Loading
+**TASK-019** — SVG Illustrations
 
 ## Factory Phase
 `INIT` → `SCAFFOLD` → `CORE` → `FEATURES` → `POLISH`
@@ -30,12 +30,12 @@ Current: **SCAFFOLD**
 | 015 | Mission Control | 2026-10-23 |
 | 016 | Event Log | 2026-10-23 |
 | 017 | Station Reset (Re-seed from UI) | 2026-10-23 |
+| 018 | Routing & Lazy Loading | 2026-10-23 |
 
 ## Pending Tasks
 
 | Task | Title | Phase |
 |------|-------|-------|
-| 018 | Routing & Lazy Loading | POLISH |
 | 019 | SVG Illustrations | POLISH |
 | 020 | Motion System Setup | POLISH |
 | 021 | Landing Page Animations | POLISH |
@@ -59,4 +59,4 @@ Current: **SCAFFOLD**
 _None_
 
 ## Last Note
-Station Reset complete: runSeed() extracted to @space-station/db, POST /station/reset registered in app.ts, devSeedRouter refactored to DRY, StationResetButton (Modal.confirm, critical styling, loading spinner, window.location.reload on success) added to StationDashboard. 145 client + 56 server tests green, build and lint pass.
+Routing & Lazy Loading complete: / → Landing, /station → StationDashboard, all 7 pages use React.lazy with named-export unwrapping, Suspense fallback with design-token routeLoader, StationLayout nav updated to /station, AppRouter.test.tsx (3 tests), Vite produces separate named chunks per page; 148 client tests green, build and lint pass.

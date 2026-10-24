@@ -64,7 +64,7 @@ export function Landing() {
           <Button
             className={styles['landing__enter-btn']}
             size="large"
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/station')}
             aria-label="Enter the station"
           >
             Enter Station
