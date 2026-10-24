@@ -1,7 +1,7 @@
 # Status — Space Station Manager
 
 ## Current Task
-**TASK-016** — Event Log
+**TASK-017** — (next task)
 
 ## Factory Phase
 `INIT` → `SCAFFOLD` → `CORE` → `FEATURES` → `POLISH`
@@ -28,15 +28,15 @@ Current: **SCAFFOLD**
 | 013 | Module Management | 2026-10-23 |
 | 014 | Resource Panel | 2026-10-23 |
 | 015 | Mission Control | 2026-10-23 |
+| 016 | Event Log | 2026-10-23 |
 
 ## Pending Tasks
 
 | Task | Title | Phase |
 |------|-------|-------|
-| 016 | Event Log | FEATURES |
 
 ## Blockers
 _None_
 
 ## Last Note
-Mission Control complete: D3 countdown arc MissionTimer (clockwise depletion, nominal/warning/critical color, MM:SS label), MissionItem (per-status actions: START/ABORT, reward text, completed-ago), MissionCreateForm (Ant Design Modal with title/description/duration/5 reward fields), MissionControl page (ACTIVE/QUEUED/COMPLETED sections, + NEW MISSION button). 121 tests green, build and lint pass.
+Event Log complete: event-log types/service/Zustand store with mergeEvents deduplication (MAX_EVENTS=50), useEventLogPolling (5s, GET /events?limit=50), EventEntry (Framer Motion fade-in+translateY, type dot+label with status color mapping, HH:MM:SS timestamp), EventLogFeed (AnimatePresence list, Ant Design multi-select type filter), EventLog page (STATION EVENT LOG heading, last-updated timestamp). 140 tests green, build and lint pass.
