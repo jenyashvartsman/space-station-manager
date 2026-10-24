@@ -1,0 +1,48 @@
+@use '../../../../shared/styles/variables' as *;
+
+.station-reset-button {
+  display: flex;
+  justify-content: flex-end;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border-subtle);
+
+  &__trigger {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-4);
+    background: transparent;
+    border: 1px solid var(--color-critical);
+    color: var(--color-critical);
+    font-family: var(--font-ui);
+    font-size: var(--font-size-xs);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 2px;
+    transition: background 150ms, opacity 150ms;
+
+    &:hover:not(:disabled) {
+      background: rgba(239, 68, 68, 0.1);
+    }
+
+    &:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+  }
+
+  &__spinner {
+    display: inline-block;
+    width: 0.75rem;
+    height: 0.75rem;
+    border: 1px solid var(--color-critical);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: station-reset-spin 0.7s linear infinite;
+  }
+}
+
+@keyframes station-reset-spin {
+  to { transform: rotate(360deg); }
+}

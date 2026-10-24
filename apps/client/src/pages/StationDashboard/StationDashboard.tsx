@@ -6,6 +6,7 @@ import { useResourceStore } from '../../domains/resource/store/useResourceStore'
 import { useModuleStore } from '../../domains/module/store/useModuleStore';
 import { ResourceGauge } from '../../domains/resource/components/ResourceGauge/ResourceGauge';
 import { ModuleTile } from '../../domains/module/components/ModuleTile/ModuleTile';
+import { StationResetButton } from '../../domains/station/components/StationResetButton/StationResetButton';
 import type { ModuleStatus } from '../../domains/module/types/module.types';
 import styles from './StationDashboard.module.scss';
 
@@ -66,6 +67,8 @@ export function StationDashboard() {
           )}
         </div>
       </section>
+
+      <StationResetButton />
     </div>
   );
 }

@@ -1,7 +1,7 @@
 # Status — Space Station Manager
 
 ## Current Task
-**TASK-017** — Station Reset (Re-seed from UI)
+**TASK-018** — Routing & Lazy Loading
 
 ## Factory Phase
 `INIT` → `SCAFFOLD` → `CORE` → `FEATURES` → `POLISH`
@@ -29,12 +29,12 @@ Current: **SCAFFOLD**
 | 014 | Resource Panel | 2026-10-23 |
 | 015 | Mission Control | 2026-10-23 |
 | 016 | Event Log | 2026-10-23 |
+| 017 | Station Reset (Re-seed from UI) | 2026-10-23 |
 
 ## Pending Tasks
 
 | Task | Title | Phase |
 |------|-------|-------|
-| 017 | Station Reset (Re-seed from UI) | FEATURES |
 | 018 | Routing & Lazy Loading | POLISH |
 | 019 | SVG Illustrations | POLISH |
 | 020 | Motion System Setup | POLISH |
@@ -59,4 +59,4 @@ Current: **SCAFFOLD**
 _None_
 
 ## Last Note
-Event Log complete: event-log types/service/Zustand store with mergeEvents deduplication (MAX_EVENTS=50), useEventLogPolling (5s, GET /events?limit=50), EventEntry (Framer Motion fade-in+translateY, type dot+label with status color mapping, HH:MM:SS timestamp), EventLogFeed (AnimatePresence list, Ant Design multi-select type filter), EventLog page (STATION EVENT LOG heading, last-updated timestamp). 140 tests green, build and lint pass.
+Station Reset complete: runSeed() extracted to @space-station/db, POST /station/reset registered in app.ts, devSeedRouter refactored to DRY, StationResetButton (Modal.confirm, critical styling, loading spinner, window.location.reload on success) added to StationDashboard. 145 client + 56 server tests green, build and lint pass.
