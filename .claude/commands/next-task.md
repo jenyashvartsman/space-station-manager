@@ -17,5 +17,14 @@ Then reply with a structured brief:
 
 After the brief, ask the developer: "Ready to implement — shall I begin?"
 
-Do not write any code or modify any file until the developer confirms.
+Once the developer confirms, execute the full task autonomously without asking further questions. Follow the Task Execution Cycle from CLAUDE.md:
+1. Write all code
+2. Run tests (`nx test client` / `nx test server` as appropriate)
+3. Fix any failures — up to 3 attempts before escalating
+4. Run build (`nx build client` / `nx build server`)
+5. Run `nx run-many --target=lint`
+6. Log progress using the `/log-progress` skill
+7. Update `status.md`
+
+Only stop mid-task if a genuine blocker requires a developer decision (ambiguous requirements, architectural conflict, or a test failure that cannot be resolved after 3 attempts). Do not ask clarifying questions that can be resolved by reading the task file, docs, or existing code.
 
