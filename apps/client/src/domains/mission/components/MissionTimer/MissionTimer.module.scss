@@ -1,0 +1,11 @@
+.mission-timer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  &__svg {
+    width: 4rem;
+    height: 4rem;
+  }
+}
