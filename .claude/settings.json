@@ -15,10 +15,17 @@
       "Bash(find:*)",
       "Bash(npx tsc:*)",
       "Bash(npx vitest run --reporter=verbose)",
-      "Bash(npx vitest run:*)"
+      "Bash(npx vitest run:*)",
+      "Bash(\"c:/Users/jenya/Projects/full-stack/space-station-manager/apps/client/src/domains/module/components/PowerConsumptionChart/PowerConsumptionChart.test.tsx\":*)",
+      "Bash(\"c:/Users/jenya/Projects/full-stack/space-station-manager/apps/client/src/domains/module/components/ModuleDetail/ModuleDetail.tsx\":*)",
+      "Bash(\"c:/Users/jenya/Projects/full-stack/space-station-manager/apps/client/src/domains/module/components/ModuleDetail/ModuleDetail.module.scss\":*)",
+      "Bash(\"c:/Users/jenya/Projects/full-stack/space-station-manager/apps/client/src/domains/module/components/ModuleDetail/ModuleDetail.test.tsx\":*)",
+      "Bash(\"c:/Users/jenya/Projects/full-stack/space-station-manager/apps/client/src/pages/ModuleManagement/ModuleManagement.tsx\":*)",
+      "Bash(\"c:/Users/jenya/Projects/full-stack/space-station-manager/apps/client/src/pages/ModuleManagement/ModuleManagement.module.scss\":*)"
     ],
     "additionalDirectories": [
-      "C:\\Users\\jenya\\Projects\\full-stack\\space-station-manager\\apps\\server\\src"
+      "C:\\Users\\jenya\\Projects\\full-stack\\space-station-manager\\apps\\server\\src",
+      "C:\\Users\\jenya\\Projects\\full-stack\\space-station-manager"
     ]
   }
 }

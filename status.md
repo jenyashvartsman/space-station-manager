@@ -1,7 +1,7 @@
 # Status — Space Station Manager
 
 ## Current Task
-**TASK-013** — Module Management
+**TASK-014** — Resource Panel
 
 ## Factory Phase
 `INIT` → `SCAFFOLD` → `CORE` → `FEATURES` → `POLISH`
@@ -25,12 +25,12 @@ Current: **SCAFFOLD**
 | 010 | Landing Page | 2026-10-23 |
 | 011 | Station Dashboard | 2026-10-23 |
 | 012 | Crew Roster | 2026-10-23 |
+| 013 | Module Management | 2026-10-23 |
 
 ## Pending Tasks
 
 | Task | Title | Phase |
 |------|-------|-------|
-| 013 | Module Management | FEATURES |
 | 014 | Resource Panel | FEATURES |
 | 015 | Mission Control | FEATURES |
 | 016 | Event Log | FEATURES |
@@ -39,4 +39,4 @@ Current: **SCAFFOLD**
 _None_
 
 ## Last Note
-Crew Roster complete: crew types/service/store/polling hook, CrewHealthBar (Framer Motion animate, color-coded by health), CrewAssignmentSelect (Ant Design Select calling PATCH /crew/:id), CrewCard (status dot + stagger variants), CrewRoster page (filter bar, AnimatePresence stagger grid). Tests green, build and lint pass.
+Module Management complete: D3 horizontal PowerConsumptionChart (bar per module, status color, 400ms animation), ModuleDetail Ant Design Drawer (status PATCH + crew mini-list), ModuleManagement page (sort by status/name/power, offline last, URL-driven drawer via /modules/:id). 66 tests green, build and lint pass.

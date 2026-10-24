@@ -1,3 +1,5 @@
+import type { CrewMember } from '../../crew/types/crew.types';
+
 export type ModuleStatus = 'nominal' | 'warning' | 'critical' | 'offline';
 
 export interface Module {
@@ -9,4 +11,15 @@ export interface Module {
   powerConsumption: number;
   createdAt: string;
   crewCount: number;
+}
+
+export interface ModuleDetail {
+  id: string;
+  stationId: string;
+  type: string;
+  name: string;
+  status: ModuleStatus;
+  powerConsumption: number;
+  createdAt: string;
+  crew: CrewMember[];
 }

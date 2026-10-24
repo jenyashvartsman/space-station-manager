@@ -16,6 +16,7 @@ export function AppRouter() {
         <Route index element={<StationDashboard />} />
         <Route path="crew" element={<CrewRoster />} />
         <Route path="modules" element={<ModuleManagement />} />
+        <Route path="modules/:id" element={<ModuleManagement />} />
         <Route path="missions" element={<MissionControl />} />
         <Route path="resources" element={<ResourcePanel />} />
         <Route path="events" element={<EventLog />} />
