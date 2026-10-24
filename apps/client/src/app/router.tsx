@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 import { StationLayout } from '../shared/components/StationLayout/StationLayout';
 import styles from './router.module.scss';
 
@@ -12,21 +13,25 @@ const MissionControl   = lazy(() => import('../pages/MissionControl/MissionContr
 const EventLog         = lazy(() => import('../pages/EventLog/EventLog').then(m => ({ default: m.EventLog })));
 
 export function AppRouter() {
+  const location = useLocation();
+
   return (
     <Suspense fallback={<div className={styles['route-loader']}>Loading…</div>}>
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route element={<StationLayout />}>
-          <Route path="station" element={<StationDashboard />} />
-          <Route path="crew" element={<CrewRoster />} />
-          <Route path="modules" element={<ModuleManagement />} />
-          <Route path="modules/:id" element={<ModuleManagement />} />
-          <Route path="missions" element={<MissionControl />} />
-          <Route path="resources" element={<ResourcePanel />} />
-          <Route path="events" element={<EventLog />} />
-        </Route>
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
+      <AnimatePresence mode="wait">
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<Landing />} />
+          <Route element={<StationLayout />}>
+            <Route path="station" element={<StationDashboard />} />
+            <Route path="crew" element={<CrewRoster />} />
+            <Route path="modules" element={<ModuleManagement />} />
+            <Route path="modules/:id" element={<ModuleManagement />} />
+            <Route path="missions" element={<MissionControl />} />
+            <Route path="resources" element={<ResourcePanel />} />
+            <Route path="events" element={<EventLog />} />
+          </Route>
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </AnimatePresence>
     </Suspense>
   );
 }

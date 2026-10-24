@@ -1,7 +1,7 @@
 # Status — Space Station Manager
 
 ## Current Task
-**TASK-020** — Motion System Setup
+**TASK-021** — Landing Page Animations
 
 ## Factory Phase
 `INIT` → `SCAFFOLD` → `CORE` → `FEATURES` → `POLISH`
@@ -32,12 +32,12 @@ Current: **SCAFFOLD**
 | 017 | Station Reset (Re-seed from UI) | 2026-10-23 |
 | 018 | Routing & Lazy Loading | 2026-10-23 |
 | 019 | SVG Illustrations | 2026-10-24 |
+| 020 | Motion System Setup | 2026-10-24 |
 
 ## Pending Tasks
 
 | Task | Title | Phase |
 |------|-------|-------|
-| 020 | Motion System Setup | POLISH |
 | 021 | Landing Page Animations | POLISH |
 | 022 | Station Dashboard Animations | POLISH |
 | 023 | Crew Roster Animations | POLISH |
@@ -59,4 +59,4 @@ Current: **SCAFFOLD**
 _None_
 
 ## Last Note
-SVG Illustrations complete: StationSchematic (animated orbit ring, hub glow, 4 arms, module nodes, satellites), CrewIcon, ModuleIcon (6 types), MissionBadge (targeting reticle) — all using CSS custom property tokens only; integrated into Landing hero, StationDashboard header, CrewCard, ModuleTile, MissionItem; 176 client tests green, build and lint pass.
+Motion System Setup complete: stationMotion.ts (4 Framer Motion variants), CSS motion tokens added to _variables.scss, SkeletonPanel shimmer component, AppRouter wrapped in AnimatePresence mode="wait"; 193 client tests green, build and lint pass.

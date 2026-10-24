@@ -47,6 +47,12 @@ $bp-xs: 30rem;
   --space-12: 3rem;
   --space-16: 4rem;
 
+  // --- Motion Tokens ---
+  --motion-fast: 0.15s;
+  --motion-base: 0.25s;
+  --motion-slow: 0.4s;
+  --motion-ease: cubic-bezier(0.4, 0, 0.2, 1);
+
   // --- Breakpoints (for reference only — use $bp-* SCSS vars in @media) ---
   --bp-xl: 90rem;
   --bp-lg: 80rem;
