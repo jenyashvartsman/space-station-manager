@@ -1,7 +1,7 @@
 # Status — Space Station Manager
 
 ## Current Task
-**TASK-014** — Resource Panel
+**TASK-015** — Mission Control
 
 ## Factory Phase
 `INIT` → `SCAFFOLD` → `CORE` → `FEATURES` → `POLISH`
@@ -26,12 +26,12 @@ Current: **SCAFFOLD**
 | 011 | Station Dashboard | 2026-10-23 |
 | 012 | Crew Roster | 2026-10-23 |
 | 013 | Module Management | 2026-10-23 |
+| 014 | Resource Panel | 2026-10-23 |
 
 ## Pending Tasks
 
 | Task | Title | Phase |
 |------|-------|-------|
-| 014 | Resource Panel | FEATURES |
 | 015 | Mission Control | FEATURES |
 | 016 | Event Log | FEATURES |
 
@@ -39,4 +39,4 @@ Current: **SCAFFOLD**
 _None_
 
 ## Last Note
-Module Management complete: D3 horizontal PowerConsumptionChart (bar per module, status color, 400ms animation), ModuleDetail Ant Design Drawer (status PATCH + crew mini-list), ModuleManagement page (sort by status/name/power, offline last, URL-driven drawer via /modules/:id). 66 tests green, build and lint pass.
+Resource Panel complete: useResourceHistory 60-point rolling accumulator, D3 area+line ResourceTrendChart (CatmullRom, gradient fill, warning/critical threshold lines), ResourceSummaryRow (fill bar, values, consumption rate), ResourcePanel page (5 summary rows + 5 trend charts). 86 tests green, build and lint pass.
