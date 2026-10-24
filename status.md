@@ -1,7 +1,7 @@
 # Status — Space Station Manager
 
 ## Current Task
-**TASK-012** — Crew Roster
+**TASK-013** — Module Management
 
 ## Factory Phase
 `INIT` → `SCAFFOLD` → `CORE` → `FEATURES` → `POLISH`
@@ -24,12 +24,12 @@ Current: **SCAFFOLD**
 | 009 | Frontend Foundation | 2026-10-22 |
 | 010 | Landing Page | 2026-10-23 |
 | 011 | Station Dashboard | 2026-10-23 |
+| 012 | Crew Roster | 2026-10-23 |
 
 ## Pending Tasks
 
 | Task | Title | Phase |
 |------|-------|-------|
-| 012 | Crew Roster | FEATURES |
 | 013 | Module Management | FEATURES |
 | 014 | Resource Panel | FEATURES |
 | 015 | Mission Control | FEATURES |
@@ -39,4 +39,4 @@ Current: **SCAFFOLD**
 _None_
 
 ## Last Note
-Station Dashboard complete: station/resource/module Zustand stores, polling hooks (5s interval), D3 radial ResourceGauge with arc tween (400ms easeCubicOut, color-coded by fill %), ModuleTile with Framer Motion layout + status glow, StatusBadge shared component, StationDashboard page composing all. 36 tests green, build and lint pass.
+Crew Roster complete: crew types/service/store/polling hook, CrewHealthBar (Framer Motion animate, color-coded by health), CrewAssignmentSelect (Ant Design Select calling PATCH /crew/:id), CrewCard (status dot + stagger variants), CrewRoster page (filter bar, AnimatePresence stagger grid). Tests green, build and lint pass.
