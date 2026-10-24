@@ -1,7 +1,7 @@
 # Status — Space Station Manager
 
 ## Current Task
-**TASK-017** — (next task)
+**TASK-017** — Station Reset (Re-seed from UI)
 
 ## Factory Phase
 `INIT` → `SCAFFOLD` → `CORE` → `FEATURES` → `POLISH`
@@ -34,6 +34,26 @@ Current: **SCAFFOLD**
 
 | Task | Title | Phase |
 |------|-------|-------|
+| 017 | Station Reset (Re-seed from UI) | FEATURES |
+| 018 | Routing & Lazy Loading | POLISH |
+| 019 | SVG Illustrations | POLISH |
+| 020 | Motion System Setup | POLISH |
+| 021 | Landing Page Animations | POLISH |
+| 022 | Station Dashboard Animations | POLISH |
+| 023 | Crew Roster Animations | POLISH |
+| 024 | Module Management Animations | POLISH |
+| 025 | Resource Panel Animations | POLISH |
+| 026 | Mission Control Animations | POLISH |
+| 027 | Event Log Animations | POLISH |
+| 028 | Station Copy Foundation | POLISH |
+| 029 | Landing Page Copy | POLISH |
+| 030 | Station Dashboard Copy | POLISH |
+| 031 | Crew Roster Copy | POLISH |
+| 032 | Module Management Copy | POLISH |
+| 033 | Resource Panel Copy | POLISH |
+| 034 | Mission Control Copy | POLISH |
+| 035 | Event Log Copy | POLISH |
+| 036 | README | POLISH |
 
 ## Blockers
 _None_
