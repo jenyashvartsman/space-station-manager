@@ -7,6 +7,7 @@ import { useModuleStore } from '../../domains/module/store/useModuleStore';
 import { ResourceGauge } from '../../domains/resource/components/ResourceGauge/ResourceGauge';
 import { ModuleTile } from '../../domains/module/components/ModuleTile/ModuleTile';
 import { StationResetButton } from '../../domains/station/components/StationResetButton/StationResetButton';
+import { StationSchematic } from '../../domains/station/components/StationSchematic/StationSchematic';
 import type { ModuleStatus } from '../../domains/module/types/module.types';
 import styles from './StationDashboard.module.scss';
 
@@ -39,9 +40,12 @@ export function StationDashboard() {
         >
           STATION STATUS: {stationStatus}
         </span>
-        <span className={styles['station-dashboard__name']}>
-          {station?.name ?? 'KEPLER STATION ALPHA'}
-        </span>
+        <div className={styles['station-dashboard__header-right']}>
+          <StationSchematic className={styles['station-dashboard__schematic']} />
+          <span className={styles['station-dashboard__name']}>
+            {station?.name ?? 'KEPLER STATION ALPHA'}
+          </span>
+        </div>
       </header>
 
       <section className={styles['station-dashboard__section']} aria-label="Resources">

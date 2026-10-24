@@ -27,6 +27,19 @@
     &--offline  { color: var(--color-offline); }
   }
 
+  &__header-right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+  }
+
+  &__schematic {
+    width: 3.5rem;
+    height: 3.5rem;
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+
   &__name {
     font-family: var(--font-ui);
     font-size: var(--font-size-xl);

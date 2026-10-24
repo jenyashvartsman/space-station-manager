@@ -35,6 +35,18 @@
     display: block;
   }
 
+  &__schematic {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(55vw, 55vh);
+    max-width: 560px;
+    opacity: 0.1;
+    z-index: 1;
+    pointer-events: none;
+  }
+
   &__content {
     position: relative;
     z-index: 2;

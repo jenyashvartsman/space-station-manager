@@ -1,5 +1,6 @@
 import { Button } from 'antd';
 import { MissionTimer } from '../MissionTimer/MissionTimer';
+import { MissionBadge } from '../MissionBadge/MissionBadge';
 import styles from './MissionItem.module.scss';
 import type { Mission } from '../../types/mission.types';
 
@@ -73,6 +74,7 @@ export function MissionItem({ mission, onStart, onAbort }: MissionItemProps) {
 
       <div className={styles['mission-item__content']}>
         <div className={styles['mission-item__header']}>
+          <MissionBadge status={mission.status} size={24} />
           <span className={styles['mission-item__title']}>{mission.title.toUpperCase()}</span>
           <span
             className={`${styles['mission-item__badge']} status ${statusClass(mission.status)}`}

@@ -1,7 +1,7 @@
 # Status — Space Station Manager
 
 ## Current Task
-**TASK-019** — SVG Illustrations
+**TASK-020** — Motion System Setup
 
 ## Factory Phase
 `INIT` → `SCAFFOLD` → `CORE` → `FEATURES` → `POLISH`
@@ -31,12 +31,12 @@ Current: **SCAFFOLD**
 | 016 | Event Log | 2026-10-23 |
 | 017 | Station Reset (Re-seed from UI) | 2026-10-23 |
 | 018 | Routing & Lazy Loading | 2026-10-23 |
+| 019 | SVG Illustrations | 2026-10-24 |
 
 ## Pending Tasks
 
 | Task | Title | Phase |
 |------|-------|-------|
-| 019 | SVG Illustrations | POLISH |
 | 020 | Motion System Setup | POLISH |
 | 021 | Landing Page Animations | POLISH |
 | 022 | Station Dashboard Animations | POLISH |
@@ -59,4 +59,4 @@ Current: **SCAFFOLD**
 _None_
 
 ## Last Note
-Routing & Lazy Loading complete: / → Landing, /station → StationDashboard, all 7 pages use React.lazy with named-export unwrapping, Suspense fallback with design-token routeLoader, StationLayout nav updated to /station, AppRouter.test.tsx (3 tests), Vite produces separate named chunks per page; 148 client tests green, build and lint pass.
+SVG Illustrations complete: StationSchematic (animated orbit ring, hub glow, 4 arms, module nodes, satellites), CrewIcon, ModuleIcon (6 types), MissionBadge (targeting reticle) — all using CSS custom property tokens only; integrated into Landing hero, StationDashboard header, CrewCard, ModuleTile, MissionItem; 176 client tests green, build and lint pass.

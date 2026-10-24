@@ -4,6 +4,7 @@ import { Button } from 'antd';
 import { StarField } from './StarField';
 import { StationTitleReveal } from './StationTitleReveal';
 import { SystemReadout } from './SystemReadout';
+import { StationSchematic } from '../../domains/station/components/StationSchematic/StationSchematic';
 import styles from './Landing.module.scss';
 
 const STATION_NAME = 'Kepler Station Alpha';
@@ -30,6 +31,7 @@ export function Landing() {
   return (
     <div className={styles['landing']}>
       <StarField />
+      <StationSchematic className={styles['landing__schematic']} />
 
       <div className={styles['landing__content']}>
         <StationTitleReveal title={STATION_NAME} />
