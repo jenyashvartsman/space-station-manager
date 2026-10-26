@@ -1,72 +1,43 @@
-import { useState } from 'react';
-import { Layout, Menu } from 'antd';
-import {
-  DashboardOutlined,
-  TeamOutlined,
-  AppstoreOutlined,
-  RocketOutlined,
-  ThunderboltOutlined,
-  UnorderedListOutlined,
-} from '@ant-design/icons';
-import { useLocation, useNavigate, Outlet } from 'react-router-dom';
+import { NavLink, Outlet } from 'react-router-dom';
+import { HudUptime } from '../HudUptime/HudUptime';
 import styles from './StationLayout.module.scss';
 
-const { Sider, Header, Content } = Layout;
-
-const NAV_ITEMS = [
-  { key: '/station', label: 'Dashboard', icon: <DashboardOutlined /> },
-  { key: '/crew', label: 'Crew', icon: <TeamOutlined /> },
-  { key: '/modules', label: 'Modules', icon: <AppstoreOutlined /> },
-  { key: '/missions', label: 'Missions', icon: <RocketOutlined /> },
-  { key: '/resources', label: 'Resources', icon: <ThunderboltOutlined /> },
-  { key: '/events', label: 'Events', icon: <UnorderedListOutlined /> },
+const NAV_TABS = [
+  { to: '/station', glyph: '◉', label: 'DASH' },
+  { to: '/crew', glyph: '✦', label: 'CREW' },
+  { to: '/modules', glyph: '⬡', label: 'MODULES' },
+  { to: '/resources', glyph: '◈', label: 'RESOURCES' },
+  { to: '/missions', glyph: '⚑', label: 'OPS' },
+  { to: '/events', glyph: '▤', label: 'LOG' },
 ];
 
-const STATION_NAME = 'Kepler Station Alpha';
-
 export function StationLayout() {
-  const location = useLocation();
-  const navigate = useNavigate();
-  const [collapsed, setCollapsed] = useState(false);
-
-  const selectedKey = NAV_ITEMS.find((item) =>
-    location.pathname.startsWith(item.key),
-  )?.key ?? '/station';
-
   return (
-    <Layout className={styles['station-layout']}>
-      <Sider
-        className={styles['station-layout__sidebar']}
-        collapsible
-        collapsed={collapsed}
-        onCollapse={setCollapsed}
-        width={220}
-        collapsedWidth={64}
-      >
-        <div className={styles['station-layout__logo']}>
-          {!collapsed && (
-            <span className={styles['station-layout__logo-text']}>SSM</span>
-          )}
-        </div>
-        <Menu
-          mode="inline"
-          selectedKeys={[selectedKey]}
-          items={NAV_ITEMS}
-          onClick={({ key }) => navigate(key)}
-          aria-label="Station navigation"
-        />
-      </Sider>
+    <div className={styles['hud-shell']}>
+      <header className={styles['hud-shell__top-bar']}>
+        <span className={styles['hud-shell__callsign']}>◈ KEPLER STATION ALPHA</span>
+        <span className={styles['hud-shell__live-status']}>STATUS: NOMINAL</span>
+        <HudUptime />
+      </header>
 
-      <Layout>
-        <Header className={styles['station-layout__topbar']}>
-          <span className={styles['station-layout__station-name']}>{STATION_NAME}</span>
-          <div className={styles['station-layout__scanline']} aria-hidden="true" />
-        </Header>
+      <main className={styles['hud-shell__main']}>
+        <Outlet />
+      </main>
 
-        <Content className={styles['station-layout__content']}>
-          <Outlet />
-        </Content>
-      </Layout>
-    </Layout>
+      <nav className={styles['hud-shell__bottom-nav']} aria-label="Station navigation">
+        {NAV_TABS.map(({ to, glyph, label }) => (
+          <NavLink
+            key={to}
+            to={to}
+            className={({ isActive }) =>
+              [styles['hud-shell__nav-tab'], isActive ? styles['hud-shell__nav-tab--active'] : ''].join(' ')
+            }
+          >
+            <span className={styles['hud-shell__nav-glyph']}>{glyph}</span>
+            <span className={styles['hud-shell__nav-label']}>{label}</span>
+          </NavLink>
+        ))}
+      </nav>
+    </div>
   );
 }

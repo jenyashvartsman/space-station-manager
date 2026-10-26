@@ -1,7 +1,7 @@
 # Status — Space Station Manager
 
 ## Current Task
-**TASK-022** — Station Dashboard Animations
+**TASK-023** — Station Dashboard HUD Layout
 
 ## Factory Phase
 `INIT` → `SCAFFOLD` → `CORE` → `FEATURES` → `POLISH`
@@ -34,12 +34,12 @@ Current: **SCAFFOLD**
 | 019 | SVG Illustrations | 2026-10-24 |
 | 020 | Motion System Setup | 2026-10-24 |
 | 021 | Landing Page Animations | 2026-10-24 |
+| 022 | HUD Shell Redesign | 2026-10-25 |
 
 ## Pending Tasks
 
 | Task | Title | Phase |
 |------|-------|-------|
-| 022 | HUD Shell Redesign | POLISH |
 | 023 | Station Dashboard HUD Layout | POLISH |
 | 024 | Crew Roster HUD Layout | POLISH |
 | 025 | Module Management HUD Layout | POLISH |
@@ -54,4 +54,4 @@ Current: **SCAFFOLD**
 _None_
 
 ## Last Note
-Tasks 022–036 redesigned: SaaS-style animation and copy tasks replaced with 10 HUD game tasks (022 HUD Shell → 031 README). UX.md updated with HUD-first philosophy. Code base is clean at task-021 complete; next task is 022 HUD Shell Redesign.
+TASK-022 complete: StationLayout rebuilt as fullscreen HUD shell — sidebar removed, top status bar with live HudUptime, bottom nav with 6 NavLink tabs, corner bracket decorations, scan-line overlay; 196 tests green, build and lint pass.

@@ -1,60 +1,71 @@
 import { describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
-import { ConfigProvider } from 'antd';
 import { StationLayout } from './StationLayout';
-import { antdTheme } from '../../theme/antd.theme';
 
-function renderLayout(initialPath = '/') {
+function renderLayout(initialPath = '/station') {
   return render(
-    <ConfigProvider theme={antdTheme}>
-      <MemoryRouter initialEntries={[initialPath]}>
-        <StationLayout />
-      </MemoryRouter>
-    </ConfigProvider>,
+    <MemoryRouter initialEntries={[initialPath]}>
+      <StationLayout />
+    </MemoryRouter>,
   );
 }
 
 describe('StationLayout', () => {
-  it('renders the station name in the top bar', () => {
+  it('renders the station callsign in the top bar', () => {
     renderLayout();
-    expect(screen.getByText('Kepler Station Alpha')).toBeTruthy();
+    expect(screen.getByText(/KEPLER STATION ALPHA/i)).toBeTruthy();
   });
 
-  it('renders 6 sidebar navigation items', () => {
+  it('renders STATUS: NOMINAL in the top bar', () => {
     renderLayout();
-    const nav = screen.getByRole('menu', { name: /station navigation/i });
-    const items = nav.querySelectorAll('[role="menuitem"]');
-    expect(items.length).toBe(6);
+    expect(screen.getByText(/STATUS: NOMINAL/i)).toBeTruthy();
   });
 
-  it('renders a Dashboard nav link', () => {
+  it('renders all 6 bottom nav links', () => {
     renderLayout();
-    expect(screen.getByText('Dashboard')).toBeTruthy();
+    const nav = screen.getByRole('navigation', { name: /station navigation/i });
+    const links = nav.querySelectorAll('a');
+    expect(links.length).toBe(6);
   });
 
-  it('renders a Crew nav link', () => {
+  it('renders DASH nav label', () => {
     renderLayout();
-    expect(screen.getByText('Crew')).toBeTruthy();
+    expect(screen.getByText('DASH')).toBeTruthy();
   });
 
-  it('renders a Modules nav link', () => {
+  it('renders CREW nav label', () => {
     renderLayout();
-    expect(screen.getByText('Modules')).toBeTruthy();
+    expect(screen.getByText('CREW')).toBeTruthy();
   });
 
-  it('renders a Missions nav link', () => {
+  it('renders MODULES nav label', () => {
     renderLayout();
-    expect(screen.getByText('Missions')).toBeTruthy();
+    expect(screen.getByText('MODULES')).toBeTruthy();
   });
 
-  it('renders a Resources nav link', () => {
+  it('renders RESOURCES nav label', () => {
     renderLayout();
-    expect(screen.getByText('Resources')).toBeTruthy();
+    expect(screen.getByText('RESOURCES')).toBeTruthy();
   });
 
-  it('renders an Events nav link', () => {
+  it('renders OPS nav label', () => {
     renderLayout();
-    expect(screen.getByText('Events')).toBeTruthy();
+    expect(screen.getByText('OPS')).toBeTruthy();
+  });
+
+  it('renders LOG nav label', () => {
+    renderLayout();
+    expect(screen.getByText('LOG')).toBeTruthy();
+  });
+
+  it('renders children inside the main content area', () => {
+    render(
+      <MemoryRouter initialEntries={['/station']}>
+        <StationLayout />
+      </MemoryRouter>,
+    );
+    const main = document.querySelector('main');
+    expect(main).toBeTruthy();
   });
 });

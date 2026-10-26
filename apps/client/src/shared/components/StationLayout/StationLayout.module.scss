@@ -1,86 +1,177 @@
 @use '../../styles/variables' as *;
 @use '../../styles/mixins' as *;
 
-.station-layout {
-  height: 100vh;
+// Corner bracket size
+$bracket: 1.25rem;
+$bracket-weight: 2px;
+
+.hud-shell {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
   overflow: hidden;
+  background: var(--color-bg-base);
 
-  &__sidebar {
-    background: var(--color-bg-surface) !important;
-    border-right: 1px solid var(--color-border) !important;
-
-    // Override Ant Design sider trigger
-    :global(.ant-layout-sider-trigger) {
-      background: var(--color-bg-elevated);
-      border-top: 1px solid var(--color-border);
-    }
-
-    // Override Ant Design menu background
-    :global(.ant-menu) {
-      background: transparent;
-    }
+  // Top-left corner bracket
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: $bracket;
+    height: $bracket;
+    z-index: 100;
+    pointer-events: none;
   }
 
-  &__logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 3.5rem;
-    border-bottom: 1px solid var(--color-border);
-    padding: var(--space-2) var(--space-4);
+  // Top-left
+  &::before {
+    top: 0;
+    left: 0;
+    border-top: $bracket-weight solid var(--color-accent);
+    border-left: $bracket-weight solid var(--color-accent);
+    box-shadow: 0 0 6px var(--color-accent-glow);
   }
 
-  &__logo-text {
-    font-family: var(--font-data);
-    font-size: var(--font-size-lg);
-    color: var(--color-accent);
-    letter-spacing: 0.15em;
-    font-weight: 700;
+  // Top-right
+  &::after {
+    top: 0;
+    right: 0;
+    border-top: $bracket-weight solid var(--color-accent);
+    border-right: $bracket-weight solid var(--color-accent);
+    box-shadow: 0 0 6px var(--color-accent-glow);
   }
 
-  &__topbar {
-    background: var(--color-bg-surface) !important;
-    border-bottom: 1px solid var(--color-border) !important;
-    padding: 0 var(--space-6);
-    height: 3.5rem;
-    line-height: 3.5rem;
-    display: flex;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
+  // Bottom-left and bottom-right via inner pseudo wrappers
+  // We use a wrapper element trick — add two more brackets as box-shadow on
+  // the nav's ::before / ::after via the bottom-nav element
+}
+
+// Overlay element for bottom brackets (child pseudo trick)
+.hud-shell__bottom-nav {
+  position: relative;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    width: $bracket;
+    height: $bracket;
+    z-index: 100;
+    pointer-events: none;
   }
 
-  &__station-name {
-    font-family: var(--font-data);
-    font-size: var(--font-size-lg);
-    color: var(--color-accent);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    z-index: 1;
-    position: relative;
+  &::before {
+    left: 0;
+    border-bottom: $bracket-weight solid var(--color-accent);
+    border-left: $bracket-weight solid var(--color-accent);
+    box-shadow: 0 0 6px var(--color-accent-glow);
   }
 
-  // Subtle scan-line CSS texture on the top bar
-  &__scanline {
+  &::after {
+    right: 0;
+    border-bottom: $bracket-weight solid var(--color-accent);
+    border-right: $bracket-weight solid var(--color-accent);
+    box-shadow: 0 0 6px var(--color-accent-glow);
+  }
+}
+
+// ── Top Status Bar ────────────────────────────────────────────────────────────
+
+.hud-shell__top-bar {
+  height: 3rem;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-6);
+  padding: 0 var(--space-6);
+  background: var(--color-bg-surface);
+  border-bottom: 1px solid var(--color-border);
+  font-family: var(--font-data);
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.hud-shell__callsign {
+  color: var(--color-accent);
+  text-shadow: 0 0 8px var(--color-accent-glow);
+  font-weight: 700;
+}
+
+.hud-shell__live-status {
+  color: var(--color-nominal);
+  margin-left: auto;
+}
+
+// ── Main Content Area ─────────────────────────────────────────────────────────
+
+.hud-shell__main {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+
+  // Scan-line overlay — 1px lines every 3px at 8% opacity
+  &::before {
+    content: '';
     position: absolute;
     inset: 0;
     background: repeating-linear-gradient(
       0deg,
       transparent,
       transparent 2px,
-      rgba(56, 189, 248, 0.02) 2px,
-      rgba(56, 189, 248, 0.02) 4px
+      rgba(0, 0, 0, 0.08) 2px,
+      rgba(0, 0, 0, 0.08) 3px
     );
     pointer-events: none;
+    z-index: 1;
+  }
+}
+
+// ── Bottom Nav ────────────────────────────────────────────────────────────────
+
+.hud-shell__bottom-nav {
+  height: 3.25rem;
+  flex-shrink: 0;
+  display: flex;
+  background: var(--color-bg-surface);
+  border-top: 1px solid var(--color-border);
+}
+
+.hud-shell__nav-tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.125rem;
+  text-decoration: none;
+  color: var(--color-text-muted);
+  border-top: 2px solid transparent;
+  transition: color 150ms, border-color 150ms, background 150ms;
+  font-family: var(--font-data);
+
+  &:hover {
+    color: var(--color-text-primary);
+    background: var(--color-bg-elevated);
   }
 
-  &__content {
-    overflow-y: auto;
-    padding: var(--space-6);
-    background: var(--color-bg-base) !important;
-
-    @include respond-to($bp-sm) {
-      padding: var(--space-4);
-    }
+  &--active {
+    color: var(--color-accent);
+    border-top-color: var(--color-accent);
+    background: var(--color-bg-elevated);
+    text-shadow: 0 0 6px var(--color-accent-glow);
   }
+}
+
+.hud-shell__nav-glyph {
+  font-size: var(--font-size-base);
+  line-height: 1;
+}
+
+.hud-shell__nav-label {
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
