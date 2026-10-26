@@ -1,7 +1,7 @@
 # Status — Space Station Manager
 
 ## Current Task
-**TASK-023** — Station Dashboard HUD Layout
+**TASK-024** — Crew Roster HUD Layout
 
 ## Factory Phase
 `INIT` → `SCAFFOLD` → `CORE` → `FEATURES` → `POLISH`
@@ -35,12 +35,12 @@ Current: **SCAFFOLD**
 | 020 | Motion System Setup | 2026-10-24 |
 | 021 | Landing Page Animations | 2026-10-24 |
 | 022 | HUD Shell Redesign | 2026-10-25 |
+| 023 | Station Dashboard HUD Layout | 2026-10-25 |
 
 ## Pending Tasks
 
 | Task | Title | Phase |
 |------|-------|-------|
-| 023 | Station Dashboard HUD Layout | POLISH |
 | 024 | Crew Roster HUD Layout | POLISH |
 | 025 | Module Management HUD Layout | POLISH |
 | 026 | Resource Panel HUD Layout | POLISH |
@@ -54,4 +54,4 @@ Current: **SCAFFOLD**
 _None_
 
 ## Last Note
-TASK-022 complete: StationLayout rebuilt as fullscreen HUD shell — sidebar removed, top status bar with live HudUptime, bottom nav with 6 NavLink tabs, corner bracket decorations, scan-line overlay; 196 tests green, build and lint pass.
+TASK-023 complete: StationDashboard rebuilt as three-column HUD (22% 34% 1fr) — schematic + status + reset left, inline resource bar rows center, module status rows with status-color left borders right, skeleton loading while station===null; 199 tests green, build and lint pass.
