@@ -26,7 +26,8 @@
     "additionalDirectories": [
       "C:\\Users\\jenya\\Projects\\full-stack\\space-station-manager\\apps\\server\\src",
       "C:\\Users\\jenya\\Projects\\full-stack\\space-station-manager",
-      "c:\\Users\\jenya\\Projects\\full-stack\\space-station-manager\\apps\\client\\src\\shared"
+      "c:\\Users\\jenya\\Projects\\full-stack\\space-station-manager\\apps\\client\\src\\shared",
+      "C:\\Users\\jenya\\Projects\\full-stack\\space-station-manager\\.claude\\tasks"
     ]
   }
 }

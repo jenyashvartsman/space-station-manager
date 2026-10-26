@@ -1,65 +1,86 @@
-# Task 025 — Resource Panel Animations
+# Task 025 — Module Management HUD Layout
 
 ## Objective
 
-Add entrance animations to the Resource Panel, with resource bars animating from zero to their current value on mount. After this task the resource bars fill in visually like gauges powering up.
+Transform the Module Management page into a fullscreen engineering console. After this task the screen is split: a schematic module map on the left and an inline detail panel on the right — no drawer, no scroll, all data visible at once.
 
 ## Context
 
-- Read `.claude/docs/frontend.md` — ResourcePanel page location
-- Read `apps/client/src/shared/motion/stationMotion.ts` — available variants
+- Read `.claude/docs/ux.md` — color tokens, font tokens
+- Read `.claude/docs/frontend.md` — ModuleManagement page location
+- Read `apps/client/src/pages/ModuleManagement/ModuleManagement.tsx`
+- Read `apps/client/src/pages/ModuleManagement/ModuleManagement.module.scss`
+
+## HUD Layout Design
+
+```
+┌──────────────────────┬────────────────────────────────┐
+│  ◈ MODULE SYSTEMS    │  ◈ SYSTEM DETAIL                │
+│                      │                                 │
+│  [HAB]──────[SCI]    │  HABITAT MODULE                 │
+│    │                 │  TYPE: Habitat                  │
+│  [HUB]              │  STATUS: NOMINAL                 │
+│    │                 │  POWER: 42 kW                   │
+│  [PWR]──────[DOCK]   │  CREW: Vasquez, Nair            │
+│                      │                                 │
+│  Sort: [STATUS▼]     │  [CHANGE STATUS ▼]              │
+│        [NAME]        │                                 │
+│        [POWER]       │  ─ POWER CONSUMPTION ──────     │
+│                      │  [D3 bar chart]                 │
+└──────────────────────┴────────────────────────────────┘
+```
+
+### Left Panel — Module Map (38% width)
+
+- Module tiles laid out in a visual map/schematic pattern (CSS Grid, 2 cols)
+- Each tile: `ModuleIcon` + module name + `StatusBadge`
+- `4px` left border colored to module status
+- Selected tile: `background: var(--color-bg-elevated)` + accent border
+- Sort controls below the map (existing sort buttons, compact style)
+
+### Right Panel — System Detail (flex: 1)
+
+- Always visible, no drawer
+- Empty state: "SELECT A MODULE TO VIEW SYSTEM DETAIL" in muted text, centered
+- When selected:
+  - Module name (large), type, status, power consumption value, assigned crew list
+  - `PowerConsumptionChart` (D3 bar chart) at bottom of panel
+  - Status change selector (`Select` component)
+- Route-driven: reading `:moduleId` from the URL continues to work; selecting a tile pushes the route
+
+### Replacing the Drawer
+
+The existing Ant Design `Drawer` in `ModuleDetail` is replaced by the right panel. The `ModuleDetail` component can still be used as the content — rendered inside the panel instead of a drawer.
 
 ## Scope
 
 | Action | File |
 |--------|------|
-| Modify | `apps/client/src/pages/ResourcePanel/ResourcePanel.tsx` |
-| Modify | `apps/client/src/pages/ResourcePanel/ResourcePanel.module.scss` |
-| Modify | `apps/client/src/domains/resource/components/ResourceBar/ResourceBar.tsx` (or equivalent bar component) |
-
-## Animation Design
-
-**Page enter:** Wrap the page root in `motion.div` using `pageEnter` variant.
-
-**Resource row stagger:** Each resource row uses `panelItem` inside a `panelContainer` wrapper.
-
-**Bar fill animation:** The bar fill element becomes a `motion.div` with:
-
-```ts
-initial={{ width: '0%' }}
-animate={{ width: `${percentage}%` }}
-transition={{ duration: 0.6, ease: 'easeOut', delay: index * 0.08 }}
-```
-
-Where `percentage` is the current resource level as a percentage of capacity, and `index` is the position in the list (0-based) to create a cascade effect.
-
-**Critical flash:** If a resource is critical (`percentage < 20`), the bar fill also gets a CSS pulse on `background-color` between `--color-critical` and a darker shade:
-
-```css
-@keyframes critical-flash {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.6; }
-}
-```
+| Modify | `apps/client/src/pages/ModuleManagement/ModuleManagement.tsx` |
+| Modify | `apps/client/src/pages/ModuleManagement/ModuleManagement.module.scss` |
 
 ## Unit Tests
 
-- Modify `apps/client/src/domains/resource/components/ResourceBar/ResourceBar.test.tsx` — test that the bar fill has `initial` and `animate` props (or that the component renders without error with a `percentage` and `index` prop)
+Update `ModuleManagement.test.tsx`:
+- Renders column headings: "MODULE SYSTEMS" and "SYSTEM DETAIL"
+- Right panel shows "SELECT A MODULE" message by default
+- Clicking a module tile shows that module's name in the detail panel
+- Existing sort tests still pass
 
 ## Acceptance Criteria
 
-- [ ] Resource rows stagger in on page mount
-- [ ] Each bar fill animates from 0% to its current value
-- [ ] Bars animate in cascade order (index delay)
-- [ ] Critical resource bars show the opacity flash animation
-- [ ] Existing ResourcePanel tests still pass
+- [ ] Page fills viewport height, no scroll
+- [ ] Left panel shows module tiles in a map grid
+- [ ] Right panel is always visible (no drawer)
+- [ ] Selecting a tile loads module detail inline
+- [ ] Status selector and power chart render in detail panel
 - [ ] `nx test client` passes
 - [ ] `nx build client` passes
 
 ## Dependencies
 
-- Task 014 (Resource Panel) must be complete
-- Task 020 (motion system) must be complete
+- Task 013 (Module Management) must be complete
+- Task 022 (HUD Shell) must be complete
 
 ## Notes
 _Fill in after execution._

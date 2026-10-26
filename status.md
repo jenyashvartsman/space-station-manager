@@ -39,24 +39,19 @@ Current: **SCAFFOLD**
 
 | Task | Title | Phase |
 |------|-------|-------|
-| 022 | Station Dashboard Animations | POLISH |
-| 023 | Crew Roster Animations | POLISH |
-| 024 | Module Management Animations | POLISH |
-| 025 | Resource Panel Animations | POLISH |
-| 026 | Mission Control Animations | POLISH |
-| 027 | Event Log Animations | POLISH |
-| 028 | Station Copy Foundation | POLISH |
-| 029 | Landing Page Copy | POLISH |
-| 030 | Station Dashboard Copy | POLISH |
-| 031 | Crew Roster Copy | POLISH |
-| 032 | Module Management Copy | POLISH |
-| 033 | Resource Panel Copy | POLISH |
-| 034 | Mission Control Copy | POLISH |
-| 035 | Event Log Copy | POLISH |
-| 036 | README | POLISH |
+| 022 | HUD Shell Redesign | POLISH |
+| 023 | Station Dashboard HUD Layout | POLISH |
+| 024 | Crew Roster HUD Layout | POLISH |
+| 025 | Module Management HUD Layout | POLISH |
+| 026 | Resource Panel HUD Layout | POLISH |
+| 027 | Mission Control HUD Layout | POLISH |
+| 028 | Event Log HUD Layout | POLISH |
+| 029 | HUD Entrance Animations | POLISH |
+| 030 | Game Copy | POLISH |
+| 031 | README | POLISH |
 
 ## Blockers
 _None_
 
 ## Last Note
-Landing Page Animations complete: root wrapped in motion.div (pageEnter), hero panelContainer staggers title/mission-log/CTA via panelItem, feature cards panelContainer staggers readouts with panelItem + hoverLift, local variants removed; 193 client tests green, build and lint pass.
+Tasks 022–036 redesigned: SaaS-style animation and copy tasks replaced with 10 HUD game tasks (022 HUD Shell → 031 README). UX.md updated with HUD-first philosophy. Code base is clean at task-021 complete; next task is 022 HUD Shell Redesign.

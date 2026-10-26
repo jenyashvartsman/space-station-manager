@@ -1,55 +1,80 @@
-# Task 027 — Event Log Animations
+# Task 027 — Mission Control HUD Layout
 
 ## Objective
 
-Align the Event Log page with the shared motion system from Task 019. The event entries already animate (from Task 016); this task ensures the page enter and filter bar use the standard variants consistently.
+Transform the Mission Control page into a fullscreen tactical operations board. After this task three columns fill the viewport — ACTIVE, QUEUED, COMPLETED — with mission timers and action buttons always visible, no scroll.
 
 ## Context
 
-- Read `.claude/docs/frontend.md` — EventLog page location
-- Read `apps/client/src/shared/motion/stationMotion.ts` — available variants
-- Read `apps/client/src/pages/EventLog/EventLog.tsx` — existing animation code
+- Read `.claude/docs/ux.md` — color tokens, font tokens
+- Read `.claude/docs/frontend.md` — MissionControl page location
+- Read `apps/client/src/pages/MissionControl/MissionControl.tsx`
+- Read `apps/client/src/pages/MissionControl/MissionControl.module.scss`
+
+## HUD Layout Design
+
+```
+┌──────────────────┬──────────────────┬──────────────────┐
+│  ◈ ACTIVE OPS    │  ◈ QUEUED OPS    │  ◈ COMPLETED OPS │
+│  (2)             │  (3)             │  (5)             │
+├──────────────────┼──────────────────┼──────────────────┤
+│  ASTEROID SURVEY │  ORBITAL REQ.    │  ✓ ORBITAL SCAN  │
+│  [timer arc]     │  [START] [ABORT] │    +120 oxygen   │
+│  15:32 remain    │                  │    T-04:22 ago   │
+│  Reward: +80 O2  │  SUPPLY RUN      │                  │
+│                  │  [START] [ABORT] │  ✓ RESUPPLY      │
+│  ORBITAL MAINT.  │                  │    +200 food     │
+│  [timer arc]     │  RECON OPS       │                  │
+│  04:07 remain    │  [START] [ABORT] │                  │
+│                  │                  │                  │
+│         [+ NEW MISSION ──────────────────────────────] │
+└──────────────────┴──────────────────┴──────────────────┘
+```
+
+### Three-Column Grid
+
+CSS Grid: `grid-template-columns: 1fr 1fr 1fr`. Each column has:
+- Header: section title + count badge
+- `overflow-y: auto` body for its mission items
+- `1px solid var(--color-border)` right divider (except last)
+
+### Mission Items in Active Column
+
+- `MissionItem` is rendered as a full-width block
+- Mission timer arc (`MissionTimer` D3 component) displayed prominently
+- Reward line below
+
+### New Mission Button
+
+Fixed at bottom of the page, spanning all three columns — full width.
 
 ## Scope
 
 | Action | File |
 |--------|------|
-| Modify | `apps/client/src/pages/EventLog/EventLog.tsx` |
-| Modify | `apps/client/src/domains/event-log/components/EventEntry/EventEntry.tsx` |
-
-## Animation Design
-
-**Page enter:** Replace any existing page-level entrance with `motion.div` using the standard `pageEnter` variant from `stationMotion.ts`.
-
-**EventEntry:** The existing `initial/animate/exit` on EventEntry should be imported from `stationMotion.ts` rather than defined inline. Verify the values match; update if they differ:
-
-```ts
-// Replace inline values with:
-import { panelItem } from '@/shared/motion/stationMotion'
-// initial: { opacity: 0, y: -8 } → use panelItem.initial  (adjust y direction to -8 for top-entry)
-```
-
-Keep the `AnimatePresence` on `EventLogFeed` as-is — it is already correct.
-
-**Filter bar:** The filter bar row fades in with `panelItem` so it does not appear before the header.
+| Modify | `apps/client/src/pages/MissionControl/MissionControl.tsx` |
+| Modify | `apps/client/src/pages/MissionControl/MissionControl.module.scss` |
 
 ## Unit Tests
 
-- Existing `EventLog.test.tsx` and `EventEntry.test.tsx` — no new tests required; verify existing tests still pass after refactor
+Update `MissionControl.test.tsx`:
+- Renders three column headings: "ACTIVE OPS", "QUEUED OPS", "COMPLETED OPS"
+- "NEW MISSION" button is present and accessible
+- Existing mission item and create form tests still pass
 
 ## Acceptance Criteria
 
-- [ ] Event Log page uses `pageEnter` from `stationMotion.ts`
-- [ ] EventEntry animation values sourced from shared motion file
-- [ ] No duplicate inline animation constants in EventEntry or EventLog
-- [ ] Existing EventLog and EventEntry tests still pass
+- [ ] Page fills viewport height, no scroll on the page frame
+- [ ] Three-column grid matches design
+- [ ] Each column independently scrolls if items overflow
+- [ ] New Mission button spans full width at the bottom
 - [ ] `nx test client` passes
 - [ ] `nx build client` passes
 
 ## Dependencies
 
-- Task 016 (Event Log) must be complete
-- Task 020 (motion system) must be complete
+- Task 015 (Mission Control) must be complete
+- Task 022 (HUD Shell) must be complete
 
 ## Notes
 _Fill in after execution._

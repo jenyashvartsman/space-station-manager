@@ -6,10 +6,14 @@
 
 ## Design Philosophy
 
-- Functional, mission-critical UI — like a real control room
-- Information-dense but readable — no clutter, clear hierarchy
-- Tension and urgency when resources are critical
-- Calm and in-control when things are running well
+**The app must feel like a video game, not a SaaS dashboard.**
+
+- **HUD-first layout** — every page fills 100vw × 100vh with no wasted space. Panels, columns, and grids tile the viewport like a cockpit console.
+- **No scrolling on the main frame** — the HUD shell is fixed; only inner content panels scroll when necessary (event feed, long lists).
+- **Dense and immersive** — information fills every region. No large empty areas, no breathing-room margins that read as "product landing page."
+- Tension and urgency when resources are critical — glowing red borders, pulsing alerts
+- Calm operational readiness when systems are nominal — cool blues, steady readouts
+- Everything glows — borders, accents, and status indicators use `box-shadow` and `text-shadow` to feel lit from within
 
 ---
 
@@ -191,9 +195,9 @@ html {
 
 | Breakpoint | Layout change |
 |------------|---------------|
-| 1440px+ | Wider station grid, more columns |
-| 1280px | Default — 12-column grid, full sidebar |
-| 1024px | Sidebar collapses to icon-only |
+| 1440px+ | Wider HUD grid, more columns |
+| 1280px | Default — multi-column HUD panels, bottom nav |
+| 1024px | Panels reduce to 2-column; bottom nav remains |
 | 768px | Single column, panels stack vertically |
 | 480px | Minimal view — station overview only, no multi-panel |
 
@@ -242,10 +246,11 @@ Framer Motion handles **component-level** enter/exit and layout transitions.
 | Usage | Implementation |
 |-------|---------------|
 | Page transitions | `<AnimatePresence>` on `<Routes>` — fade + slight Y shift |
+| HUD boot flicker | `hudBoot` variant — opacity stutter `[0, 0.4, 0.1, 0.8, 0.3, 1]` over 350ms |
+| HUD column entrance | `hudColumnEnter` variant — slides in from above (y: -24 → 0) with stagger |
 | Alert / event entry | `initial={{ opacity: 0, y: -8 }}` → `animate={{ opacity: 1, y: 0 }}` |
 | Module tile status change | `layout` prop — smooth reorder in grid |
-| Crew card mount | Staggered children via `variants` + `staggerChildren: 0.04` |
-| Modal/drawer | `AnimatePresence` + scale from 0.96 → 1 + opacity |
+| Panel stagger | `panelContainer` + `panelItem` — children stagger at 60ms intervals |
 
 ### Landing Page Animations
 

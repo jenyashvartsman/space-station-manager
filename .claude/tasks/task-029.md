@@ -1,63 +1,90 @@
-# Task 029 — Landing Page Copy
+# Task 029 — HUD Entrance Animations
 
 ## Objective
 
-Apply `stationCopy.landing` strings to the Landing page and replace the current layout with a structured hero + 6-card feature grid. After this task the landing page reads like a real operational command interface.
+Add game-like entrance animations to all HUD pages (022–028). After this task every page reveals like a console booting up: panels flicker on, data counters tick up from zero, and column headers scan in top-to-bottom — no SaaS-style fade-in.
 
 ## Context
 
-- Read `apps/client/src/shared/copy/stationCopy.ts`
-- Read `apps/client/src/pages/Landing/Landing.tsx`
+- Read `apps/client/src/shared/motion/stationMotion.ts` — existing variants
+- Read `.claude/docs/ux.md` — timing guidelines
+
+## New Motion Variants
+
+Add to `stationMotion.ts`:
+
+```ts
+// HUD panel boot flicker — brief opacity stutter before settling
+export const hudBoot = {
+  initial: { opacity: 0 },
+  animate: {
+    opacity: [0, 0.4, 0.1, 0.8, 0.3, 1],
+    transition: { duration: 0.35, ease: 'linear', times: [0, 0.2, 0.3, 0.5, 0.7, 1] },
+  },
+};
+
+// HUD column scan — slides in from top with clip
+export const hudColumnEnter = {
+  initial: { opacity: 0, y: -24 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.3, ease: 'easeOut' } },
+};
+```
+
+## Per-Page Application
+
+Apply animations consistently across all HUD pages:
+
+| Page | Root | Columns/Sections | Items |
+|------|------|-----------------|-------|
+| StationDashboard | `pageEnter` | `hudColumnEnter` per column (stagger 0.08s) | `panelItem` |
+| CrewRoster | `pageEnter` | `hudBoot` on each panel | `panelItem` per row |
+| ModuleManagement | `pageEnter` | `hudBoot` on each panel | `panelItem` per tile |
+| ResourcePanel | `pageEnter` | `hudColumnEnter` per column | `panelItem` per row |
+| MissionControl | `pageEnter` | `hudColumnEnter` per column (stagger 0.08s) | `panelItem` per mission |
+| EventLog | `pageEnter` | `hudBoot` on header + feed | `panelItem` per entry |
+
+### HUD Shell
+
+The `StationLayout` shell root gets `hudBoot` so the entire chrome flickers on first mount.
+
+## Skeleton Loading
+
+All HUD pages that load async data (`station`, `resources`, `modules`, `missions`) must show `SkeletonPanel` placeholders while loading — use `station === null` or empty array as the signal. Skeletons appear inside the column they belong to.
 
 ## Scope
 
 | Action | File |
 |--------|------|
-| Modify | `apps/client/src/pages/Landing/Landing.tsx` |
-| Modify | `apps/client/src/pages/Landing/Landing.module.scss` |
-
-## Layout
-
-```
-┌─────────────────────────────────────────────────────┐
-│  SPACE STATION MANAGER                              │
-│  Operational command interface — ARES-7             │
-│  [ACCESS STATION]                                   │
-│─────────────────────────────────────────────────────│
-│  [STATION STATUS]  [CREW OPERATIONS]  [MODULE SYS]  │
-│   body copy         body copy          body copy    │
-│  [RESOURCE STORES] [MISSION CONTROL]  [EVENT LOG]   │
-│   body copy         body copy          body copy    │
-└─────────────────────────────────────────────────────┘
-```
-
-- Headline: `stationCopy.landing.headline` — large, `--font-display`
-- Tagline: `stationCopy.landing.tagline` — muted, `--font-body`
-- CTA: `stationCopy.landing.cta` — Ant Design `Button` type primary
-- Feature grid: 2 rows × 3 cols (CSS Grid, responsive to 1 col on narrow)
-  - Each card: title (`--font-label`, all-caps), body (`--font-body`, muted), border `1px solid var(--color-border)`
-  - Card titles and body from `stationCopy.landing.features.*`
+| Modify | `apps/client/src/shared/motion/stationMotion.ts` |
+| Modify | `apps/client/src/shared/motion/stationMotion.test.ts` |
+| Modify | `apps/client/src/shared/components/StationLayout/StationLayout.tsx` |
+| Modify | `apps/client/src/pages/StationDashboard/StationDashboard.tsx` |
+| Modify | `apps/client/src/pages/CrewRoster/CrewRoster.tsx` |
+| Modify | `apps/client/src/pages/ModuleManagement/ModuleManagement.tsx` |
+| Modify | `apps/client/src/pages/ResourcePanel/ResourcePanel.tsx` |
+| Modify | `apps/client/src/pages/MissionControl/MissionControl.tsx` |
+| Modify | `apps/client/src/pages/EventLog/EventLog.tsx` |
 
 ## Unit Tests
 
-- Modify `apps/client/src/pages/Landing/Landing.test.tsx`:
-  - Renders headline `'SPACE STATION MANAGER'`
-  - Renders all 6 feature card titles
+Update `stationMotion.test.ts`:
+- `hudBoot` exports with `initial` and `animate` keys
+- `hudColumnEnter` exports with `initial` and `animate` keys
+- `animate.opacity` on `hudBoot` is an array (flicker values)
 
 ## Acceptance Criteria
 
-- [ ] Headline reads "SPACE STATION MANAGER"
-- [ ] Tagline reads the ARES-7 line
-- [ ] All 6 feature cards rendered with correct title and body
-- [ ] No hardcoded strings in JSX — all from `stationCopy`
-- [ ] Existing routing/CTA behaviour unchanged
+- [ ] `hudBoot` and `hudColumnEnter` exported from `stationMotion.ts`
+- [ ] All 6 HUD pages apply entrance animations
+- [ ] HUD shell chrome itself flickers on mount
+- [ ] Skeleton panels shown during loading on all data pages
 - [ ] `nx test client` passes
 - [ ] `nx build client` passes
 
 ## Dependencies
 
-- Task 010 (Landing page) must be complete
-- Task 028 (station copy foundation) must be complete
+- Tasks 022–028 (all HUD layouts) must be complete
+- Task 020 (motion system) must be complete
 
 ## Notes
 _Fill in after execution._

@@ -1,60 +1,67 @@
-# Task 031 — Crew Roster Copy
+# Task 031 — README
 
 ## Objective
 
-Apply `stationCopy.crew` strings to the Crew Roster page: heading, intro strip, empty state, and injured warning banner.
+Write the project README so that anyone who clones the repo immediately understands what the app is, how it looks, how to run it, and how the codebase is structured.
 
 ## Context
 
-- Read `apps/client/src/shared/copy/stationCopy.ts`
-- Read `apps/client/src/pages/CrewRoster/CrewRoster.tsx`
+- Read `status.md` — completed tasks and project state
+- Read `.claude/docs/architecture.md` — tech stack and monorepo layout
+- Read `.claude/docs/app.md` — domain overview
 
 ## Scope
 
 | Action | File |
 |--------|------|
-| Modify | `apps/client/src/pages/CrewRoster/CrewRoster.tsx` |
-| Modify | `apps/client/src/pages/CrewRoster/CrewRoster.module.scss` |
+| Create | `README.md` (root of the workspace) |
 
-## Layout Addition
+## README Structure
 
 ```
-CREW OPERATIONS
-Personnel manifest — ARES-7 crew roster.      ← intro strip, muted
-──────────────────────────────────────────────
-⚠ CREW MEMBER INJURED — Medical attention required.   ← shown if any crew.status === 'injured'
-──────────────────────────────────────────────
-[crew cards…]
+# Space Station Manager
 
-[empty state when no crew:]
-  No crew assigned to station. Awaiting crew transfer.
+[One-line description — HUD-style space station management game]
+
+## Screenshots / Preview
+[Placeholder note: "Add screenshots after first deploy"]
+
+## What It Is
+2-3 sentences describing the app as a game-like operations console.
+
+## Stack
+Table: Frontend | Backend | Database | Animations | Charts | Infra
+
+## Getting Started
+### Prerequisites
+### Install
+### Run (dev)
+### Run (with Docker DB)
+
+## Project Structure
+Monorepo layout — apps/client, apps/server, libs/db
+
+## Domain Model
+Brief bullet list: Station, Crew, Module, Resource, Mission, EventLog
+
+## Available Scripts
+nx serve client, nx serve server, nx test client, nx test server, nx build client
+
+## Factory Method
+One paragraph explaining the AI Factory Method (tasks, docs, log).
 ```
-
-- Heading: `stationCopy.crew.heading`
-- Intro: `stationCopy.crew.intro`
-- Injured banner: `stationCopy.crew.injuredWarning` — Ant Design `Alert` type `warning`, shown conditionally
-- Empty state: `stationCopy.crew.empty` — centered, `--color-text-muted`
-
-## Unit Tests
-
-- Modify `apps/client/src/pages/CrewRoster/CrewRoster.test.tsx`:
-  - Renders `stationCopy.crew.heading`
-  - Renders empty state when crew list is empty
-  - Renders injured warning when a crew member has status `'injured'`
 
 ## Acceptance Criteria
 
-- [ ] Heading and intro strip visible
-- [ ] Injured banner appears when any crew member is injured
-- [ ] Empty state shown when no crew
-- [ ] No hardcoded strings in JSX
-- [ ] `nx test client` passes
-- [ ] `nx build client` passes
+- [ ] README.md exists at repo root
+- [ ] Prerequisites and install steps are accurate
+- [ ] Stack table is complete
+- [ ] Domain model section present
+- [ ] No placeholder content except screenshots note
 
 ## Dependencies
 
-- Task 012 (Crew Roster) must be complete
-- Task 028 (station copy foundation) must be complete
+- All previous tasks complete
 
 ## Notes
 _Fill in after execution._
