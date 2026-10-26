@@ -1,64 +1,254 @@
+@use '../../shared/styles/variables' as *;
+@use '../../shared/styles/mixins' as *;
+
+// ── Main HUD grid ───────────────────────────────────────────────────────────
 .crew-roster {
+  display: grid;
+  grid-template-columns: 40% 1fr;
+  height: 100%;
+  overflow: hidden;
+}
+
+// ── Panel ───────────────────────────────────────────────────────────────────
+.crew-roster__panel {
   display: flex;
   flex-direction: column;
-  gap: var(--space-6);
-  padding: var(--space-6);
+  overflow: hidden;
+  padding: var(--space-4);
+  border-right: 1px solid var(--color-border);
 
-  &__header {
-    display: flex;
-    align-items: baseline;
-    gap: var(--space-4);
+  &:last-child {
+    border-right: none;
+  }
+}
+
+// ── Column header ────────────────────────────────────────────────────────────
+.crew-roster__col-header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.crew-roster__col-label {
+  font-family: var(--font-data);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+}
+
+.crew-roster__count {
+  font-family: var(--font-data);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-data);
+}
+
+// ── Filter pills ─────────────────────────────────────────────────────────────
+.crew-roster__filters {
+  display: flex;
+  gap: var(--space-1);
+  flex-wrap: wrap;
+  flex-shrink: 0;
+  margin-bottom: var(--space-3);
+}
+
+.crew-roster__filter-btn {
+  font-family: var(--font-data);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.06em;
+  padding: var(--space-1) var(--space-2);
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+
+  &:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
   }
 
-  &__title {
-    font-family: var(--font-ui);
-    font-size: var(--font-size-xl);
-    color: var(--color-text-primary);
-    font-weight: 600;
-    margin: 0;
+  &--active {
+    background: var(--color-accent-glow);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+  }
+}
+
+// ── Crew list ─────────────────────────────────────────────────────────────────
+.crew-roster__list {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+
+  // thin custom scrollbar
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+
+  &::-webkit-scrollbar {
+    width: 4px;
   }
 
-  &__count {
-    font-family: var(--font-data);
-    font-size: var(--font-size-sm);
-    color: var(--color-text-data);
+  &::-webkit-scrollbar-track {
+    background: transparent;
   }
 
-  &__filters {
-    display: flex;
-    gap: var(--space-2);
-    flex-wrap: wrap;
-  }
-
-  &__filter-btn {
-    font-family: var(--font-ui);
-    font-size: var(--font-size-xs);
-    letter-spacing: 0.06em;
-    padding: var(--space-1) var(--space-3);
-    background: var(--color-bg-surface);
-    border: 1px solid var(--color-border);
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-border);
     border-radius: 2px;
-    color: var(--color-text-muted);
-    cursor: pointer;
-    transition: all 0.15s;
+  }
+}
 
-    &:hover {
-      border-color: var(--color-accent);
-      color: var(--color-accent);
-    }
+// ── Crew row ──────────────────────────────────────────────────────────────────
+.crew-roster__row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  border-left: 3px solid transparent;
+  border-radius: 0 2px 2px 0;
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
 
-    &--active {
-      background: var(--color-accent-glow);
-      border-color: var(--color-accent);
-      color: var(--color-accent);
-    }
+  &:hover {
+    background: var(--color-bg-surface);
   }
 
-  &__empty {
-    font-family: var(--font-ui);
-    font-size: var(--font-size-base);
-    color: var(--color-text-muted);
-    padding: var(--space-8) 0;
-    text-align: center;
+  &--selected {
+    background: var(--color-bg-elevated);
+    border-left-color: var(--color-accent);
   }
+}
+
+// ── Status dot ────────────────────────────────────────────────────────────────
+.crew-roster__dot {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+
+  &--nominal  { background: var(--color-nominal); }
+  &--warning  { background: var(--color-warning); }
+  &--critical { background: var(--color-critical); }
+  &--offline  { background: var(--color-offline); }
+}
+
+// ── Row text ──────────────────────────────────────────────────────────────────
+.crew-roster__row-name {
+  font-family: var(--font-ui);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.crew-roster__row-role {
+  font-family: var(--font-data);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.crew-roster__row-status {
+  font-family: var(--font-data);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.06em;
+  flex-shrink: 0;
+
+  &--active  { color: var(--color-nominal); }
+  &--resting { color: var(--color-offline); }
+  &--injured { color: var(--color-critical); }
+  &--eva     { color: var(--color-warning); }
+}
+
+// ── Empty state (list) ────────────────────────────────────────────────────────
+.crew-roster__empty {
+  font-family: var(--font-ui);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  padding: var(--space-6) 0;
+  text-align: center;
+  margin: 0;
+}
+
+// ── Right panel — Personnel File ──────────────────────────────────────────────
+.crew-roster__empty-detail {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.crew-roster__empty-detail-text {
+  font-family: var(--font-data);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+.crew-roster__detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+}
+
+.crew-roster__detail-name {
+  font-family: var(--font-ui);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+  letter-spacing: 0.03em;
+}
+
+.crew-roster__detail-role {
+  font-family: var(--font-data);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.crew-roster__detail-section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.crew-roster__detail-label {
+  font-family: var(--font-data);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+}
+
+.crew-roster__detail-value {
+  font-family: var(--font-ui);
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+}
+
+.crew-roster__detail-status {
+  font-family: var(--font-data);
+  font-size: var(--font-size-sm);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+
+  &--active  { color: var(--color-nominal); }
+  &--resting { color: var(--color-offline); }
+  &--injured { color: var(--color-critical); }
+  &--eva     { color: var(--color-warning); }
 }

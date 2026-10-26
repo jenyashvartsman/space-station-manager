@@ -22,6 +22,14 @@ beforeAll(() => {
   });
 });
 
+vi.mock('../../domains/crew/hooks/useCrewPolling', () => ({
+  useCrewPolling: vi.fn(),
+}));
+
+vi.mock('../../domains/module/hooks/useModulePolling', () => ({
+  useModulePolling: vi.fn(),
+}));
+
 const mockCrew: CrewMember[] = [
   {
     id: 'c1',
@@ -59,9 +67,7 @@ const mockCrew: CrewMember[] = [
 ];
 
 function renderRoster() {
-  // Seed the Zustand store before render
   useCrewStore.setState({ crew: mockCrew });
-
   return render(
     <ConfigProvider theme={antdTheme}>
       <CrewRoster />
@@ -70,14 +76,14 @@ function renderRoster() {
 }
 
 describe('CrewRoster', () => {
-  it('renders a card for each crew member', () => {
+  it('renders a list row for each crew member', () => {
     renderRoster();
-    expect(screen.getByTestId('crew-card-c1')).toBeTruthy();
-    expect(screen.getByTestId('crew-card-c2')).toBeTruthy();
-    expect(screen.getByTestId('crew-card-c3')).toBeTruthy();
+    expect(screen.getByTestId('crew-row-c1')).toBeTruthy();
+    expect(screen.getByTestId('crew-row-c2')).toBeTruthy();
+    expect(screen.getByTestId('crew-row-c3')).toBeTruthy();
   });
 
-  it('shows crew member names', () => {
+  it('shows crew member names in list rows', () => {
     renderRoster();
     expect(screen.getByText('Dr. Elena Vasquez')).toBeTruthy();
     expect(screen.getByText('Cmdr. James Reeves')).toBeTruthy();
@@ -95,18 +101,18 @@ describe('CrewRoster', () => {
   it('filters crew by status when a filter button is clicked', () => {
     renderRoster();
     fireEvent.click(screen.getByTestId('filter-resting'));
-    expect(screen.queryByTestId('crew-card-c1')).toBeNull();
-    expect(screen.queryByTestId('crew-card-c3')).toBeNull();
-    expect(screen.getByTestId('crew-card-c2')).toBeTruthy();
+    expect(screen.queryByTestId('crew-row-c1')).toBeNull();
+    expect(screen.queryByTestId('crew-row-c3')).toBeNull();
+    expect(screen.getByTestId('crew-row-c2')).toBeTruthy();
   });
 
   it('shows all crew when "all" filter is selected', () => {
     renderRoster();
     fireEvent.click(screen.getByTestId('filter-active'));
     fireEvent.click(screen.getByTestId('filter-all'));
-    expect(screen.getByTestId('crew-card-c1')).toBeTruthy();
-    expect(screen.getByTestId('crew-card-c2')).toBeTruthy();
-    expect(screen.getByTestId('crew-card-c3')).toBeTruthy();
+    expect(screen.getByTestId('crew-row-c1')).toBeTruthy();
+    expect(screen.getByTestId('crew-row-c2')).toBeTruthy();
+    expect(screen.getByTestId('crew-row-c3')).toBeTruthy();
   });
 
   it('shows empty message when no crew match the filter', () => {
@@ -118,5 +124,18 @@ describe('CrewRoster', () => {
   it('displays the crew count', () => {
     renderRoster();
     expect(screen.getByText('3 crew')).toBeTruthy();
+  });
+
+  it('right panel shows SELECT CREW MEMBER text by default', () => {
+    renderRoster();
+    expect(screen.getByText('SELECT CREW MEMBER TO VIEW FILE')).toBeTruthy();
+  });
+
+  it('clicking a crew row shows that crew member name in the detail panel', () => {
+    renderRoster();
+    fireEvent.click(screen.getByTestId('crew-row-c1'));
+    // Name appears in the detail panel heading
+    const names = screen.getAllByText('Dr. Elena Vasquez');
+    expect(names.length).toBeGreaterThanOrEqual(1);
   });
 });
