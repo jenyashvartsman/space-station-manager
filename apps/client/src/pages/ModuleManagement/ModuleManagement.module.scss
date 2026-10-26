@@ -1,69 +1,270 @@
+@use '../../shared/styles/variables' as *;
+@use '../../shared/styles/mixins' as *;
+
+// ── Main HUD grid ───────────────────────────────────────────────────────────
 .module-management {
+  display: grid;
+  grid-template-columns: 38% 1fr;
+  height: 100%;
+  overflow: hidden;
+}
+
+// ── Panel ────────────────────────────────────────────────────────────────────
+.module-management__panel {
   display: flex;
   flex-direction: column;
-  gap: var(--space-8);
+  overflow: hidden;
+  padding: var(--space-4);
+  border-right: 1px solid var(--color-border);
 
-  &__header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: var(--space-4);
+  &:last-child {
+    border-right: none;
+  }
+}
+
+// ── Column header ─────────────────────────────────────────────────────────────
+.module-management__col-header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: var(--space-3);
+  margin-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.module-management__col-label {
+  font-family: var(--font-data);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+}
+
+.module-management__count {
+  font-family: var(--font-data);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-data);
+}
+
+// ── Module tile grid ──────────────────────────────────────────────────────────
+.module-management__tile-grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2);
+  overflow-y: auto;
+  min-height: 0;
+  align-content: start;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+
+  &::-webkit-scrollbar {
+    width: 4px;
   }
 
-  &__title-row {
-    display: flex;
-    align-items: baseline;
-    gap: var(--space-4);
+  &::-webkit-scrollbar-thumb {
+    background: var(--color-border);
+    border-radius: 2px;
   }
+}
 
-  &__title {
-    margin: 0;
-    font-family: var(--font-ui);
-    font-size: var(--font-size-xl);
-    color: var(--color-text-primary);
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
+// ── Module tile button ────────────────────────────────────────────────────────
+.module-management__tile-btn {
+  all: unset;
+  display: block;
+  width: 100%;
+  cursor: pointer;
+  border-left: 4px solid var(--color-border);
+  border-radius: 0 4px 4px 0;
+  transition: background 0.12s, border-color 0.12s;
+  box-sizing: border-box;
 
-  &__count {
-    font-family: var(--font-data);
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-  }
-
-  &__chart-section {
+  &:hover {
     background: var(--color-bg-surface);
-    border: 1px solid var(--color-border);
-    border-radius: 4px;
-    padding: var(--space-6);
   }
 
-  &__section-title {
-    margin: 0 0 var(--space-4) 0;
-    font-family: var(--font-ui);
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    font-weight: 400;
+  &--selected {
+    background: var(--color-bg-elevated);
+    outline: 1px solid var(--color-accent);
+    outline-offset: -1px;
   }
 
-  &__grid-section {
-    // no extra styling needed — Row/Col handles the grid
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+}
+
+// ── Sort controls ─────────────────────────────────────────────────────────────
+.module-management__sort-row {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-top: var(--space-3);
+  margin-top: var(--space-2);
+  border-top: 1px solid var(--color-border);
+}
+
+.module-management__sort-label {
+  font-family: var(--font-data);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  letter-spacing: 0.08em;
+  flex-shrink: 0;
+}
+
+.module-management__sort-btn {
+  font-family: var(--font-data);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.06em;
+  padding: var(--space-1) var(--space-2);
+  background: var(--color-bg-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: all 0.15s;
+
+  &:hover {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
   }
 
-  &__tile-btn {
-    all: unset;
-    display: block;
-    width: 100%;
-    cursor: pointer;
-
-    &:focus-visible {
-      outline: 2px solid var(--color-accent);
-      outline-offset: 2px;
-      border-radius: 4px;
-    }
+  &--active {
+    background: var(--color-accent-glow);
+    border-color: var(--color-accent);
+    color: var(--color-accent);
   }
+}
+
+// ── Right panel — System Detail ───────────────────────────────────────────────
+.module-management__empty-detail {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.module-management__empty-detail-text {
+  font-family: var(--font-data);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+.module-management__detail-loading {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.module-management__loading-text {
+  font-family: var(--font-data);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  letter-spacing: 0.08em;
+}
+
+.module-management__detail {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+.module-management__detail-name {
+  font-family: var(--font-ui);
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0;
+  letter-spacing: 0.03em;
+}
+
+.module-management__detail-row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.module-management__detail-label {
+  font-family: var(--font-data);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
+}
+
+.module-management__detail-value {
+  font-family: var(--font-ui);
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  text-transform: capitalize;
+}
+
+.module-management__detail-reading {
+  font-family: var(--font-data);
+  font-size: var(--font-size-data);
+  color: var(--color-text-data);
+}
+
+.module-management__detail-crew {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.module-management__no-crew {
+  font-family: var(--font-ui);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  margin: 0;
+}
+
+.module-management__crew-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.module-management__crew-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) 0;
+}
+
+.module-management__crew-name {
+  font-family: var(--font-ui);
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+}
+
+// ── Chart section ─────────────────────────────────────────────────────────────
+.module-management__chart-section {
+  flex-shrink: 0;
+  border-top: 1px solid var(--color-border);
+  padding-top: var(--space-3);
+  margin-top: var(--space-2);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.module-management__chart-label {
+  font-family: var(--font-data);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--color-text-muted);
 }

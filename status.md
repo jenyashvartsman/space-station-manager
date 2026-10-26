@@ -1,7 +1,7 @@
 # Status — Space Station Manager
 
 ## Current Task
-**TASK-025** — Module Management HUD Layout
+**TASK-026** — Resource Panel HUD Layout
 
 ## Factory Phase
 `INIT` → `SCAFFOLD` → `CORE` → `FEATURES` → `POLISH`
@@ -37,12 +37,12 @@ Current: **SCAFFOLD**
 | 022 | HUD Shell Redesign | 2026-10-25 |
 | 023 | Station Dashboard HUD Layout | 2026-10-25 |
 | 024 | Crew Roster HUD Layout | 2026-10-25 |
+| 025 | Module Management HUD Layout | 2026-10-25 |
 
 ## Pending Tasks
 
 | Task | Title | Phase |
 |------|-------|-------|
-| 025 | Module Management HUD Layout | POLISH |
 | 026 | Resource Panel HUD Layout | POLISH |
 | 027 | Mission Control HUD Layout | POLISH |
 | 028 | Event Log HUD Layout | POLISH |
@@ -54,4 +54,4 @@ Current: **SCAFFOLD**
 _None_
 
 ## Last Note
-TASK-024 complete: CrewRoster rebuilt as two-column HUD — compact crew rows with status dot + filter pills left, always-visible Personnel File detail panel right (health bar, role, assignment selector); 201 tests green, build and lint pass.
+TASK-025 complete: ModuleManagement rebuilt as two-column HUD — 2-col tile grid with status borders + sort buttons left, always-visible inline System Detail panel right (name, type, status, power, crew, status selector, PowerConsumptionChart); Drawer removed; 202 tests green, build and lint pass.

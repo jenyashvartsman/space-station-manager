@@ -1,11 +1,15 @@
 import { describe, it, expect, beforeAll, vi } from 'vitest';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { ConfigProvider } from 'antd';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { ModuleManagement } from './ModuleManagement';
 import { useModuleStore } from '../../domains/module/store/useModuleStore';
 import { antdTheme } from '../../shared/theme/antd.theme';
 import type { Module } from '../../domains/module/types/module.types';
+
+vi.mock('../../domains/module/hooks/useModulePolling', () => ({
+  useModulePolling: vi.fn(),
+}));
 
 beforeAll(() => {
   Object.defineProperty(window, 'matchMedia', {
@@ -53,16 +57,22 @@ function renderPage(path = '/modules') {
 }
 
 describe('ModuleManagement', () => {
+  it('renders column headings: MODULE SYSTEMS and SYSTEM DETAIL', () => {
+    renderPage();
+    expect(screen.getByText(/◈ MODULE SYSTEMS/)).toBeTruthy();
+    expect(screen.getByText(/◈ SYSTEM DETAIL/)).toBeTruthy();
+  });
+
+  it('right panel shows SELECT A MODULE message by default', () => {
+    renderPage();
+    expect(screen.getByText('SELECT A MODULE TO VIEW SYSTEM DETAIL')).toBeTruthy();
+  });
+
   it('renders a tile for each module', () => {
     renderPage();
     mockModules.forEach((m) => {
       expect(screen.getByTestId(`module-tile-${m.id}`)).toBeTruthy();
     });
-  });
-
-  it('renders the page title', () => {
-    renderPage();
-    expect(screen.getByText('Modules')).toBeTruthy();
   });
 
   it('renders the module count', () => {
@@ -89,7 +99,7 @@ describe('ModuleManagement', () => {
     expect(lastBtn.getAttribute('data-testid')).toBe('module-btn-m4');
   });
 
-  it('opens the drawer when a module tile is clicked', async () => {
+  it('clicking a module tile shows that module name in the detail panel', async () => {
     vi.spyOn(globalThis, 'fetch').mockResolvedValueOnce({
       ok: true,
       json: async () => ({
@@ -99,6 +109,10 @@ describe('ModuleManagement', () => {
 
     renderPage();
     fireEvent.click(screen.getByTestId('module-btn-m1'));
-    // Drawer content loads asynchronously — just verify click doesn't throw
+
+    await waitFor(() => {
+      expect(screen.getByTestId('detail-module-name')).toBeTruthy();
+    });
+    expect(screen.getByTestId('detail-module-name').textContent).toBe('Life Support Alpha');
   });
 });
