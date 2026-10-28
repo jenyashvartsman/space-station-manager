@@ -1,30 +1,81 @@
+@use '../../shared/styles/variables' as *;
+@use '../../shared/styles/mixins' as *;
+
+// ── Main layout ──────────────────────────────────────────────────────────────
 .event-log {
   display: flex;
   flex-direction: column;
-  gap: var(--space-4);
-  padding: var(--space-6);
+  height: 100%;
+  overflow: hidden;
+}
 
-  &__header {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: var(--space-4);
+// ── Header bar ───────────────────────────────────────────────────────────────
+.event-log__header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.event-log__title {
+  font-family: var(--font-data);
+  font-size: var(--font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-text-muted);
+}
+
+// ── Live indicator ────────────────────────────────────────────────────────────
+.event-log__live {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.event-log__live-dot {
+  font-size: var(--font-size-xs);
+  color: var(--color-nominal);
+  animation: blink 1s step-end infinite;
+}
+
+.event-log__live-label {
+  font-family: var(--font-data);
+  font-size: var(--font-size-xs);
+  color: var(--color-nominal);
+  letter-spacing: 0.08em;
+}
+
+.event-log__timestamp {
+  font-family: var(--font-data);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  letter-spacing: 0.04em;
+}
+
+// ── Feed area — fills remaining height ────────────────────────────────────────
+.event-log__feed {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+
+  &::-webkit-scrollbar {
+    width: 4px;
   }
 
-  &__title {
-    font-size: var(--font-size-xl);
-    color: var(--color-text-primary);
-    font-family: var(--font-ui);
-    letter-spacing: 0.08em;
-    margin: 0;
-  }
-
-  &__updated {
-    white-space: nowrap;
-  }
-
-  &__divider {
-    height: 1px;
+  &::-webkit-scrollbar-thumb {
     background: var(--color-border);
+    border-radius: 2px;
+  }
+}
+
+// ── Animation ─────────────────────────────────────────────────────────────────
+@keyframes blink {
+  50% {
+    opacity: 0;
   }
 }

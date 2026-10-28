@@ -48,32 +48,24 @@ export function EventEntry({ event }: EventEntryProps) {
       transition={{ duration: 0.15 }}
       data-testid={`event-entry-${event.id}`}
     >
-      <div className={styles['event-entry__type']}>
-        <span
-          className={`${styles['event-entry__dot']} ${colorClass}`}
-          aria-hidden="true"
-        />
-        <span
-          className={`${styles['event-entry__label']} text--label ${colorClass}`}
-          data-testid={`event-type-${event.id}`}
-        >
-          {formatTypeLabel(event.type)}
-        </span>
-      </div>
-      <div className={styles['event-entry__body']}>
-        <span
-          className={styles['event-entry__message']}
-          data-testid={`event-message-${event.id}`}
-        >
-          {event.message}
-        </span>
-        <span
-          className={`${styles['event-entry__timestamp']} text--data`}
-          data-testid={`event-timestamp-${event.id}`}
-        >
-          {formatTimestamp(event.createdAt)}
-        </span>
-      </div>
+      <span
+        className={`${styles['event-entry__type']} ${colorClass}`}
+        data-testid={`event-type-${event.id}`}
+      >
+        {formatTypeLabel(event.type)}
+      </span>
+      <span
+        className={styles['event-entry__timestamp']}
+        data-testid={`event-timestamp-${event.id}`}
+      >
+        {formatTimestamp(event.createdAt)}
+      </span>
+      <span
+        className={styles['event-entry__message']}
+        data-testid={`event-message-${event.id}`}
+      >
+        {event.message}
+      </span>
     </motion.div>
   );
 }

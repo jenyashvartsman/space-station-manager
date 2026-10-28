@@ -54,10 +54,16 @@ function renderPage() {
 }
 
 describe('EventLog', () => {
-  it('renders the page heading', () => {
+  it('renders the STATION COMMS LOG heading', () => {
     useEventLogStore.setState({ events: [], lastUpdatedAt: null });
     renderPage();
-    expect(screen.getByText('STATION EVENT LOG')).toBeTruthy();
+    expect(screen.getByText('◈ STATION COMMS LOG')).toBeTruthy();
+  });
+
+  it('renders the live indicator', () => {
+    useEventLogStore.setState({ events: [], lastUpdatedAt: null });
+    renderPage();
+    expect(screen.getByTestId('event-log-live')).toBeTruthy();
   });
 
   it('renders the EventLogFeed component', () => {
@@ -73,16 +79,14 @@ describe('EventLog', () => {
     expect(screen.getByTestId('event-entry-ev2')).toBeTruthy();
   });
 
-  it('shows last updated timestamp when available', () => {
+  it('shows timestamp element when lastUpdatedAt is set', () => {
     const now = new Date('2026-10-18T14:32:10.000Z');
     useEventLogStore.setState({ events: [], lastUpdatedAt: now });
     renderPage();
     expect(screen.getByTestId('event-log-updated')).toBeTruthy();
-    const text = screen.getByTestId('event-log-updated').textContent ?? '';
-    expect(text).toContain('Last updated:');
   });
 
-  it('does not show last updated when lastUpdatedAt is null', () => {
+  it('does not show timestamp when lastUpdatedAt is null', () => {
     useEventLogStore.setState({ events: [], lastUpdatedAt: null });
     renderPage();
     expect(screen.queryByTestId('event-log-updated')).toBeNull();

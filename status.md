@@ -1,7 +1,7 @@
 # Status — Space Station Manager
 
 ## Current Task
-**TASK-028** — Event Log HUD Layout
+**TASK-029** — HUD Entrance Animations
 
 ## Factory Phase
 `INIT` → `SCAFFOLD` → `CORE` → `FEATURES` → `POLISH`
@@ -40,12 +40,12 @@ Current: **SCAFFOLD**
 | 025 | Module Management HUD Layout | 2026-10-25 |
 | 026 | Resource Panel HUD Layout | 2026-10-28 |
 | 027 | Mission Control HUD Layout | 2026-10-28 |
+| 028 | Event Log HUD Layout | 2026-10-28 |
 
 ## Pending Tasks
 
 | Task | Title | Phase |
 |------|-------|-------|
-| 028 | Event Log HUD Layout | POLISH |
 | 029 | HUD Entrance Animations | POLISH |
 | 030 | Game Copy | POLISH |
 | 031 | README | POLISH |
@@ -54,4 +54,4 @@ Current: **SCAFFOLD**
 _None_
 
 ## Last Note
-TASK-027 complete: MissionControl rebuilt as three-column HUD (1fr 1fr 1fr) — ◈ ACTIVE OPS, ◈ QUEUED OPS, ◈ COMPLETED OPS columns with count badges and independently scrollable bodies; full-width HUD-styled New Mission button in pinned footer; 202 tests green, build and lint pass.
+TASK-028 complete: EventLog rebuilt as fullscreen comms terminal — fixed header bar with ◈ STATION COMMS LOG and blinking ● LIVE indicator; EventLogFeed fills remaining height with overflow scroll and thin dark scrollbar; blink keyframe added; 202 tests green, build and lint pass.

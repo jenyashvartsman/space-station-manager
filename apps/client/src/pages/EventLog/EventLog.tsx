@@ -18,21 +18,25 @@ export function EventLog() {
 
   return (
     <div className={styles['event-log']}>
-      <header className={styles['event-log__header']}>
-        <h1 className={styles['event-log__title']}>STATION EVENT LOG</h1>
-        {lastUpdatedAt && (
-          <span
-            className={`${styles['event-log__updated']} text--muted`}
-            data-testid="event-log-updated"
-          >
-            Last updated: {formatTime(lastUpdatedAt)}
-          </span>
-        )}
-      </header>
+      <div className={styles['event-log__header']}>
+        <span className={styles['event-log__title']}>◈ STATION COMMS LOG</span>
+        <div className={styles['event-log__live']} data-testid="event-log-live">
+          <span className={styles['event-log__live-dot']} aria-hidden="true">●</span>
+          <span className={styles['event-log__live-label']}>LIVE</span>
+          {lastUpdatedAt && (
+            <span
+              className={styles['event-log__timestamp']}
+              data-testid="event-log-updated"
+            >
+              {formatTime(lastUpdatedAt)}
+            </span>
+          )}
+        </div>
+      </div>
 
-      <div className={styles['event-log__divider']} />
-
-      <EventLogFeed events={events} />
+      <div className={styles['event-log__feed']}>
+        <EventLogFeed events={events} />
+      </div>
     </div>
   );
 }
