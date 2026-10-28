@@ -1,7 +1,7 @@
 # Status — Space Station Manager
 
 ## Current Task
-**TASK-031** — README
+**TASK-032** — _(next task)_
 
 ## Factory Phase
 `INIT` → `SCAFFOLD` → `CORE` → `FEATURES` → `POLISH`
@@ -43,15 +43,15 @@ Current: **SCAFFOLD**
 | 028 | Event Log HUD Layout | 2026-10-28 |
 | 029 | HUD Entrance Animations | 2026-10-28 |
 | 030 | Game Copy | 2026-10-28 |
+| 031 | README | 2026-10-28 |
 
 ## Pending Tasks
 
 | Task | Title | Phase |
 |------|-------|-------|
-| 031 | README | POLISH |
 
 ## Blockers
 _None_
 
 ## Last Note
-TASK-030 complete: stationCopy.ts created with 9 top-level keys; all hardcoded UI strings replaced across Landing, StationDashboard, CrewRoster, ModuleManagement, ResourcePanel, MissionControl, and EventLog; 2 tests updated to match new copy; 214 tests green, build and lint pass.
+TASK-031 complete: README.md created at repo root with description, stack table, prerequisites, install/run/seed steps, monorepo structure, domain model, available scripts, and Factory Method section; no tests required for docs task.
