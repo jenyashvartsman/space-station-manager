@@ -1,6 +1,8 @@
+import { motion } from 'framer-motion';
 import { useEventLogPolling } from '../../domains/event-log/hooks/useEventLogPolling';
 import { useEventLogStore } from '../../domains/event-log/store/useEventLogStore';
 import { EventLogFeed } from '../../domains/event-log/components/EventLogFeed/EventLogFeed';
+import { pageEnter, hudBoot } from '../../shared/motion/stationMotion';
 import styles from './EventLog.module.scss';
 
 function formatTime(date: Date): string {
@@ -17,8 +19,8 @@ export function EventLog() {
   useEventLogPolling();
 
   return (
-    <div className={styles['event-log']}>
-      <div className={styles['event-log__header']}>
+    <motion.div className={styles['event-log']} {...pageEnter}>
+      <motion.div className={styles['event-log__header']} {...hudBoot}>
         <span className={styles['event-log__title']}>◈ STATION COMMS LOG</span>
         <div className={styles['event-log__live']} data-testid="event-log-live">
           <span className={styles['event-log__live-dot']} aria-hidden="true">●</span>
@@ -32,11 +34,11 @@ export function EventLog() {
             </span>
           )}
         </div>
-      </div>
+      </motion.div>
 
-      <div className={styles['event-log__feed']}>
+      <motion.div className={styles['event-log__feed']} {...hudBoot}>
         <EventLogFeed events={events} />
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

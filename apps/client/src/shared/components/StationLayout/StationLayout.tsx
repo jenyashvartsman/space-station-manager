@@ -1,5 +1,7 @@
 import { NavLink, Outlet } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { HudUptime } from '../HudUptime/HudUptime';
+import { hudBoot } from '../../motion/stationMotion';
 import styles from './StationLayout.module.scss';
 
 const NAV_TABS = [
@@ -13,7 +15,7 @@ const NAV_TABS = [
 
 export function StationLayout() {
   return (
-    <div className={styles['hud-shell']}>
+    <motion.div className={styles['hud-shell']} {...hudBoot}>
       <header className={styles['hud-shell__top-bar']}>
         <span className={styles['hud-shell__callsign']}>◈ KEPLER STATION ALPHA</span>
         <span className={styles['hud-shell__live-status']}>STATUS: NOMINAL</span>
@@ -38,6 +40,6 @@ export function StationLayout() {
           </NavLink>
         ))}
       </nav>
-    </div>
+    </motion.div>
   );
 }

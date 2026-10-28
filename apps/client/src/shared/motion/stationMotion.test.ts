@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { pageEnter, panelContainer, panelItem, hoverLift } from './stationMotion';
+import { pageEnter, panelContainer, panelItem, hoverLift, hudBoot, hudColumnEnter } from './stationMotion';
 
 describe('stationMotion', () => {
   describe('pageEnter', () => {
@@ -54,6 +54,36 @@ describe('stationMotion', () => {
 
     it('lifts by y -3', () => {
       expect(hoverLift.whileHover).toMatchObject({ y: -3 });
+    });
+  });
+
+  describe('hudBoot', () => {
+    it('has initial and animate keys', () => {
+      expect(hudBoot).toHaveProperty('initial');
+      expect(hudBoot).toHaveProperty('animate');
+    });
+
+    it('starts with opacity 0', () => {
+      expect(hudBoot.initial).toEqual({ opacity: 0 });
+    });
+
+    it('animates to opacity 1', () => {
+      expect(hudBoot.animate).toMatchObject({ opacity: 1 });
+    });
+  });
+
+  describe('hudColumnEnter', () => {
+    it('has initial and animate keys', () => {
+      expect(hudColumnEnter).toHaveProperty('initial');
+      expect(hudColumnEnter).toHaveProperty('animate');
+    });
+
+    it('starts with opacity 0 and y -24', () => {
+      expect(hudColumnEnter.initial).toEqual({ opacity: 0, y: -24 });
+    });
+
+    it('animates to opacity 1 and y 0', () => {
+      expect(hudColumnEnter.animate).toMatchObject({ opacity: 1, y: 0 });
     });
   });
 });

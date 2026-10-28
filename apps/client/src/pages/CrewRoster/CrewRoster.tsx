@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { useCrewPolling } from '../../domains/crew/hooks/useCrewPolling';
 import { useModulePolling } from '../../domains/module/hooks/useModulePolling';
 import { useCrewStore } from '../../domains/crew/store/useCrewStore';
 import { CrewHealthBar } from '../../domains/crew/components/CrewHealthBar/CrewHealthBar';
 import { CrewAssignmentSelect } from '../../domains/crew/components/CrewAssignmentSelect/CrewAssignmentSelect';
+import { pageEnter, hudBoot, panelContainer, panelItem } from '../../shared/motion/stationMotion';
 import type { CrewStatus } from '../../domains/crew/types/crew.types';
 import styles from './CrewRoster.module.scss';
 
@@ -34,9 +36,9 @@ export function CrewRoster() {
     : null;
 
   return (
-    <div className={styles['crew-roster']}>
+    <motion.div className={styles['crew-roster']} {...pageEnter}>
       {/* Left panel — Personnel Manifest */}
-      <div className={styles['crew-roster__panel']} data-panel="manifest">
+      <motion.div className={styles['crew-roster__panel']} data-panel="manifest" {...hudBoot}>
         <div className={styles['crew-roster__col-header']}>
           <span className={styles['crew-roster__col-label']}>◈ PERSONNEL MANIFEST</span>
           <span className={styles['crew-roster__count']}>{crew.length} crew</span>
@@ -62,12 +64,17 @@ export function CrewRoster() {
           ))}
         </div>
 
-        <div className={styles['crew-roster__list']}>
+        <motion.div
+          className={styles['crew-roster__list']}
+          variants={panelContainer}
+          initial="initial"
+          animate="animate"
+        >
           {filteredCrew.map((member) => {
             const dotStatus = STATUS_DOT_CLASS[member.status] ?? 'offline';
             const isSelected = member.id === selectedCrewId;
             return (
-              <div
+              <motion.div
                 key={member.id}
                 className={`${styles['crew-roster__row']} ${isSelected ? styles['crew-roster__row--selected'] : ''}`}
                 onClick={() => setSelectedCrewId(member.id)}
@@ -76,6 +83,7 @@ export function CrewRoster() {
                 onKeyDown={(e) => e.key === 'Enter' && setSelectedCrewId(member.id)}
                 aria-pressed={isSelected}
                 data-testid={`crew-row-${member.id}`}
+                variants={panelItem}
               >
                 <span
                   className={`${styles['crew-roster__dot']} ${styles[`crew-roster__dot--${dotStatus}`]}`}
@@ -88,17 +96,17 @@ export function CrewRoster() {
                 >
                   {member.status.toUpperCase()}
                 </span>
-              </div>
+              </motion.div>
             );
           })}
           {filteredCrew.length === 0 && (
             <p className={styles['crew-roster__empty']}>No crew members match this filter.</p>
           )}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Right panel — Personnel File */}
-      <div className={styles['crew-roster__panel']} data-panel="file">
+      <motion.div className={styles['crew-roster__panel']} data-panel="file" {...hudBoot}>
         <div className={styles['crew-roster__col-header']}>
           <span className={styles['crew-roster__col-label']}>◈ PERSONNEL FILE</span>
         </div>
@@ -146,7 +154,7 @@ export function CrewRoster() {
             </div>
           </div>
         )}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

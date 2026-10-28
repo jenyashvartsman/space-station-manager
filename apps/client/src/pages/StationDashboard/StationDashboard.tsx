@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { useStationPolling } from '../../domains/station/hooks/useStationPolling';
 import { useResourcePolling } from '../../domains/resource/hooks/useResourcePolling';
 import { useModulePolling } from '../../domains/module/hooks/useModulePolling';
@@ -7,6 +8,7 @@ import { useModuleStore } from '../../domains/module/store/useModuleStore';
 import { StationResetButton } from '../../domains/station/components/StationResetButton/StationResetButton';
 import { StationSchematic } from '../../domains/station/components/StationSchematic/StationSchematic';
 import { SkeletonPanel } from '../../shared/components/SkeletonPanel/SkeletonPanel';
+import { pageEnter, hudColumnEnter, panelContainer, panelItem } from '../../shared/motion/stationMotion';
 import type { ModuleStatus } from '../../domains/module/types/module.types';
 import type { Resource } from '../../domains/resource/types/resource.types';
 import styles from './StationDashboard.module.scss';
@@ -33,6 +35,16 @@ const MODULE_STATUS_COLOR: Record<string, string> = {
   offline: 'var(--color-offline)',
 };
 
+function colEnter(i: number) {
+  return {
+    initial: hudColumnEnter.initial,
+    animate: {
+      ...hudColumnEnter.animate,
+      transition: { ...hudColumnEnter.animate.transition, delay: i * 0.08 },
+    },
+  };
+}
+
 export function StationDashboard() {
   const station = useStationStore((s) => s.station);
   const resources = useResourceStore((s) => s.resources);
@@ -56,9 +68,9 @@ export function StationDashboard() {
   }
 
   return (
-    <div className={styles['station-dashboard']}>
+    <motion.div className={styles['station-dashboard']} {...pageEnter}>
       {/* Left column — Station Schematic */}
-      <div className={styles['station-dashboard__col']} data-col="schematic">
+      <motion.div className={styles['station-dashboard__col']} data-col="schematic" {...colEnter(0)}>
         <div className={styles['station-dashboard__col-header']}>
           <span className={styles['station-dashboard__col-label']}>◈ SCHEMATIC</span>
         </div>
@@ -82,25 +94,31 @@ export function StationDashboard() {
         <div className={styles['station-dashboard__reset-wrap']}>
           <StationResetButton />
         </div>
-      </div>
+      </motion.div>
 
       {/* Center column — Resource Banks */}
-      <div className={styles['station-dashboard__col']} data-col="resources">
+      <motion.div className={styles['station-dashboard__col']} data-col="resources" {...colEnter(1)}>
         <div className={styles['station-dashboard__col-header']}>
           <span className={styles['station-dashboard__col-label']}>◈ RESOURCE BANKS</span>
         </div>
 
-        <div className={styles['station-dashboard__resource-list']}>
+        <motion.div
+          className={styles['station-dashboard__resource-list']}
+          variants={panelContainer}
+          initial="initial"
+          animate="animate"
+        >
           {resources.map((resource) => {
             const pct = resource.capacity > 0
               ? Math.round((resource.current / resource.capacity) * 100)
               : 0;
             const status = deriveResourceStatus(resource);
             return (
-              <div
+              <motion.div
                 key={resource.id}
                 className={styles['station-dashboard__resource-row']}
                 data-testid={`dashboard-resource-${resource.id}`}
+                variants={panelItem}
               >
                 <div className={styles['station-dashboard__resource-header']}>
                   <span className={styles['station-dashboard__resource-label']}>
@@ -117,28 +135,34 @@ export function StationDashboard() {
                     aria-label={`${resource.type} ${pct}%`}
                   />
                 </div>
-              </div>
+              </motion.div>
             );
           })}
           {resources.length === 0 && (
             <p className={styles['station-dashboard__empty']}>Loading resources…</p>
           )}
-        </div>
-      </div>
+        </motion.div>
+      </motion.div>
 
       {/* Right column — Module Grid */}
-      <div className={styles['station-dashboard__col']} data-col="modules">
+      <motion.div className={styles['station-dashboard__col']} data-col="modules" {...colEnter(2)}>
         <div className={styles['station-dashboard__col-header']}>
           <span className={styles['station-dashboard__col-label']}>◈ MODULE GRID</span>
         </div>
 
-        <div className={styles['station-dashboard__module-list']}>
+        <motion.div
+          className={styles['station-dashboard__module-list']}
+          variants={panelContainer}
+          initial="initial"
+          animate="animate"
+        >
           {modules.map((module) => (
-            <div
+            <motion.div
               key={module.id}
               className={styles['station-dashboard__module-row']}
               style={{ borderLeftColor: MODULE_STATUS_COLOR[module.status] ?? MODULE_STATUS_COLOR['offline'] }}
               data-testid={`dashboard-module-${module.id}`}
+              variants={panelItem}
             >
               <span className={styles['station-dashboard__module-name']}>{module.name}</span>
               <span
@@ -146,13 +170,13 @@ export function StationDashboard() {
               >
                 {module.status.toUpperCase()}
               </span>
-            </div>
+            </motion.div>
           ))}
           {modules.length === 0 && (
             <p className={styles['station-dashboard__empty']}>Loading modules…</p>
           )}
-        </div>
-      </div>
-    </div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
   );
 }

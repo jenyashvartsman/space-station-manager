@@ -1,7 +1,7 @@
 # Status — Space Station Manager
 
 ## Current Task
-**TASK-029** — HUD Entrance Animations
+**TASK-030** — Game Copy
 
 ## Factory Phase
 `INIT` → `SCAFFOLD` → `CORE` → `FEATURES` → `POLISH`
@@ -41,12 +41,12 @@ Current: **SCAFFOLD**
 | 026 | Resource Panel HUD Layout | 2026-10-28 |
 | 027 | Mission Control HUD Layout | 2026-10-28 |
 | 028 | Event Log HUD Layout | 2026-10-28 |
+| 029 | HUD Entrance Animations | 2026-10-28 |
 
 ## Pending Tasks
 
 | Task | Title | Phase |
 |------|-------|-------|
-| 029 | HUD Entrance Animations | POLISH |
 | 030 | Game Copy | POLISH |
 | 031 | README | POLISH |
 
@@ -54,4 +54,4 @@ Current: **SCAFFOLD**
 _None_
 
 ## Last Note
-TASK-028 complete: EventLog rebuilt as fullscreen comms terminal — fixed header bar with ◈ STATION COMMS LOG and blinking ● LIVE indicator; EventLogFeed fills remaining height with overflow scroll and thin dark scrollbar; blink keyframe added; 202 tests green, build and lint pass.
+TASK-029 complete: hudBoot and hudColumnEnter variants added to stationMotion.ts; StationLayout shell and all 6 HUD pages wired with entrance animations (pageEnter root, hudBoot/hudColumnEnter per panel/column, panelItem stagger on rows); skeleton loading added to ResourcePanel, MissionControl, and ModuleManagement; 208 tests green, build and lint pass.

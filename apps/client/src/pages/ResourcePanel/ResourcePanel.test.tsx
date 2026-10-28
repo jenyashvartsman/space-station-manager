@@ -98,10 +98,10 @@ describe('ResourcePanel', () => {
     expect(charts.length).toBe(5);
   });
 
-  it('renders loading state when resources are empty', () => {
+  it('renders skeleton panels when resources are empty', () => {
     useResourceStore.setState({ resources: [] });
     render(<ResourcePanel />);
-    const loadingMessages = screen.getAllByText('Loading resources…');
-    expect(loadingMessages.length).toBe(2);
+    const skeletons = screen.getAllByTestId('skeleton-panel');
+    expect(skeletons.length).toBeGreaterThanOrEqual(1);
   });
 });

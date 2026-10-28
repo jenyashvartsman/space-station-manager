@@ -19,3 +19,15 @@ export const panelItem = {
 export const hoverLift = {
   whileHover: { y: -3, transition: { duration: 0.15 } },
 };
+
+// HUD panel fade — simple opacity reveal
+export const hudBoot = {
+  initial: { opacity: 0 },
+  animate: { opacity: 1, transition: { duration: 0.25, ease: 'easeOut' } },
+};
+
+// HUD column scan — slides in from top with clip
+export const hudColumnEnter = {
+  initial: { opacity: 0, y: -24 },
+  animate: { opacity: 1, y: 0, transition: { duration: 0.3, ease: 'easeOut' } },
+};

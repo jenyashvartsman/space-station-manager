@@ -114,11 +114,10 @@ describe('MissionControl', () => {
     expect(screen.getByTestId('new-mission-button')).toBeTruthy();
   });
 
-  it('shows empty state for all columns when no missions', () => {
+  it('shows skeleton panels while missions are loading (empty array)', () => {
     renderPage([]);
-    expect(screen.getByTestId('active-empty')).toBeTruthy();
-    expect(screen.getByTestId('queued-empty')).toBeTruthy();
-    expect(screen.getByTestId('completed-empty')).toBeTruthy();
+    const skeletons = screen.getAllByTestId('skeleton-panel');
+    expect(skeletons.length).toBe(3);
   });
 
   it('shows failed missions in the completed column', () => {

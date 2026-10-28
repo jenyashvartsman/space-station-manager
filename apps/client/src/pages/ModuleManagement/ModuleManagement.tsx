@@ -1,12 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { Select, notification } from 'antd';
+import { motion } from 'framer-motion';
 import { useModulePolling } from '../../domains/module/hooks/useModulePolling';
 import { useModuleStore } from '../../domains/module/store/useModuleStore';
 import { moduleService } from '../../domains/module/services/module.service';
 import { ModuleTile } from '../../domains/module/components/ModuleTile/ModuleTile';
 import { PowerConsumptionChart } from '../../domains/module/components/PowerConsumptionChart/PowerConsumptionChart';
 import { StatusBadge } from '../../shared/components/StatusBadge/StatusBadge';
+import { SkeletonPanel } from '../../shared/components/SkeletonPanel/SkeletonPanel';
+import { pageEnter, hudBoot, panelContainer, panelItem } from '../../shared/motion/stationMotion';
 import type { Module, ModuleDetail as ModuleDetailType, ModuleStatus } from '../../domains/module/types/module.types';
 import styles from './ModuleManagement.module.scss';
 
@@ -102,30 +105,40 @@ export function ModuleManagement() {
   const sortedModules = sortModules(modules, sortBy);
 
   return (
-    <div className={styles['module-management']}>
+    <motion.div className={styles['module-management']} {...pageEnter}>
       {/* Left panel — Module Systems */}
-      <div className={styles['module-management__panel']} data-panel="systems">
+      <motion.div className={styles['module-management__panel']} data-panel="systems" {...hudBoot}>
         <div className={styles['module-management__col-header']}>
           <span className={styles['module-management__col-label']}>◈ MODULE SYSTEMS</span>
           <span className={styles['module-management__count']}>{modules.length} modules</span>
         </div>
 
-        <div className={styles['module-management__tile-grid']}>
-          {sortedModules.map((module) => (
-            <button
-              key={module.id}
-              className={`${styles['module-management__tile-btn']} ${
-                selectedId === module.id ? styles['module-management__tile-btn--selected'] : ''
-              }`}
-              style={{ borderLeftColor: STATUS_BORDER_COLOR[module.status] ?? STATUS_BORDER_COLOR['offline'] }}
-              onClick={() => handleTileClick(module.id)}
-              aria-label={`Open details for ${module.name}`}
-              data-testid={`module-btn-${module.id}`}
-            >
-              <ModuleTile module={module} />
-            </button>
-          ))}
-        </div>
+        {modules.length === 0 ? (
+          <SkeletonPanel height="200px" />
+        ) : (
+          <motion.div
+            className={styles['module-management__tile-grid']}
+            variants={panelContainer}
+            initial="initial"
+            animate="animate"
+          >
+            {sortedModules.map((module) => (
+              <motion.button
+                key={module.id}
+                className={`${styles['module-management__tile-btn']} ${
+                  selectedId === module.id ? styles['module-management__tile-btn--selected'] : ''
+                }`}
+                style={{ borderLeftColor: STATUS_BORDER_COLOR[module.status] ?? STATUS_BORDER_COLOR['offline'] }}
+                onClick={() => handleTileClick(module.id)}
+                aria-label={`Open details for ${module.name}`}
+                data-testid={`module-btn-${module.id}`}
+                variants={panelItem}
+              >
+                <ModuleTile module={module} />
+              </motion.button>
+            ))}
+          </motion.div>
+        )}
 
         <div className={styles['module-management__sort-row']}>
           <span className={styles['module-management__sort-label']}>SORT</span>
@@ -142,10 +155,10 @@ export function ModuleManagement() {
             </button>
           ))}
         </div>
-      </div>
+      </motion.div>
 
       {/* Right panel — System Detail */}
-      <div className={styles['module-management__panel']} data-panel="detail">
+      <motion.div className={styles['module-management__panel']} data-panel="detail" {...hudBoot}>
         <div className={styles['module-management__col-header']}>
           <span className={styles['module-management__col-label']}>◈ SYSTEM DETAIL</span>
         </div>
@@ -227,7 +240,7 @@ export function ModuleManagement() {
             <PowerConsumptionChart modules={sortedModules} />
           </div>
         )}
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }

@@ -1,10 +1,23 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 import { useMissionPolling } from '../../domains/mission/hooks/useMissionPolling';
 import { useMissionStore } from '../../domains/mission/store/useMissionStore';
 import { missionService } from '../../domains/mission/services/mission.service';
 import { MissionItem } from '../../domains/mission/components/MissionItem/MissionItem';
 import { MissionCreateForm } from '../../domains/mission/components/MissionCreateForm/MissionCreateForm';
+import { SkeletonPanel } from '../../shared/components/SkeletonPanel/SkeletonPanel';
+import { pageEnter, hudColumnEnter, panelContainer, panelItem } from '../../shared/motion/stationMotion';
 import styles from './MissionControl.module.scss';
+
+function colEnter(i: number) {
+  return {
+    initial: hudColumnEnter.initial,
+    animate: {
+      ...hudColumnEnter.animate,
+      transition: { ...hudColumnEnter.animate.transition, delay: i * 0.08 },
+    },
+  };
+}
 
 export function MissionControl() {
   const missions = useMissionStore((s) => s.missions);
@@ -36,60 +49,102 @@ export function MissionControl() {
   }
 
   return (
-    <div className={styles['mission-control']}>
+    <motion.div className={styles['mission-control']} {...pageEnter}>
       {/* Active column */}
-      <div className={styles['mission-control__column']} data-column="active">
+      <motion.div className={styles['mission-control__column']} data-column="active" {...colEnter(0)}>
         <div className={styles['mission-control__col-header']}>
           <span className={styles['mission-control__col-label']}>◈ ACTIVE OPS</span>
           <span className={styles['mission-control__col-count']}>{active.length}</span>
         </div>
-        <div className={styles['mission-control__col-body']} aria-label="Active missions">
-          {active.map((mission) => (
-            <MissionItem key={mission.id} mission={mission} onAbort={handleAbort} />
-          ))}
-          {active.length === 0 && (
-            <p className={styles['mission-control__empty']} data-testid="active-empty">
-              No active missions.
-            </p>
-          )}
-        </div>
-      </div>
+        {missions.length === 0 ? (
+          <div className={styles['mission-control__col-body']} aria-label="Active missions">
+            <SkeletonPanel height="80px" />
+          </div>
+        ) : (
+          <motion.div
+            className={styles['mission-control__col-body']}
+            aria-label="Active missions"
+            variants={panelContainer}
+            initial="initial"
+            animate="animate"
+          >
+            {active.map((mission) => (
+              <motion.div key={mission.id} variants={panelItem}>
+                <MissionItem mission={mission} onAbort={handleAbort} />
+              </motion.div>
+            ))}
+            {active.length === 0 && (
+              <p className={styles['mission-control__empty']} data-testid="active-empty">
+                No active missions.
+              </p>
+            )}
+          </motion.div>
+        )}
+      </motion.div>
 
       {/* Queued column */}
-      <div className={styles['mission-control__column']} data-column="queued">
+      <motion.div className={styles['mission-control__column']} data-column="queued" {...colEnter(1)}>
         <div className={styles['mission-control__col-header']}>
           <span className={styles['mission-control__col-label']}>◈ QUEUED OPS</span>
           <span className={styles['mission-control__col-count']}>{queued.length}</span>
         </div>
-        <div className={styles['mission-control__col-body']} aria-label="Queued missions">
-          {queued.map((mission) => (
-            <MissionItem key={mission.id} mission={mission} onStart={handleStart} />
-          ))}
-          {queued.length === 0 && (
-            <p className={styles['mission-control__empty']} data-testid="queued-empty">
-              No queued missions.
-            </p>
-          )}
-        </div>
-      </div>
+        {missions.length === 0 ? (
+          <div className={styles['mission-control__col-body']} aria-label="Queued missions">
+            <SkeletonPanel height="80px" />
+          </div>
+        ) : (
+          <motion.div
+            className={styles['mission-control__col-body']}
+            aria-label="Queued missions"
+            variants={panelContainer}
+            initial="initial"
+            animate="animate"
+          >
+            {queued.map((mission) => (
+              <motion.div key={mission.id} variants={panelItem}>
+                <MissionItem mission={mission} onStart={handleStart} />
+              </motion.div>
+            ))}
+            {queued.length === 0 && (
+              <p className={styles['mission-control__empty']} data-testid="queued-empty">
+                No queued missions.
+              </p>
+            )}
+          </motion.div>
+        )}
+      </motion.div>
 
       {/* Completed column */}
-      <div className={styles['mission-control__column']} data-column="completed">
+      <motion.div className={styles['mission-control__column']} data-column="completed" {...colEnter(2)}>
         <div className={styles['mission-control__col-header']}>
           <span className={styles['mission-control__col-label']}>◈ COMPLETED OPS</span>
           <span className={styles['mission-control__col-count']}>{completed.length}</span>
         </div>
-        <div className={styles['mission-control__col-body']} aria-label="Completed missions">
-          {completed.map((mission) => (
-            <MissionItem key={mission.id} mission={mission} />
-          ))}
-          {completed.length === 0 && (
-            <p className={styles['mission-control__empty']} data-testid="completed-empty">
-              No completed missions.
-            </p>
-          )}
-        </div>
-      </div>
+        {missions.length === 0 ? (
+          <div className={styles['mission-control__col-body']} aria-label="Completed missions">
+            <SkeletonPanel height="80px" />
+          </div>
+        ) : (
+          <motion.div
+            className={styles['mission-control__col-body']}
+            aria-label="Completed missions"
+            variants={panelContainer}
+            initial="initial"
+            animate="animate"
+          >
+            {completed.map((mission) => (
+              <motion.div key={mission.id} variants={panelItem}>
+                <MissionItem mission={mission} />
+              </motion.div>
+            ))}
+            {completed.length === 0 && (
+              <p className={styles['mission-control__empty']} data-testid="completed-empty">
+                No completed missions.
+              </p>
+            )}
+          </motion.div>
+        )}
+      </motion.div>
 
       {/* New Mission button — full-width footer */}
       <div className={styles['mission-control__footer']}>
@@ -104,6 +159,6 @@ export function MissionControl() {
       </div>
 
       <MissionCreateForm open={createOpen} onClose={() => setCreateOpen(false)} />
-    </div>
+    </motion.div>
   );
 }
