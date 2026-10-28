@@ -118,7 +118,7 @@ describe('CrewRoster', () => {
   it('shows empty message when no crew match the filter', () => {
     renderRoster();
     fireEvent.click(screen.getByTestId('filter-eva'));
-    expect(screen.getByText('No crew members match this filter.')).toBeTruthy();
+    expect(screen.getByText('No crew assigned. Awaiting crew transfer.')).toBeTruthy();
   });
 
   it('displays the crew count', () => {

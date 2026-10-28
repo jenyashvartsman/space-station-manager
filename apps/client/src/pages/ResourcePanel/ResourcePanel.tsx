@@ -5,6 +5,7 @@ import { useResourceStore } from '../../domains/resource/store/useResourceStore'
 import { ResourceTrendChart } from '../../domains/resource/components/ResourceTrendChart/ResourceTrendChart';
 import { SkeletonPanel } from '../../shared/components/SkeletonPanel/SkeletonPanel';
 import { pageEnter, hudColumnEnter, panelContainer, panelItem } from '../../shared/motion/stationMotion';
+import { stationCopy } from '../../shared/copy/stationCopy';
 import styles from './ResourcePanel.module.scss';
 
 function resourceFillPercent(current: number, capacity: number): number {
@@ -38,7 +39,7 @@ export function ResourcePanel() {
       {/* Left panel — Resource Stores */}
       <motion.div className={styles['resource-panel__panel']} data-panel="stores" {...colEnter(0)}>
         <div className={styles['resource-panel__col-header']}>
-          <span className={styles['resource-panel__col-label']}>◈ RESOURCE STORES</span>
+          <span className={styles['resource-panel__col-label']}>◈ {stationCopy.resources.colInventory}</span>
         </div>
 
         <motion.div
@@ -105,7 +106,7 @@ export function ResourcePanel() {
       {/* Right panel — Telemetry Trends */}
       <motion.div className={styles['resource-panel__panel']} data-panel="telemetry" {...colEnter(1)}>
         <div className={styles['resource-panel__col-header']}>
-          <span className={styles['resource-panel__col-label']}>◈ TELEMETRY TRENDS</span>
+          <span className={styles['resource-panel__col-label']}>◈ {stationCopy.resources.colTrends}</span>
         </div>
 
         <div className={styles['resource-panel__charts']}>

@@ -9,6 +9,7 @@ import { StationResetButton } from '../../domains/station/components/StationRese
 import { StationSchematic } from '../../domains/station/components/StationSchematic/StationSchematic';
 import { SkeletonPanel } from '../../shared/components/SkeletonPanel/SkeletonPanel';
 import { pageEnter, hudColumnEnter, panelContainer, panelItem } from '../../shared/motion/stationMotion';
+import { stationCopy } from '../../shared/copy/stationCopy';
 import type { ModuleStatus } from '../../domains/module/types/module.types';
 import type { Resource } from '../../domains/resource/types/resource.types';
 import styles from './StationDashboard.module.scss';
@@ -72,7 +73,7 @@ export function StationDashboard() {
       {/* Left column — Station Schematic */}
       <motion.div className={styles['station-dashboard__col']} data-col="schematic" {...colEnter(0)}>
         <div className={styles['station-dashboard__col-header']}>
-          <span className={styles['station-dashboard__col-label']}>◈ SCHEMATIC</span>
+          <span className={styles['station-dashboard__col-label']}>◈ {stationCopy.dashboard.colSchematic}</span>
         </div>
 
         <div className={styles['station-dashboard__schematic-wrap']}>
@@ -84,7 +85,7 @@ export function StationDashboard() {
             className={`${styles['station-dashboard__station-status']} ${styles[`station-dashboard__station-status--${statusClass}`]}`}
             aria-live="polite"
           >
-            STATUS: {stationStatus}
+            {stationCopy.dashboard.statusLabel(stationStatus)}
           </span>
           <span className={styles['station-dashboard__station-name']}>
             {station.name}
@@ -99,7 +100,7 @@ export function StationDashboard() {
       {/* Center column — Resource Banks */}
       <motion.div className={styles['station-dashboard__col']} data-col="resources" {...colEnter(1)}>
         <div className={styles['station-dashboard__col-header']}>
-          <span className={styles['station-dashboard__col-label']}>◈ RESOURCE BANKS</span>
+          <span className={styles['station-dashboard__col-label']}>◈ {stationCopy.dashboard.colResources}</span>
         </div>
 
         <motion.div
@@ -139,7 +140,7 @@ export function StationDashboard() {
             );
           })}
           {resources.length === 0 && (
-            <p className={styles['station-dashboard__empty']}>Loading resources…</p>
+            <p className={styles['station-dashboard__empty']}>{stationCopy.dashboard.loadingResources}</p>
           )}
         </motion.div>
       </motion.div>
@@ -147,7 +148,7 @@ export function StationDashboard() {
       {/* Right column — Module Grid */}
       <motion.div className={styles['station-dashboard__col']} data-col="modules" {...colEnter(2)}>
         <div className={styles['station-dashboard__col-header']}>
-          <span className={styles['station-dashboard__col-label']}>◈ MODULE GRID</span>
+          <span className={styles['station-dashboard__col-label']}>◈ {stationCopy.dashboard.colModules}</span>
         </div>
 
         <motion.div
@@ -173,7 +174,7 @@ export function StationDashboard() {
             </motion.div>
           ))}
           {modules.length === 0 && (
-            <p className={styles['station-dashboard__empty']}>Loading modules…</p>
+            <p className={styles['station-dashboard__empty']}>{stationCopy.dashboard.loadingModules}</p>
           )}
         </motion.div>
       </motion.div>

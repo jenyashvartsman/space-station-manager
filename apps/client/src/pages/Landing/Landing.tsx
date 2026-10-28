@@ -6,9 +6,8 @@ import { StationTitleReveal } from './StationTitleReveal';
 import { SystemReadout } from './SystemReadout';
 import { StationSchematic } from '../../domains/station/components/StationSchematic/StationSchematic';
 import { pageEnter, panelContainer, panelItem, hoverLift } from '../../shared/motion/stationMotion';
+import { stationCopy } from '../../shared/copy/stationCopy';
 import styles from './Landing.module.scss';
-
-const STATION_NAME = 'Kepler Station Alpha';
 
 const NUMERIC_READOUTS = [
   { label: 'Crew', targetValue: 5, unit: '', delay: 0.8 },
@@ -33,12 +32,12 @@ export function Landing() {
           animate="animate"
         >
           <motion.div variants={panelItem}>
-            <StationTitleReveal title={STATION_NAME} />
+            <StationTitleReveal title={stationCopy.shell.callsign} />
           </motion.div>
 
           <motion.div variants={panelItem}>
             <p className={styles['landing__mission-log']} role="status" aria-live="polite">
-              MISSION LOG: ASTEROID SURVEY IN PROGRESS...
+              {stationCopy.landing.tagline}
             </p>
           </motion.div>
 
@@ -49,7 +48,7 @@ export function Landing() {
               onClick={() => navigate('/station')}
               aria-label="Enter the station"
             >
-              Enter Station
+              {stationCopy.landing.cta}
             </Button>
           </motion.div>
         </motion.div>

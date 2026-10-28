@@ -60,7 +60,7 @@ describe('Landing', () => {
 
   it('renders the mission log text', () => {
     renderLanding();
-    expect(screen.getByText(/asteroid survey/i)).toBeTruthy();
+    expect(screen.getByText(/operational command interface/i)).toBeTruthy();
   });
 });
 

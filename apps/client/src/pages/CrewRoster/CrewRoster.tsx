@@ -6,6 +6,7 @@ import { useCrewStore } from '../../domains/crew/store/useCrewStore';
 import { CrewHealthBar } from '../../domains/crew/components/CrewHealthBar/CrewHealthBar';
 import { CrewAssignmentSelect } from '../../domains/crew/components/CrewAssignmentSelect/CrewAssignmentSelect';
 import { pageEnter, hudBoot, panelContainer, panelItem } from '../../shared/motion/stationMotion';
+import { stationCopy } from '../../shared/copy/stationCopy';
 import type { CrewStatus } from '../../domains/crew/types/crew.types';
 import styles from './CrewRoster.module.scss';
 
@@ -40,7 +41,7 @@ export function CrewRoster() {
       {/* Left panel — Personnel Manifest */}
       <motion.div className={styles['crew-roster__panel']} data-panel="manifest" {...hudBoot}>
         <div className={styles['crew-roster__col-header']}>
-          <span className={styles['crew-roster__col-label']}>◈ PERSONNEL MANIFEST</span>
+          <span className={styles['crew-roster__col-label']}>◈ {stationCopy.crew.colList}</span>
           <span className={styles['crew-roster__count']}>{crew.length} crew</span>
         </div>
 
@@ -100,7 +101,7 @@ export function CrewRoster() {
             );
           })}
           {filteredCrew.length === 0 && (
-            <p className={styles['crew-roster__empty']}>No crew members match this filter.</p>
+            <p className={styles['crew-roster__empty']}>{stationCopy.crew.empty}</p>
           )}
         </motion.div>
       </motion.div>
@@ -108,13 +109,13 @@ export function CrewRoster() {
       {/* Right panel — Personnel File */}
       <motion.div className={styles['crew-roster__panel']} data-panel="file" {...hudBoot}>
         <div className={styles['crew-roster__col-header']}>
-          <span className={styles['crew-roster__col-label']}>◈ PERSONNEL FILE</span>
+          <span className={styles['crew-roster__col-label']}>◈ {stationCopy.crew.colDetail}</span>
         </div>
 
         {selectedMember === null ? (
           <div className={styles['crew-roster__empty-detail']}>
             <span className={styles['crew-roster__empty-detail-text']}>
-              SELECT CREW MEMBER TO VIEW FILE
+              {stationCopy.crew.noSelection}
             </span>
           </div>
         ) : (

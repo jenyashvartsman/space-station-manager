@@ -10,6 +10,7 @@ import { PowerConsumptionChart } from '../../domains/module/components/PowerCons
 import { StatusBadge } from '../../shared/components/StatusBadge/StatusBadge';
 import { SkeletonPanel } from '../../shared/components/SkeletonPanel/SkeletonPanel';
 import { pageEnter, hudBoot, panelContainer, panelItem } from '../../shared/motion/stationMotion';
+import { stationCopy } from '../../shared/copy/stationCopy';
 import type { Module, ModuleDetail as ModuleDetailType, ModuleStatus } from '../../domains/module/types/module.types';
 import styles from './ModuleManagement.module.scss';
 
@@ -109,7 +110,7 @@ export function ModuleManagement() {
       {/* Left panel — Module Systems */}
       <motion.div className={styles['module-management__panel']} data-panel="systems" {...hudBoot}>
         <div className={styles['module-management__col-header']}>
-          <span className={styles['module-management__col-label']}>◈ MODULE SYSTEMS</span>
+          <span className={styles['module-management__col-label']}>◈ {stationCopy.modules.colMap}</span>
           <span className={styles['module-management__count']}>{modules.length} modules</span>
         </div>
 
@@ -160,13 +161,13 @@ export function ModuleManagement() {
       {/* Right panel — System Detail */}
       <motion.div className={styles['module-management__panel']} data-panel="detail" {...hudBoot}>
         <div className={styles['module-management__col-header']}>
-          <span className={styles['module-management__col-label']}>◈ SYSTEM DETAIL</span>
+          <span className={styles['module-management__col-label']}>◈ {stationCopy.modules.colDetail}</span>
         </div>
 
         {!selectedId ? (
           <div className={styles['module-management__empty-detail']}>
             <span className={styles['module-management__empty-detail-text']}>
-              SELECT A MODULE TO VIEW SYSTEM DETAIL
+              {stationCopy.modules.noSelection}
             </span>
           </div>
         ) : detailLoading ? (

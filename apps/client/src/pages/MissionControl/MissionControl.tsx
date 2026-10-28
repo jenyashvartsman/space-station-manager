@@ -7,6 +7,7 @@ import { MissionItem } from '../../domains/mission/components/MissionItem/Missio
 import { MissionCreateForm } from '../../domains/mission/components/MissionCreateForm/MissionCreateForm';
 import { SkeletonPanel } from '../../shared/components/SkeletonPanel/SkeletonPanel';
 import { pageEnter, hudColumnEnter, panelContainer, panelItem } from '../../shared/motion/stationMotion';
+import { stationCopy } from '../../shared/copy/stationCopy';
 import styles from './MissionControl.module.scss';
 
 function colEnter(i: number) {
@@ -53,7 +54,7 @@ export function MissionControl() {
       {/* Active column */}
       <motion.div className={styles['mission-control__column']} data-column="active" {...colEnter(0)}>
         <div className={styles['mission-control__col-header']}>
-          <span className={styles['mission-control__col-label']}>◈ ACTIVE OPS</span>
+          <span className={styles['mission-control__col-label']}>◈ {stationCopy.missions.colActive}</span>
           <span className={styles['mission-control__col-count']}>{active.length}</span>
         </div>
         {missions.length === 0 ? (
@@ -75,7 +76,7 @@ export function MissionControl() {
             ))}
             {active.length === 0 && (
               <p className={styles['mission-control__empty']} data-testid="active-empty">
-                No active missions.
+                {stationCopy.missions.emptyActive}
               </p>
             )}
           </motion.div>
@@ -85,7 +86,7 @@ export function MissionControl() {
       {/* Queued column */}
       <motion.div className={styles['mission-control__column']} data-column="queued" {...colEnter(1)}>
         <div className={styles['mission-control__col-header']}>
-          <span className={styles['mission-control__col-label']}>◈ QUEUED OPS</span>
+          <span className={styles['mission-control__col-label']}>◈ {stationCopy.missions.colQueued}</span>
           <span className={styles['mission-control__col-count']}>{queued.length}</span>
         </div>
         {missions.length === 0 ? (
@@ -107,7 +108,7 @@ export function MissionControl() {
             ))}
             {queued.length === 0 && (
               <p className={styles['mission-control__empty']} data-testid="queued-empty">
-                No queued missions.
+                {stationCopy.missions.emptyQueued}
               </p>
             )}
           </motion.div>
@@ -117,7 +118,7 @@ export function MissionControl() {
       {/* Completed column */}
       <motion.div className={styles['mission-control__column']} data-column="completed" {...colEnter(2)}>
         <div className={styles['mission-control__col-header']}>
-          <span className={styles['mission-control__col-label']}>◈ COMPLETED OPS</span>
+          <span className={styles['mission-control__col-label']}>◈ {stationCopy.missions.colCompleted}</span>
           <span className={styles['mission-control__col-count']}>{completed.length}</span>
         </div>
         {missions.length === 0 ? (
@@ -139,7 +140,7 @@ export function MissionControl() {
             ))}
             {completed.length === 0 && (
               <p className={styles['mission-control__empty']} data-testid="completed-empty">
-                No completed missions.
+                {stationCopy.missions.emptyCompleted}
               </p>
             )}
           </motion.div>
@@ -154,7 +155,7 @@ export function MissionControl() {
           data-testid="new-mission-button"
           aria-label="Create new mission"
         >
-          + NEW MISSION
+          {stationCopy.missions.newMission}
         </button>
       </div>
 

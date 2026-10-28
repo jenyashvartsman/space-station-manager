@@ -3,6 +3,7 @@ import { useEventLogPolling } from '../../domains/event-log/hooks/useEventLogPol
 import { useEventLogStore } from '../../domains/event-log/store/useEventLogStore';
 import { EventLogFeed } from '../../domains/event-log/components/EventLogFeed/EventLogFeed';
 import { pageEnter, hudBoot } from '../../shared/motion/stationMotion';
+import { stationCopy } from '../../shared/copy/stationCopy';
 import styles from './EventLog.module.scss';
 
 function formatTime(date: Date): string {
@@ -21,10 +22,10 @@ export function EventLog() {
   return (
     <motion.div className={styles['event-log']} {...pageEnter}>
       <motion.div className={styles['event-log__header']} {...hudBoot}>
-        <span className={styles['event-log__title']}>◈ STATION COMMS LOG</span>
+        <span className={styles['event-log__title']}>◈ {stationCopy.events.heading}</span>
         <div className={styles['event-log__live']} data-testid="event-log-live">
           <span className={styles['event-log__live-dot']} aria-hidden="true">●</span>
-          <span className={styles['event-log__live-label']}>LIVE</span>
+          <span className={styles['event-log__live-label']}>{stationCopy.events.live}</span>
           {lastUpdatedAt && (
             <span
               className={styles['event-log__timestamp']}

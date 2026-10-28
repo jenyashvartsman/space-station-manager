@@ -1,7 +1,7 @@
 # Status — Space Station Manager
 
 ## Current Task
-**TASK-030** — Game Copy
+**TASK-031** — README
 
 ## Factory Phase
 `INIT` → `SCAFFOLD` → `CORE` → `FEATURES` → `POLISH`
@@ -42,16 +42,16 @@ Current: **SCAFFOLD**
 | 027 | Mission Control HUD Layout | 2026-10-28 |
 | 028 | Event Log HUD Layout | 2026-10-28 |
 | 029 | HUD Entrance Animations | 2026-10-28 |
+| 030 | Game Copy | 2026-10-28 |
 
 ## Pending Tasks
 
 | Task | Title | Phase |
 |------|-------|-------|
-| 030 | Game Copy | POLISH |
 | 031 | README | POLISH |
 
 ## Blockers
 _None_
 
 ## Last Note
-TASK-029 complete: hudBoot and hudColumnEnter variants added to stationMotion.ts; StationLayout shell and all 6 HUD pages wired with entrance animations (pageEnter root, hudBoot/hudColumnEnter per panel/column, panelItem stagger on rows); skeleton loading added to ResourcePanel, MissionControl, and ModuleManagement; 208 tests green, build and lint pass.
+TASK-030 complete: stationCopy.ts created with 9 top-level keys; all hardcoded UI strings replaced across Landing, StationDashboard, CrewRoster, ModuleManagement, ResourcePanel, MissionControl, and EventLog; 2 tests updated to match new copy; 214 tests green, build and lint pass.
