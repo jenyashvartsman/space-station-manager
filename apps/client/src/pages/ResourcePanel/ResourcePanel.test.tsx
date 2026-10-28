@@ -76,26 +76,26 @@ afterEach(() => {
 });
 
 describe('ResourcePanel', () => {
-  it('renders 5 summary rows', () => {
+  it('renders the RESOURCE STORES heading', () => {
+    render(<ResourcePanel />);
+    expect(screen.getByText('◈ RESOURCE STORES')).toBeTruthy();
+  });
+
+  it('renders the TELEMETRY TRENDS heading', () => {
+    render(<ResourcePanel />);
+    expect(screen.getByText('◈ TELEMETRY TRENDS')).toBeTruthy();
+  });
+
+  it('renders 5 summary rows in the left panel', () => {
     render(<ResourcePanel />);
     const summaryRows = screen.getAllByTestId(/^resource-summary-row-/);
     expect(summaryRows.length).toBe(5);
   });
 
-  it('renders 5 trend charts', () => {
+  it('renders 5 trend charts in the right panel', () => {
     render(<ResourcePanel />);
     const charts = screen.getAllByTestId(/^resource-trend-chart-/);
     expect(charts.length).toBe(5);
-  });
-
-  it('renders the RESOURCES heading', () => {
-    render(<ResourcePanel />);
-    expect(screen.getByText('RESOURCES')).toBeTruthy();
-  });
-
-  it('renders the Resource Trends section title', () => {
-    render(<ResourcePanel />);
-    expect(screen.getByText('Resource Trends')).toBeTruthy();
   });
 
   it('renders loading state when resources are empty', () => {
