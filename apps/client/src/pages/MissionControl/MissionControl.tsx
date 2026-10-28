@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Button } from 'antd';
 import { useMissionPolling } from '../../domains/mission/hooks/useMissionPolling';
 import { useMissionStore } from '../../domains/mission/store/useMissionStore';
 import { missionService } from '../../domains/mission/services/mission.service';
@@ -38,20 +37,13 @@ export function MissionControl() {
 
   return (
     <div className={styles['mission-control']}>
-      <header className={styles['mission-control__header']}>
-        <h1 className={styles['mission-control__title']}>MISSION CONTROL</h1>
-        <Button
-          type="primary"
-          onClick={() => setCreateOpen(true)}
-          data-testid="new-mission-button"
-        >
-          + NEW MISSION
-        </Button>
-      </header>
-
-      <section className={styles['mission-control__section']} aria-label="Active missions">
-        <h2 className={styles['mission-control__section-title']}>ACTIVE</h2>
-        <div className={styles['mission-control__list']}>
+      {/* Active column */}
+      <div className={styles['mission-control__column']} data-column="active">
+        <div className={styles['mission-control__col-header']}>
+          <span className={styles['mission-control__col-label']}>◈ ACTIVE OPS</span>
+          <span className={styles['mission-control__col-count']}>{active.length}</span>
+        </div>
+        <div className={styles['mission-control__col-body']} aria-label="Active missions">
           {active.map((mission) => (
             <MissionItem key={mission.id} mission={mission} onAbort={handleAbort} />
           ))}
@@ -61,11 +53,15 @@ export function MissionControl() {
             </p>
           )}
         </div>
-      </section>
+      </div>
 
-      <section className={styles['mission-control__section']} aria-label="Queued missions">
-        <h2 className={styles['mission-control__section-title']}>QUEUED</h2>
-        <div className={styles['mission-control__list']}>
+      {/* Queued column */}
+      <div className={styles['mission-control__column']} data-column="queued">
+        <div className={styles['mission-control__col-header']}>
+          <span className={styles['mission-control__col-label']}>◈ QUEUED OPS</span>
+          <span className={styles['mission-control__col-count']}>{queued.length}</span>
+        </div>
+        <div className={styles['mission-control__col-body']} aria-label="Queued missions">
           {queued.map((mission) => (
             <MissionItem key={mission.id} mission={mission} onStart={handleStart} />
           ))}
@@ -75,11 +71,15 @@ export function MissionControl() {
             </p>
           )}
         </div>
-      </section>
+      </div>
 
-      <section className={styles['mission-control__section']} aria-label="Completed missions">
-        <h2 className={styles['mission-control__section-title']}>COMPLETED</h2>
-        <div className={styles['mission-control__list']}>
+      {/* Completed column */}
+      <div className={styles['mission-control__column']} data-column="completed">
+        <div className={styles['mission-control__col-header']}>
+          <span className={styles['mission-control__col-label']}>◈ COMPLETED OPS</span>
+          <span className={styles['mission-control__col-count']}>{completed.length}</span>
+        </div>
+        <div className={styles['mission-control__col-body']} aria-label="Completed missions">
           {completed.map((mission) => (
             <MissionItem key={mission.id} mission={mission} />
           ))}
@@ -89,7 +89,19 @@ export function MissionControl() {
             </p>
           )}
         </div>
-      </section>
+      </div>
+
+      {/* New Mission button — full-width footer */}
+      <div className={styles['mission-control__footer']}>
+        <button
+          className={styles['mission-control__new-mission-btn']}
+          onClick={() => setCreateOpen(true)}
+          data-testid="new-mission-button"
+          aria-label="Create new mission"
+        >
+          + NEW MISSION
+        </button>
+      </div>
 
       <MissionCreateForm open={createOpen} onClose={() => setCreateOpen(false)} />
     </div>

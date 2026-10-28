@@ -76,41 +76,34 @@ function renderPage(missions: Mission[] = mockMissions) {
 }
 
 describe('MissionControl', () => {
-  it('renders the page title', () => {
+  it('renders the ACTIVE OPS column heading', () => {
     renderPage();
-    expect(screen.getByText('MISSION CONTROL')).toBeTruthy();
+    expect(screen.getByText('◈ ACTIVE OPS')).toBeTruthy();
   });
 
-  it('renders ACTIVE section header', () => {
+  it('renders the QUEUED OPS column heading', () => {
     renderPage();
-    // 'ACTIVE' appears in both the section header and the mission status badge
-    expect(screen.getAllByText('ACTIVE').length).toBeGreaterThan(0);
+    expect(screen.getByText('◈ QUEUED OPS')).toBeTruthy();
   });
 
-  it('renders QUEUED section header', () => {
+  it('renders the COMPLETED OPS column heading', () => {
     renderPage();
-    // 'QUEUED' appears in both the section header and the mission status badge
-    expect(screen.getAllByText('QUEUED').length).toBeGreaterThan(0);
+    expect(screen.getByText('◈ COMPLETED OPS')).toBeTruthy();
   });
 
-  it('renders COMPLETED section header', () => {
-    renderPage();
-    expect(screen.getByText('COMPLETED')).toBeTruthy();
-  });
-
-  it('renders active missions in the active section', () => {
+  it('renders active missions in the active column', () => {
     renderPage();
     expect(screen.getByTestId('mission-item-m1')).toBeTruthy();
     expect(screen.getByText('ASTEROID SURVEY')).toBeTruthy();
   });
 
-  it('renders queued missions in the queued section', () => {
+  it('renders queued missions in the queued column', () => {
     renderPage();
     expect(screen.getByTestId('mission-item-m2')).toBeTruthy();
     expect(screen.getByText('HULL INSPECTION')).toBeTruthy();
   });
 
-  it('renders completed missions in the completed section', () => {
+  it('renders completed missions in the completed column', () => {
     renderPage();
     expect(screen.getByTestId('mission-item-m3')).toBeTruthy();
     expect(screen.getByText('SUPPLY RUN')).toBeTruthy();
@@ -121,14 +114,14 @@ describe('MissionControl', () => {
     expect(screen.getByTestId('new-mission-button')).toBeTruthy();
   });
 
-  it('shows empty state for all sections when no missions', () => {
+  it('shows empty state for all columns when no missions', () => {
     renderPage([]);
     expect(screen.getByTestId('active-empty')).toBeTruthy();
     expect(screen.getByTestId('queued-empty')).toBeTruthy();
     expect(screen.getByTestId('completed-empty')).toBeTruthy();
   });
 
-  it('shows failed missions in the completed section', () => {
+  it('shows failed missions in the completed column', () => {
     const missions: Mission[] = [
       {
         id: 'm4',
