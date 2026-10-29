@@ -16,6 +16,8 @@ const mockModule = {
   status: 'nominal' as const,
   powerConsumption: 10,
   createdAt: new Date('2026-01-01'),
+  repairing: false,
+  repairProgress: 0,
 };
 
 const mockCrew = [

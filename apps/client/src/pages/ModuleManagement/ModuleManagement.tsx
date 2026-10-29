@@ -84,6 +84,19 @@ export function ModuleManagement() {
       .finally(() => setDetailLoading(false));
   }, [selectedId]);
 
+  // Keep repair state in the detail panel in sync with the polling store
+  useEffect(() => {
+    if (!selectedId) return;
+    const storeModule = modules.find((m) => m.id === selectedId);
+    if (!storeModule) return;
+    setDetail((prev) =>
+      prev
+        ? { ...prev, repairing: storeModule.repairing, repairProgress: storeModule.repairProgress, status: storeModule.status }
+        : null,
+    );
+    setCurrentStatus(storeModule.status);
+  }, [modules, selectedId]);
+
   function handleTileClick(moduleId: string) {
     navigate(`/modules/${moduleId}`);
   }
@@ -192,6 +205,21 @@ export function ModuleManagement() {
               <span className={styles['module-management__detail-label']}>STATUS</span>
               <StatusBadge status={currentStatus} />
             </div>
+
+            {detail.repairing && (
+              <div className={styles['module-management__detail-row']}>
+                <span className={styles['module-management__detail-label']}>REPAIR PROGRESS</span>
+                <span className={styles['module-management__detail-reading']}>
+                  {Math.round(detail.repairProgress)}%
+                </span>
+                <div className={styles['module-management__repair-track']}>
+                  <div
+                    className={styles['module-management__repair-fill']}
+                    style={{ width: `${detail.repairProgress}%` }}
+                  />
+                </div>
+              </div>
+            )}
 
             <div className={styles['module-management__detail-row']}>
               <span className={styles['module-management__detail-label']}>POWER</span>

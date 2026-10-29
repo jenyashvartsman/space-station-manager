@@ -1,12 +1,14 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 import { NotFoundError, ValidationError } from '../../shared/errors.js';
+import { EventLogRepository } from '../event-log/event-log.repository.js';
 import { ModuleRepository } from '../module/module.repository.js';
 import { CrewRepository } from './crew.repository.js';
 import { CrewService } from './crew.service.js';
 
 vi.mock('./crew.repository.js');
 vi.mock('../module/module.repository.js');
+vi.mock('../event-log/event-log.repository.js');
 
 const mockCrewMember = {
   id: 'crew-uuid-1',
@@ -26,6 +28,8 @@ const mockModule = {
   status: 'nominal' as const,
   powerConsumption: 10,
   createdAt: new Date('2026-01-01'),
+  repairing: false,
+  repairProgress: 0,
 };
 
 beforeEach(() => {
@@ -115,5 +119,146 @@ describe('CrewService.updateCrewMember', () => {
   it('throws NotFoundError when crew member does not exist', async () => {
     vi.mocked(CrewRepository.findById).mockResolvedValue(undefined);
     await expect(CrewService.updateCrewMember('nonexistent', {})).rejects.toThrow(NotFoundError);
+  });
+
+  describe('engineer repair mechanic', () => {
+    it('starts repair when engineer is assigned to a damaged module', async () => {
+      const criticalModule = { ...mockModule, status: 'critical' as const };
+      const updated = { ...mockCrewMember, assignedModuleId: 'module-uuid-1' };
+      vi.mocked(CrewRepository.findById).mockResolvedValue(mockCrewMember);
+      vi.mocked(ModuleRepository.findById).mockResolvedValue(criticalModule);
+      vi.mocked(ModuleRepository.update).mockResolvedValue(criticalModule);
+      vi.mocked(EventLogRepository.create).mockResolvedValue({} as never);
+      vi.mocked(CrewRepository.update).mockResolvedValue(updated);
+
+      await CrewService.updateCrewMember('crew-uuid-1', { assignedModuleId: 'module-uuid-1' });
+
+      expect(ModuleRepository.update).toHaveBeenCalledWith('module-uuid-1', {
+        repairing: true,
+        repairProgress: 0,
+      });
+      expect(EventLogRepository.create).toHaveBeenCalledWith(
+        expect.objectContaining({ type: 'module.repair_started' }),
+      );
+    });
+
+    it('starts repair for warning module', async () => {
+      const warningModule = { ...mockModule, status: 'warning' as const };
+      const updated = { ...mockCrewMember, assignedModuleId: 'module-uuid-1' };
+      vi.mocked(CrewRepository.findById).mockResolvedValue(mockCrewMember);
+      vi.mocked(ModuleRepository.findById).mockResolvedValue(warningModule);
+      vi.mocked(ModuleRepository.update).mockResolvedValue(warningModule);
+      vi.mocked(EventLogRepository.create).mockResolvedValue({} as never);
+      vi.mocked(CrewRepository.update).mockResolvedValue(updated);
+
+      await CrewService.updateCrewMember('crew-uuid-1', { assignedModuleId: 'module-uuid-1' });
+
+      expect(ModuleRepository.update).toHaveBeenCalledWith('module-uuid-1', {
+        repairing: true,
+        repairProgress: 0,
+      });
+    });
+
+    it('starts repair for offline module', async () => {
+      const offlineModule = { ...mockModule, status: 'offline' as const };
+      const updated = { ...mockCrewMember, assignedModuleId: 'module-uuid-1' };
+      vi.mocked(CrewRepository.findById).mockResolvedValue(mockCrewMember);
+      vi.mocked(ModuleRepository.findById).mockResolvedValue(offlineModule);
+      vi.mocked(ModuleRepository.update).mockResolvedValue(offlineModule);
+      vi.mocked(EventLogRepository.create).mockResolvedValue({} as never);
+      vi.mocked(CrewRepository.update).mockResolvedValue(updated);
+
+      await CrewService.updateCrewMember('crew-uuid-1', { assignedModuleId: 'module-uuid-1' });
+
+      expect(ModuleRepository.update).toHaveBeenCalledWith('module-uuid-1', {
+        repairing: true,
+        repairProgress: 0,
+      });
+    });
+
+    it('does not start repair when engineer is assigned to a nominal module', async () => {
+      const updated = { ...mockCrewMember, assignedModuleId: 'module-uuid-1' };
+      vi.mocked(CrewRepository.findById).mockResolvedValue(mockCrewMember);
+      vi.mocked(ModuleRepository.findById).mockResolvedValue(mockModule);
+      vi.mocked(CrewRepository.update).mockResolvedValue(updated);
+
+      await CrewService.updateCrewMember('crew-uuid-1', { assignedModuleId: 'module-uuid-1' });
+
+      expect(ModuleRepository.update).not.toHaveBeenCalled();
+      expect(EventLogRepository.create).not.toHaveBeenCalled();
+    });
+
+    it('does not restart repair when module is already repairing', async () => {
+      const alreadyRepairing = { ...mockModule, status: 'critical' as const, repairing: true, repairProgress: 42 };
+      const updated = { ...mockCrewMember, assignedModuleId: 'module-uuid-1' };
+      vi.mocked(CrewRepository.findById).mockResolvedValue(mockCrewMember);
+      vi.mocked(ModuleRepository.findById).mockResolvedValue(alreadyRepairing);
+      vi.mocked(CrewRepository.update).mockResolvedValue(updated);
+
+      await CrewService.updateCrewMember('crew-uuid-1', { assignedModuleId: 'module-uuid-1' });
+
+      expect(ModuleRepository.update).not.toHaveBeenCalled();
+      expect(EventLogRepository.create).not.toHaveBeenCalled();
+    });
+
+    it('does not start repair when engineer is injured', async () => {
+      const injuredEngineer = { ...mockCrewMember, status: 'injured' as const };
+      const criticalModule = { ...mockModule, status: 'critical' as const };
+      const updated = { ...injuredEngineer, assignedModuleId: 'module-uuid-1' };
+      vi.mocked(CrewRepository.findById).mockResolvedValue(injuredEngineer);
+      vi.mocked(ModuleRepository.findById).mockResolvedValue(criticalModule);
+      vi.mocked(CrewRepository.update).mockResolvedValue(updated);
+
+      await CrewService.updateCrewMember('crew-uuid-1', { assignedModuleId: 'module-uuid-1' });
+
+      expect(ModuleRepository.update).not.toHaveBeenCalled();
+      expect(EventLogRepository.create).not.toHaveBeenCalled();
+    });
+
+    it('does not start repair when engineer is resting', async () => {
+      const restingEngineer = { ...mockCrewMember, status: 'resting' as const };
+      const criticalModule = { ...mockModule, status: 'critical' as const };
+      const updated = { ...restingEngineer, assignedModuleId: 'module-uuid-1' };
+      vi.mocked(CrewRepository.findById).mockResolvedValue(restingEngineer);
+      vi.mocked(ModuleRepository.findById).mockResolvedValue(criticalModule);
+      vi.mocked(CrewRepository.update).mockResolvedValue(updated);
+
+      await CrewService.updateCrewMember('crew-uuid-1', { assignedModuleId: 'module-uuid-1' });
+
+      expect(ModuleRepository.update).not.toHaveBeenCalled();
+      expect(EventLogRepository.create).not.toHaveBeenCalled();
+    });
+
+    it('does not start repair when a non-engineer is assigned to a damaged module', async () => {
+      const scientistCrew = { ...mockCrewMember, role: 'scientist' };
+      const criticalModule = { ...mockModule, status: 'critical' as const };
+      const updated = { ...scientistCrew, assignedModuleId: 'module-uuid-1' };
+      vi.mocked(CrewRepository.findById).mockResolvedValue(scientistCrew);
+      vi.mocked(ModuleRepository.findById).mockResolvedValue(criticalModule);
+      vi.mocked(CrewRepository.update).mockResolvedValue(updated);
+
+      await CrewService.updateCrewMember('crew-uuid-1', { assignedModuleId: 'module-uuid-1' });
+
+      expect(ModuleRepository.update).not.toHaveBeenCalled();
+      expect(EventLogRepository.create).not.toHaveBeenCalled();
+    });
+
+    it('treats Engineer (capitalized) role the same as engineer', async () => {
+      const engineerCapitalized = { ...mockCrewMember, role: 'Engineer' };
+      const warningModule = { ...mockModule, status: 'warning' as const };
+      const updated = { ...engineerCapitalized, assignedModuleId: 'module-uuid-1' };
+      vi.mocked(CrewRepository.findById).mockResolvedValue(engineerCapitalized);
+      vi.mocked(ModuleRepository.findById).mockResolvedValue(warningModule);
+      vi.mocked(ModuleRepository.update).mockResolvedValue(warningModule);
+      vi.mocked(EventLogRepository.create).mockResolvedValue({} as never);
+      vi.mocked(CrewRepository.update).mockResolvedValue(updated);
+
+      await CrewService.updateCrewMember('crew-uuid-1', { assignedModuleId: 'module-uuid-1' });
+
+      expect(ModuleRepository.update).toHaveBeenCalledWith('module-uuid-1', {
+        repairing: true,
+        repairProgress: 0,
+      });
+    });
   });
 });

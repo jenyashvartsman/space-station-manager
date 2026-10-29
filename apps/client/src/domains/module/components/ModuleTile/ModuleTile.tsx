@@ -46,6 +46,18 @@ export function ModuleTile({ module }: ModuleTileProps) {
         <span className={styles['module-tile__type']}>{module.type}</span>
         <span className={styles['module-tile__crew']}>{module.crewCount} crew</span>
       </div>
+      {module.repairing && (
+        <div
+          className={styles['module-tile__repair-track']}
+          aria-label={`Repair progress: ${module.repairProgress}%`}
+        >
+          <motion.div
+            className={styles['module-tile__repair-fill']}
+            animate={{ width: `${module.repairProgress}%` }}
+            transition={{ duration: 0.4, ease: 'linear' }}
+          />
+        </div>
+      )}
     </motion.div>
   );
 }

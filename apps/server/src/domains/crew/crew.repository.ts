@@ -1,5 +1,5 @@
 import { db, schema } from '@space-station/db';
-import { eq } from 'drizzle-orm';
+import { and, eq } from 'drizzle-orm';
 
 import type { CrewMember } from '@space-station/db';
 import type { CrewWithModuleResponse } from './crew.types.js';
@@ -51,6 +51,13 @@ export const CrewRepository = {
       .where(eq(schema.crewMembers.id, id))
       .returning();
     return rows[0];
+  },
+
+  async findInjuredByStationId(stationId: string): Promise<CrewMember[]> {
+    return db
+      .select()
+      .from(schema.crewMembers)
+      .where(and(eq(schema.crewMembers.stationId, stationId), eq(schema.crewMembers.status, 'injured')));
   },
 
   async setStatusByModuleId(moduleId: string, status: CrewMember['status']): Promise<void> {

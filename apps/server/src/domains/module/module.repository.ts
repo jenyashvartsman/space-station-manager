@@ -1,5 +1,5 @@
 import { db, schema } from '@space-station/db';
-import { eq, sql } from 'drizzle-orm';
+import { and, eq, sql } from 'drizzle-orm';
 
 import type { CrewMember, Module } from '@space-station/db';
 import type { ModuleWithCrewCountResponse } from './module.types.js';
@@ -15,6 +15,8 @@ export const ModuleRepository = {
         status: schema.modules.status,
         powerConsumption: schema.modules.powerConsumption,
         createdAt: schema.modules.createdAt,
+        repairing: schema.modules.repairing,
+        repairProgress: schema.modules.repairProgress,
         crewCount: sql<number>`cast(count(${schema.crewMembers.id}) as int)`,
       })
       .from(schema.modules)
@@ -32,6 +34,20 @@ export const ModuleRepository = {
     return rows[0];
   },
 
+  async findRepairing(): Promise<Module[]> {
+    return db
+      .select()
+      .from(schema.modules)
+      .where(eq(schema.modules.repairing, true));
+  },
+
+  async findNominalMedical(): Promise<Module[]> {
+    return db
+      .select()
+      .from(schema.modules)
+      .where(and(eq(schema.modules.type, 'medical'), eq(schema.modules.status, 'nominal')));
+  },
+
   async findCrewByModuleId(moduleId: string): Promise<CrewMember[]> {
     return db
       .select()
@@ -41,7 +57,7 @@ export const ModuleRepository = {
 
   async update(
     id: string,
-    data: Partial<Pick<Module, 'status' | 'name'>>,
+    data: Partial<Pick<Module, 'status' | 'name' | 'repairing' | 'repairProgress'>>,
   ): Promise<Module | undefined> {
     const rows = await db
       .update(schema.modules)

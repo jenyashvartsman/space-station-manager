@@ -11,4 +11,6 @@ export interface ModuleWithCrewResponse extends Module {
 export interface UpdateModuleBody {
   status?: ModuleStatus;
   name?: string;
+  repairing?: boolean;
+  repairProgress?: number;
 }

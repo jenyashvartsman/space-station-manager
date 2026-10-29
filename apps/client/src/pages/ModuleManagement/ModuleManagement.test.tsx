@@ -34,12 +34,12 @@ beforeAll(() => {
 });
 
 const mockModules: Module[] = [
-  { id: 'm1', stationId: 's1', type: 'life-support', name: 'Life Support Alpha', status: 'nominal', powerConsumption: 12, createdAt: '2026-01-01T00:00:00Z', crewCount: 2 },
-  { id: 'm2', stationId: 's1', type: 'engineering', name: 'Engineering Bay', status: 'warning', powerConsumption: 24, createdAt: '2026-01-01T00:00:00Z', crewCount: 3 },
-  { id: 'm3', stationId: 's1', type: 'research', name: 'Research Lab', status: 'critical', powerConsumption: 18, createdAt: '2026-01-01T00:00:00Z', crewCount: 1 },
-  { id: 'm4', stationId: 's1', type: 'medical', name: 'Medical Bay', status: 'offline', powerConsumption: 0, createdAt: '2026-01-01T00:00:00Z', crewCount: 0 },
-  { id: 'm5', stationId: 's1', type: 'command', name: 'Command Center', status: 'nominal', powerConsumption: 30, createdAt: '2026-01-01T00:00:00Z', crewCount: 4 },
-  { id: 'm6', stationId: 's1', type: 'hydroponics', name: 'Hydroponics Bay', status: 'warning', powerConsumption: 8, createdAt: '2026-01-01T00:00:00Z', crewCount: 1 },
+  { id: 'm1', stationId: 's1', type: 'life-support', name: 'Life Support Alpha', status: 'nominal', powerConsumption: 12, createdAt: '2026-01-01T00:00:00Z', crewCount: 2, repairing: false, repairProgress: 0 },
+  { id: 'm2', stationId: 's1', type: 'engineering', name: 'Engineering Bay', status: 'warning', powerConsumption: 24, createdAt: '2026-01-01T00:00:00Z', crewCount: 3, repairing: false, repairProgress: 0 },
+  { id: 'm3', stationId: 's1', type: 'research', name: 'Research Lab', status: 'critical', powerConsumption: 18, createdAt: '2026-01-01T00:00:00Z', crewCount: 1, repairing: false, repairProgress: 0 },
+  { id: 'm4', stationId: 's1', type: 'medical', name: 'Medical Bay', status: 'offline', powerConsumption: 0, createdAt: '2026-01-01T00:00:00Z', crewCount: 0, repairing: false, repairProgress: 0 },
+  { id: 'm5', stationId: 's1', type: 'command', name: 'Command Center', status: 'nominal', powerConsumption: 30, createdAt: '2026-01-01T00:00:00Z', crewCount: 4, repairing: false, repairProgress: 0 },
+  { id: 'm6', stationId: 's1', type: 'hydroponics', name: 'Hydroponics Bay', status: 'warning', powerConsumption: 8, createdAt: '2026-01-01T00:00:00Z', crewCount: 1, repairing: false, repairProgress: 0 },
 ];
 
 function renderPage(path = '/modules') {

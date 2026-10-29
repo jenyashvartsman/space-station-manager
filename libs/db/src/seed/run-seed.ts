@@ -30,6 +30,8 @@ export async function runSeed(): Promise<void> {
       "name" text NOT NULL,
       "status" text DEFAULT 'nominal' NOT NULL,
       "power_consumption" double precision DEFAULT 0 NOT NULL,
+      "repairing" boolean DEFAULT false NOT NULL,
+      "repair_progress" integer DEFAULT 0 NOT NULL,
       "created_at" timestamptz DEFAULT now() NOT NULL
     )
   `));
@@ -136,29 +138,29 @@ export async function runSeed(): Promise<void> {
 
   // Missions
   const now = new Date();
-  const twoHoursAgo = new Date(now.getTime() - 2 * 60 * 60 * 1000);
-  const yesterday   = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+  const thirtySecondsAgo = new Date(now.getTime() - 30 * 1000);
+  const yesterday        = new Date(now.getTime() - 24 * 60 * 60 * 1000);
 
   await db.insert(schema.missions).values([
     {
       stationId: stationRecord.id,
       title: 'Asteroid Survey',
       description: 'Survey the nearby asteroid belt for mineral deposits and potential mining sites.',
-      status: 'active', durationSeconds: 7200, startedAt: twoHoursAgo, completedAt: null,
+      status: 'active', durationSeconds: 90, startedAt: thirtySecondsAgo, completedAt: null,
       reward: { minerals: 50, fuel: 20 },
     },
     {
       stationId: stationRecord.id,
       title: 'Solar Panel Repair',
       description: 'Repair the damaged solar panels on the outer hull to restore full power generation.',
-      status: 'queued', durationSeconds: 3600, startedAt: null, completedAt: null,
+      status: 'queued', durationSeconds: 60, startedAt: null, completedAt: null,
       reward: { power: 100 },
     },
     {
       stationId: stationRecord.id,
       title: 'Supply Run',
       description: 'Retrieve supply canisters from the orbital depot before they drift out of range.',
-      status: 'complete', durationSeconds: 1800, startedAt: yesterday, completedAt: yesterday,
+      status: 'complete', durationSeconds: 60, startedAt: yesterday, completedAt: yesterday,
       reward: { food: 80, water: 60 },
     },
   ]);

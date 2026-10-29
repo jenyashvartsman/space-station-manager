@@ -1,6 +1,7 @@
 import type { CrewMember } from '@space-station/db';
 
 import { NotFoundError, ValidationError } from '../../shared/errors.js';
+import { EventLogRepository } from '../event-log/event-log.repository.js';
 import { ModuleRepository } from '../module/module.repository.js';
 import { CrewRepository } from './crew.repository.js';
 import type { CrewWithModuleResponse, UpdateCrewBody } from './crew.types.js';
@@ -31,6 +32,25 @@ export const CrewService = {
       }
       if (mod.stationId !== crew.stationId) {
         throw new ValidationError('Module does not belong to the same station as the crew member');
+      }
+
+      if (crew.role.toLowerCase() === 'engineer' && crew.status === 'active' && mod.status !== 'nominal' && !mod.repairing) {
+        await ModuleRepository.update(data.assignedModuleId, { repairing: true, repairProgress: 0 });
+        await EventLogRepository.create({
+          stationId: crew.stationId,
+          type: 'module.repair_started',
+          message: `${crew.name} assigned to repair ${mod.name}`,
+          payload: { crewId: crew.id, moduleId: mod.id, currentStatus: mod.status },
+        });
+      }
+
+      if (crew.role.toLowerCase() === 'medic' && mod.type === 'medical' && mod.status === 'nominal') {
+        await EventLogRepository.create({
+          stationId: crew.stationId,
+          type: 'crew.healing_started',
+          message: `${crew.name} deployed to ${mod.name} — healing bay active`,
+          payload: { crewId: crew.id, moduleId: mod.id },
+        });
       }
     }
 

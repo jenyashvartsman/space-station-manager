@@ -33,8 +33,8 @@ const MOCK_RESOURCES: Resource[] = [
 ];
 
 const MOCK_MODULES: Module[] = [
-  { id: 'm1', stationId: 's1', type: 'habitat', name: 'Habitat Ring', status: 'nominal', powerConsumption: 10, createdAt: '2026-01-01T00:00:00Z', crewCount: 4 },
-  { id: 'm2', stationId: 's1', type: 'power', name: 'Power Core', status: 'warning', powerConsumption: 24, createdAt: '2026-01-01T00:00:00Z', crewCount: 2 },
+  { id: 'm1', stationId: 's1', type: 'habitat', name: 'Habitat Ring', status: 'nominal', powerConsumption: 10, createdAt: '2026-01-01T00:00:00Z', crewCount: 4, repairing: false, repairProgress: 0 },
+  { id: 'm2', stationId: 's1', type: 'power', name: 'Power Core', status: 'warning', powerConsumption: 24, createdAt: '2026-01-01T00:00:00Z', crewCount: 2, repairing: false, repairProgress: 0 },
 ];
 
 beforeEach(() => {

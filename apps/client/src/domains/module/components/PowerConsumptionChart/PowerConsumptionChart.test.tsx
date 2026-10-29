@@ -21,6 +21,8 @@ const mockModules: Module[] = [
     powerConsumption: 12,
     createdAt: '2026-01-01T00:00:00Z',
     crewCount: 2,
+    repairing: false,
+    repairProgress: 0,
   },
   {
     id: 'm2',
@@ -31,6 +33,8 @@ const mockModules: Module[] = [
     powerConsumption: 24,
     createdAt: '2026-01-01T00:00:00Z',
     crewCount: 3,
+    repairing: false,
+    repairProgress: 0,
   },
   {
     id: 'm3',
@@ -41,6 +45,8 @@ const mockModules: Module[] = [
     powerConsumption: 18,
     createdAt: '2026-01-01T00:00:00Z',
     crewCount: 1,
+    repairing: false,
+    repairProgress: 0,
   },
 ];
 

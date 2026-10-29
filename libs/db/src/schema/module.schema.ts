@@ -1,4 +1,4 @@
-import { doublePrecision, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
+import { boolean, doublePrecision, integer, pgTable, text, timestamp, uuid } from 'drizzle-orm/pg-core';
 import { station } from './station.schema';
 
 export type ModuleStatus = 'nominal' | 'warning' | 'critical' | 'offline';
@@ -13,6 +13,8 @@ export const modules = pgTable('modules', {
   status: text('status').$type<ModuleStatus>().notNull().default('nominal'),
   powerConsumption: doublePrecision('power_consumption').notNull().default(0),
   createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
+  repairing: boolean('repairing').notNull().default(false),
+  repairProgress: integer('repair_progress').notNull().default(0),
 });
 
 export type Module = typeof modules.$inferSelect;

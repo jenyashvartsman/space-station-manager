@@ -11,6 +11,8 @@ const mockModule = {
   powerConsumption: 10,
   createdAt: '2026-01-01T00:00:00Z',
   crewCount: 2,
+  repairing: false,
+  repairProgress: 0,
 };
 
 describe('ModuleTile', () => {

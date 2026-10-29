@@ -29,6 +29,8 @@ const mockDetail: ModuleDetailType = {
   status: 'nominal',
   powerConsumption: 12,
   createdAt: '2026-01-01T00:00:00Z',
+  repairing: false,
+  repairProgress: 0,
   crew: [
     {
       id: 'c1',

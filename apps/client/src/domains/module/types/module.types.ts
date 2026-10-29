@@ -11,6 +11,8 @@ export interface Module {
   powerConsumption: number;
   createdAt: string;
   crewCount: number;
+  repairing: boolean;
+  repairProgress: number;
 }
 
 export interface ModuleDetail {
@@ -22,4 +24,6 @@ export interface ModuleDetail {
   powerConsumption: number;
   createdAt: string;
   crew: CrewMember[];
+  repairing: boolean;
+  repairProgress: number;
 }

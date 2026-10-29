@@ -250,6 +250,21 @@
   color: var(--color-text-primary);
 }
 
+// ── Repair progress ───────────────────────────────────────────────────────────
+.module-management__repair-track {
+  height: 4px;
+  background: var(--color-bg-base);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.module-management__repair-fill {
+  height: 100%;
+  background: var(--color-warning);
+  border-radius: 2px;
+  transition: width 0.4s ease;
+}
+
 // ── Chart section ─────────────────────────────────────────────────────────────
 .module-management__chart-section {
   flex-shrink: 0;
